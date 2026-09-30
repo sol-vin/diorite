@@ -65,11 +65,14 @@ jobs:
         if: runner.os == 'Linux'
         shell: bash
         run: |
-          if [ -n "$GODOT4" ] && [ -f "$GODOT4" ]; then
-            cp "$GODOT4" ./godot
-            chmod +x ./godot
-          elif [ -n "$GODOT4_BIN" ] && [ -f "$GODOT4_BIN" ]; then
-            cp "$GODOT4_BIN" ./godot
+          cand="$GODOT4"
+          if [ -z "$cand" ]; then cand="$GODOT4_BIN"; fi
+          if [ -n "$cand" ]; then
+            main_cand=$(echo "$cand" | sed -E 's/(_console|\.console)$//')
+            if [ -f "$main_cand" ]; then cand="$main_cand"; fi
+          fi
+          if [ -n "$cand" ] && [ -f "$cand" ]; then
+            cp "$cand" ./godot
             chmod +x ./godot
           else
             echo "Downloading Godot ${GODOT_VERSION} linux.x86_64..."
@@ -88,26 +91,38 @@ jobs:
           cp addons/crystal_integration/bin/crystal_bridge.so bin/crystal_bridge.so
           cp addons/crystal_integration/bin/crystal_bridge.so addons/diorite/bin/crystal_bridge.so
 
-          # Build game library
-          crystal build src/main.cr -o bin/game.so --link-flags "-shared"
+          # Build game library with --single-module (required for shared libraries on Linux ELF)
+          crystal build src/main.cr -o bin/game.so --single-module --link-flags "-shared"
           cp bin/game.so addons/crystal_integration/bin/game.so
+          cp bin/game.so addons/diorite/bin/diorite.so
 
       - name: Configure Godot & Build (Windows)
         if: runner.os == 'Windows'
         shell: pwsh
         run: |
           $candidate = $env:GODOT4
-          if ($candidate) { $candidate = $candidate -replace '^/([a-zA-Z])/', '$1:/' }
-          if ($candidate -and (Test-Path $candidate)) {
-            Copy-Item $candidate ./godot.exe -Force
+          if ($candidate) {
+            $candidate = $candidate -replace '^/([a-zA-Z])/', '$1:/'
+            $mainCand = $candidate -replace '(_console|\.console)\.exe$', '.exe'
+            if (Test-Path $mainCand) {
+              $candidate = $mainCand
+            }
           } elseif ($env:GODOT4_BIN) {
             $cand2 = $env:GODOT4_BIN -replace '^/([a-zA-Z])/', '$1:/'
-            if (Test-Path $cand2) { Copy-Item $cand2 ./godot.exe -Force }
+            $mainCand2 = $cand2 -replace '(_console|\.console)\.exe$', '.exe'
+            if (Test-Path $mainCand2) {
+              $candidate = $mainCand2
+            } else {
+              $candidate = $cand2
+            }
+          }
+          if ($candidate -and (Test-Path $candidate)) {
+            Copy-Item $candidate ./godot.exe -Force
           }
           if (-not (Test-Path ./godot.exe)) {
             Invoke-WebRequest -Uri "https://github.com/godotengine/godot-builds/releases/download/$($env:GODOT_VERSION)/Godot_v$($env:GODOT_VERSION)_win64.exe.zip" -OutFile "godot.zip"
             Expand-Archive -Path "godot.zip" -DestinationPath "godot_temp" -Force
-            $foundExe = (Get-ChildItem -Path "godot_temp" -Filter "*.exe" -Recurse | Where-Object { $_.Name -notlike "*_console*" } | Select-Object -First 1).FullName
+            $foundExe = (Get-ChildItem -Path "godot_temp" -Filter "*.exe" -Recurse | Where-Object { $_.Name -notlike "*_console*" -and $_.Name -notlike "*.console*" } | Select-Object -First 1).FullName
             Copy-Item $foundExe ./godot.exe -Force
             Remove-Item "godot.zip", "godot_temp" -Recurse -Force
           }
@@ -133,6 +148,7 @@ jobs:
           # Build game library
           crystal build src/main.cr -o bin/game.dll --link-flags "/DLL"
           Copy-Item bin/game.dll addons/crystal_integration/bin/game.dll -Force
+          Copy-Item bin/game.dll addons/diorite/bin/diorite.dll -Force
 
       - name: Run Godot Headless Smoke Test (Linux)
         if: runner.os == 'Linux'
