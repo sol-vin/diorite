@@ -49,7 +49,8 @@ jobs:
 
       - name: Generate Lapis Documentation
         run: |
-          bin/lapis docs
+          crystal docs src/main.cr -o docs
+          bin/lapis docs --skip-generate
 
       - name: Ensure .nojekyll
         run: |
