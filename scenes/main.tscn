@@ -1,0 +1,35 @@
+[gd_scene format=3]
+
+[node name="Main" type="Node3D"]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 5, 10)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.866025, -0.25, 0.433013, 0, 0.866025, 0.5, -0.5, -0.433013, 0.75, 0, 5, 0)
+
+[node name="DebugDrawManager" type="DebugDrawManager" parent="."]
+
+[node name="DemoController" type="DemoController" parent="."]
+
+[node name="NodeBasedDebugBox" type="DebugBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 1, 0)
+color = Color(1, 0.2, 0.2, 1)
+
+[node name="NodeBasedDebugSphere" type="DebugSphere3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 1, 2)
+color = Color(0.2, 1, 0.2, 1)
+
+[node name="NodeBasedDebugCone" type="DebugVisionCone3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 1, -2)
+color = Color(0.2, 0.8, 1, 1)
+
+[node name="NodeBasedDebugRuler" type="DebugRuler3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0.5, 4)
+target = Vector3(2, 0, 0)
+color = Color(1, 1, 0.2, 1)
+
+[node name="NodeBasedDebugShape2D" type="DebugShape2D" parent="."]
+shape_type = 3
+radius = 35.0
+color = Color(1, 0.4, 0.9, 1)

@@ -1,0 +1,147 @@
+name: CI
+
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+    branches: [master, main]
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Crystal Specs & Headless Verification
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+
+    steps:
+      - name: Checkout Diorite Repository
+        uses: actions/checkout@v4
+
+      - name: Resolve Godot Version
+        id: godot-version
+        shell: bash
+        run: |
+          GODOT_VER=$(sed -n 's/.*version:[[:space:]]*["'"'"']\?\([^"'"'"']\+\)["'"'"']\?.*/\1/p' godot-version.yml | tr -d '\r\n[:space:]')
+          if [ -z "$GODOT_VER" ]; then GODOT_VER="4.8-dev6"; fi
+          echo "Resolved Godot Version: $GODOT_VER"
+          echo "version=$GODOT_VER" >> "$GITHUB_OUTPUT"
+          echo "GODOT_VERSION=$GODOT_VER" >> "$GITHUB_ENV"
+
+      - name: Install Crystal
+        uses: crystal-lang/install-crystal@v1
+        with:
+          crystal: 1.21.0
+
+      - name: Install Linux Build Dependencies
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y lld make gcc g++ xvfb
+
+      - name: Verify Toolchain
+        run: |
+          crystal -v
+          g++ --version
+
+      - name: Install Shards
+        run: |
+          shards install --ignore-crystal-version || true
+
+      - name: Run Unit Specs
+        run: |
+          crystal spec
+
+      - name: Setup Godot Engine
+        uses: appsinacup/action_setup_godot@main
+        with:
+          repo: godotengine/godot-builds
+          version: ${{ env.GODOT_VERSION }}
+          enable_cache: true
+
+      - name: Configure Godot & Build (Linux)
+        if: runner.os == 'Linux'
+        shell: bash
+        run: |
+          if [ -n "$GODOT4" ] && [ -f "$GODOT4" ]; then
+            cp "$GODOT4" ./godot
+            chmod +x ./godot
+          elif [ -n "$GODOT4_BIN" ] && [ -f "$GODOT4_BIN" ]; then
+            cp "$GODOT4_BIN" ./godot
+            chmod +x ./godot
+          else
+            echo "Downloading Godot ${GODOT_VERSION} linux.x86_64..."
+            wget -q "https://github.com/godotengine/godot-builds/releases/download/${GODOT_VERSION}/Godot_v${GODOT_VERSION}_linux.x86_64.zip" -O godot.zip
+            unzip -q godot.zip
+            found_bin=$(find . -maxdepth 2 -name "Godot_v*linux.x86_64" | head -n 1)
+            mv "$found_bin" ./godot
+            chmod +x ./godot
+            rm -f godot.zip
+          fi
+          ./godot --version
+
+          mkdir -p bin addons/crystal_integration/bin addons/diorite/bin
+          # Build C++ GDExtension bridge
+          g++ -shared -std=c++17 -O2 -fPIC -I lib/lapis/rsrc -I lib/lapis/src/bridge lib/lapis/src/bridge/crystal_bridge.cpp -o addons/crystal_integration/bin/crystal_bridge.so
+          cp addons/crystal_integration/bin/crystal_bridge.so bin/crystal_bridge.so
+          cp addons/crystal_integration/bin/crystal_bridge.so addons/diorite/bin/crystal_bridge.so
+
+          # Build game library
+          crystal build src/main.cr -o bin/game.so --link-flags "-shared"
+          cp bin/game.so addons/crystal_integration/bin/game.so
+
+      - name: Configure Godot & Build (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $candidate = $env:GODOT4
+          if ($candidate) { $candidate = $candidate -replace '^/([a-zA-Z])/', '$1:/' }
+          if ($candidate -and (Test-Path $candidate)) {
+            Copy-Item $candidate ./godot.exe -Force
+          } elseif ($env:GODOT4_BIN) {
+            $cand2 = $env:GODOT4_BIN -replace '^/([a-zA-Z])/', '$1:/'
+            if (Test-Path $cand2) { Copy-Item $cand2 ./godot.exe -Force }
+          }
+          if (-not (Test-Path ./godot.exe)) {
+            Invoke-WebRequest -Uri "https://github.com/godotengine/godot-builds/releases/download/$($env:GODOT_VERSION)/Godot_v$($env:GODOT_VERSION)_win64.exe.zip" -OutFile "godot.zip"
+            Expand-Archive -Path "godot.zip" -DestinationPath "godot_temp" -Force
+            $foundExe = (Get-ChildItem -Path "godot_temp" -Filter "*.exe" -Recurse | Where-Object { $_.Name -notlike "*_console*" } | Select-Object -First 1).FullName
+            Copy-Item $foundExe ./godot.exe -Force
+            Remove-Item "godot.zip", "godot_temp" -Recurse -Force
+          }
+          ./godot.exe --version
+
+          if (-not (Test-Path "bin")) { New-Item -ItemType Directory -Force -Path "bin" | Out-Null }
+          if (-not (Test-Path "addons/crystal_integration/bin")) { New-Item -ItemType Directory -Force -Path "addons/crystal_integration/bin" | Out-Null }
+          if (-not (Test-Path "addons/diorite/bin")) { New-Item -ItemType Directory -Force -Path "addons/diorite/bin" | Out-Null }
+
+          # Build C++ GDExtension bridge
+          g++ -shared -std=c++17 -O2 -I lib/lapis/rsrc -I lib/lapis/src/bridge lib/lapis/src/bridge/crystal_bridge.cpp -o addons/crystal_integration/bin/crystal_bridge.dll -static -static-libgcc -static-libstdc++
+          Copy-Item addons/crystal_integration/bin/crystal_bridge.dll bin/crystal_bridge.dll -Force
+          Copy-Item addons/crystal_integration/bin/crystal_bridge.dll addons/diorite/bin/crystal_bridge.dll -Force
+
+          # Copy runtime DLLs from Crystal installation
+          $crystalBin = Split-Path (Get-Command crystal).Source
+          Get-ChildItem -Path $crystalBin -Filter "*.dll" | ForEach-Object {
+            Copy-Item $_.FullName bin/ -Force
+            Copy-Item $_.FullName addons/crystal_integration/bin/ -Force
+            Copy-Item $_.FullName addons/diorite/bin/ -Force
+          }
+
+          # Build game library
+          crystal build src/main.cr -o bin/game.dll --link-flags "/DLL"
+          Copy-Item bin/game.dll addons/crystal_integration/bin/game.dll -Force
+
+      - name: Run Godot Headless Smoke Test (Linux)
+        if: runner.os == 'Linux'
+        shell: bash
+        run: |
+          xvfb-run --auto-servernum ./godot --headless --path . --quit
+
+      - name: Run Godot Headless Smoke Test (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          ./godot.exe --headless --path . --quit

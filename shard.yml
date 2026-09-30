@@ -1,0 +1,14 @@
+name: diorite
+version: 0.1.0
+authors:
+  - Ian Rash <redcodefinal@gmail.com>
+license: MIT
+
+dependencies:
+  lapis:
+    github: sol-vin/lapis
+    branch: master
+
+targets:
+  game:
+    main: src/main.cr

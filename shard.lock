@@ -1,0 +1,6 @@
+version: 2.0
+shards:
+  lapis:
+    git: https://github.com/sol-vin/lapis.git
+    version: 0.0.5+git.commit.e3dcb122918869669a24cd2df22a64bad1c757ec
+

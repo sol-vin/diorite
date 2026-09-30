@@ -1,0 +1,7 @@
+require "spec"
+require "lapis"
+require "../src/diorite/core/math_helpers"
+require "../src/diorite/core/telemetry_graph"
+require "../src/diorite/core/geometry_builder"
+require "../src/diorite/core/debug_command"
+require "../src/diorite/core/dsl"

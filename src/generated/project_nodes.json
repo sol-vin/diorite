@@ -1,0 +1,24 @@
+{
+	"gdscript_classes": [],
+	"plugin_classes": [
+		{
+			"constants": {},
+			"inherits": "Node",
+			"is_instantiable": true,
+			"methods": [],
+			"name": "MyCrystalNode",
+			"properties": [
+				{
+					"class_name": "Int32",
+					"hint": 0,
+					"hint_string": "",
+					"name": "my_var",
+					"type": 2,
+					"type_name": "int"
+				}
+			],
+			"signals": []
+		}
+	],
+	"project_name": "Diorite"
+}

@@ -1,0 +1,30 @@
+# Godot Engine files
+.godot/
+godot.exe
+godot
+godot.zip
+godot_temp/
+
+# Crystal build artifacts
+.crystal/
+.shards/
+lib/
+*.tmp
+*.log
+log/
+crash_dump/
+*_loaded_*
+
+# Binary and object files
+*.pdb
+*.exp
+*.ilk
+*.lib
+*.o
+*.obj
+bin/*
+!bin/.gitkeep
+addons/crystal_integration/bin/*
+!addons/crystal_integration/bin/.gitkeep
+addons/diorite/bin/*
+!addons/diorite/bin/.gitkeep
