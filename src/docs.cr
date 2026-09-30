@@ -38,6 +38,16 @@ module Lapis
   #       <td>Using Diorite's exported Node3D and Node2D classes for in-editor placement and persistent hierarchy visualization.</td>
   #     </tr>
   #     <tr>
+  #       <td><code>CHARTING</code></td>
+  #       <td><strong>Data Visualization and Charting</strong></td>
+  #       <td>Complete guide to 2D and 3D Pie charts, Bar charts, Radial gauges, and multi-series telemetry graphs.</td>
+  #     </tr>
+  #     <tr>
+  #       <td><code>GAME_HELPERS</code></td>
+  #       <td><strong>Game Spatial Helpers and UX Controls</strong></td>
+  #       <td>Comprehensive guide to swept shape casts, splines, actor cards, channels, transform stacks, and freeze mode.</td>
+  #     </tr>
+  #     <tr>
   #       <td><code>PIPELINE</code></td>
   #       <td><strong>Diorite Render Architecture & Zero-Alloc Pipeline</strong></td>
   #       <td>Architecture of Diorite's batch renderer, priority layering, immediate meshes, and zero-allocation memory recycling.</td>
@@ -67,6 +77,8 @@ module Lapis
     # - `GENERAL::OVERVIEW`: **Diorite Overview & Getting Started** &mdash; Diorite is a high-performance 2D and 3D debug drawing plugin and frame DSL for Godot Engine 4.8+ powered by the Lapis Crystal toolchain.
     # - `GENERAL::PRIMITIVES`: **Diorite Primitives Reference** &mdash; Complete guide to all 26 procedural 2D and 3D debug drawing primitives supported by Diorite.
     # - `GENERAL::NODES`: **Diorite Scene Node System** &mdash; Using Diorite's exported Node3D and Node2D classes for in-editor placement and persistent hierarchy visualization.
+    # - `GENERAL::CHARTING`: **Data Visualization and Charting** &mdash; Complete guide to 2D and 3D Pie charts, Bar charts, Radial gauges, and multi-series telemetry graphs.
+    # - `GENERAL::GAME_HELPERS`: **Game Spatial Helpers and UX Controls** &mdash; Comprehensive guide to swept shape casts, splines, actor cards, channels, transform stacks, and freeze mode.
     # - `GENERAL::PIPELINE`: **Diorite Render Architecture & Zero-Alloc Pipeline** &mdash; Architecture of Diorite's batch renderer, priority layering, immediate meshes, and zero-allocation memory recycling.
     #
     def self.topic_02_reading_paths : Nil; end
@@ -79,6 +91,8 @@ module Lapis
     # - `GENERAL::OVERVIEW`: **Diorite Overview & Getting Started** &mdash; Diorite is a high-performance 2D and 3D debug drawing plugin and frame DSL for Godot Engine 4.8+ powered by the Lapis Crystal toolchain.
     # - `GENERAL::PRIMITIVES`: **Diorite Primitives Reference** &mdash; Complete guide to all 26 procedural 2D and 3D debug drawing primitives supported by Diorite.
     # - `GENERAL::NODES`: **Diorite Scene Node System** &mdash; Using Diorite's exported Node3D and Node2D classes for in-editor placement and persistent hierarchy visualization.
+    # - `GENERAL::CHARTING`: **Data Visualization and Charting** &mdash; Complete guide to 2D and 3D Pie charts, Bar charts, Radial gauges, and multi-series telemetry graphs.
+    # - `GENERAL::GAME_HELPERS`: **Game Spatial Helpers and UX Controls** &mdash; Comprehensive guide to swept shape casts, splines, actor cards, channels, transform stacks, and freeze mode.
     # - `GENERAL::PIPELINE`: **Diorite Render Architecture & Zero-Alloc Pipeline** &mdash; Architecture of Diorite's batch renderer, priority layering, immediate meshes, and zero-allocation memory recycling.
     #
     def self.topic_03_table_of_contents : Nil; end
@@ -95,6 +109,8 @@ end
 require "./docs/general/overview"
 require "./docs/general/primitives"
 require "./docs/general/nodes"
+require "./docs/general/charting"
+require "./docs/general/game_helpers"
 require "./docs/general/pipeline"
 
 alias Docs = ::Lapis::Docs

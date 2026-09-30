@@ -733,6 +733,276 @@ module Diorite
       end
     end
 
+    # Generates a 3D swept sphere cast visualizing collision trajectory between *from* and *to*.
+    def self.build_sphere_cast(
+      from : Godot::Vector3,
+      to : Godot::Vector3,
+      radius : Float32,
+      hit : Bool,
+      color : Godot::Color,
+      verts : Array(Godot::Vector3),
+      cols : Array(Godot::Color)
+    ) : Void
+      build_sphere(from, radius, 12, color, verts, cols)
+      build_sphere(to, radius, 12, color, verts, cols)
+
+      dir = to - from
+      len = dir.length
+      return if len < 0.0001_f32
+
+      norm = dir / len
+      u, v = MathHelpers.orthonormal_plane(norm)
+
+      build_line(from + u * radius, to + u * radius, color, verts, cols)
+      build_line(from - u * radius, to - u * radius, color, verts, cols)
+      build_line(from + v * radius, to + v * radius, color, verts, cols)
+      build_line(from - v * radius, to - v * radius, color, verts, cols)
+
+      if hit
+        hit_col = Godot::Color.new(1.0_f32, 0.2_f32, 0.2_f32, 1.0_f32)
+        build_line(to - u * (radius * 1.3_f32), to + u * (radius * 1.3_f32), hit_col, verts, cols)
+        build_line(to - v * (radius * 1.3_f32), to + v * (radius * 1.3_f32), hit_col, verts, cols)
+      end
+    end
+
+    # Generates a 3D swept capsule cast between *from* and *to*.
+    def self.build_capsule_cast(
+      from : Godot::Vector3,
+      to : Godot::Vector3,
+      radius : Float32,
+      height : Float32,
+      hit : Bool,
+      color : Godot::Color,
+      verts : Array(Godot::Vector3),
+      cols : Array(Godot::Color)
+    ) : Void
+      build_capsule(from, radius, height, 12, color, verts, cols)
+      build_capsule(to, radius, height, 12, color, verts, cols)
+
+      hh = (height * 0.5_f32) - radius
+      hh = 0.0_f32 if hh < 0.0_f32
+
+      top_offset = Godot::Vector3.new(0.0_f32, hh, 0.0_f32)
+      bot_offset = Godot::Vector3.new(0.0_f32, -hh, 0.0_f32)
+
+      build_line(from + top_offset, to + top_offset, color, verts, cols)
+      build_line(from + bot_offset, to + bot_offset, color, verts, cols)
+      build_line(from + Godot::Vector3.new(radius, 0.0_f32, 0.0_f32), to + Godot::Vector3.new(radius, 0.0_f32, 0.0_f32), color, verts, cols)
+      build_line(from - Godot::Vector3.new(radius, 0.0_f32, 0.0_f32), to - Godot::Vector3.new(radius, 0.0_f32, 0.0_f32), color, verts, cols)
+    end
+
+    # Generates a 3D swept oriented or axis-aligned box cast between *from* and *to*.
+    def self.build_box_cast(
+      from : Godot::Vector3,
+      to : Godot::Vector3,
+      size : Godot::Vector3,
+      hit : Bool,
+      color : Godot::Color,
+      verts : Array(Godot::Vector3),
+      cols : Array(Godot::Color)
+    ) : Void
+      build_box(from, size, color, verts, cols)
+      build_box(to, size, color, verts, cols)
+
+      hx = size.x * 0.5_f32
+      hy = size.y * 0.5_f32
+      hz = size.z * 0.5_f32
+
+      [-1.0_f32, 1.0_f32].each do |sx|
+        [-1.0_f32, 1.0_f32].each do |sy|
+          [-1.0_f32, 1.0_f32].each do |sz|
+            offset = Godot::Vector3.new(hx * sx, hy * sy, hz * sz)
+            build_line(from + offset, to + offset, color, verts, cols)
+          end
+        end
+      end
+    end
+
+    # Generates a 3D cubic Bézier spline curve.
+    def self.build_bezier_cubic(
+      p0 : Godot::Vector3,
+      p1 : Godot::Vector3,
+      p2 : Godot::Vector3,
+      p3 : Godot::Vector3,
+      segments : Int32,
+      color : Godot::Color,
+      verts : Array(Godot::Vector3),
+      cols : Array(Godot::Color),
+      show_hull : Bool = true
+    ) : Void
+      if show_hull
+        hull_col = Godot::Color.new(color.r, color.g, color.b, color.a * 0.35_f32)
+        build_line(p0, p1, hull_col, verts, cols)
+        build_line(p1, p2, hull_col, verts, cols)
+        build_line(p2, p3, hull_col, verts, cols)
+      end
+
+      segs = segments.clamp(4, 128)
+      step = 1.0_f32 / segs.to_f32
+
+      (0...segs).each do |i|
+        t0 = i.to_f32 * step
+        t1 = (i + 1).to_f32 * step
+
+        u0 = 1.0_f32 - t0
+        pt0 = p0 * (u0 * u0 * u0) + p1 * (3.0_f32 * u0 * u0 * t0) + p2 * (3.0_f32 * u0 * t0 * t0) + p3 * (t0 * t0 * t0)
+
+        u1 = 1.0_f32 - t1
+        pt1 = p0 * (u1 * u1 * u1) + p1 * (3.0_f32 * u1 * u1 * t1) + p2 * (3.0_f32 * u1 * t1 * t1) + p3 * (t1 * t1 * t1)
+
+        build_line(pt0, pt1, color, verts, cols)
+      end
+    end
+
+    # Generates a 3D Catmull-Rom spline through a sequence of waypoints.
+    def self.build_catmull_rom(
+      points : Array(Godot::Vector3),
+      segments_per_curve : Int32,
+      color : Godot::Color,
+      verts : Array(Godot::Vector3),
+      cols : Array(Godot::Color),
+      loop : Bool = false
+    ) : Void
+      return if points.size < 2
+
+      if points.size == 2
+        build_line(points[0], points[1], color, verts, cols)
+        return
+      end
+
+      segs = segments_per_curve.clamp(4, 32)
+      step = 1.0_f32 / segs.to_f32
+      n = points.size
+
+      count = loop ? n : n - 1
+      (0...count).each do |i|
+        p0 = loop ? points[(i - 1 + n) % n] : (i > 0 ? points[i - 1] : points[0] - (points[1] - points[0]))
+        p1 = points[i % n]
+        p2 = points[(i + 1) % n]
+        p3 = loop ? points[(i + 2) % n] : (i + 2 < n ? points[i + 2] : p2 + (p2 - p1))
+
+        (0...segs).each do |s|
+          t0 = s.to_f32 * step
+          t1 = (s + 1).to_f32 * step
+
+          pt0 = catmull_rom_eval(p0, p1, p2, p3, t0)
+          pt1 = catmull_rom_eval(p0, p1, p2, p3, t1)
+
+          build_line(pt0, pt1, color, verts, cols)
+        end
+      end
+    end
+
+    private def self.catmull_rom_eval(
+      p0 : Godot::Vector3,
+      p1 : Godot::Vector3,
+      p2 : Godot::Vector3,
+      p3 : Godot::Vector3,
+      t : Float32
+    ) : Godot::Vector3
+      t2 = t * t
+      t3 = t2 * t
+      (
+        (p1 * 2.0_f32) +
+        (-p0 + p2) * t +
+        (p0 * 2.0_f32 - p1 * 5.0_f32 + p2 * 4.0_f32 - p3) * t2 +
+        (-p0 + p1 * 3.0_f32 - p2 * 3.0_f32 + p3) * t3
+      ) * 0.5_f32
+    end
+
+    # Generates a 3D vision cone or spotlight frustum.
+    def self.build_cone_3d(
+      tip : Godot::Vector3,
+      dir : Godot::Vector3,
+      length : Float32,
+      angle_rad : Float32,
+      segments : Int32,
+      color : Godot::Color,
+      verts : Array(Godot::Vector3),
+      cols : Array(Godot::Color)
+    ) : Void
+      return if length <= 0.0_f32
+
+      norm = dir.length > 0.0001_f32 ? dir.normalized : Godot::Vector3.new(0.0_f32, 0.0_f32, -1.0_f32)
+      u, v = MathHelpers.orthonormal_plane(norm)
+
+      base_center = tip + norm * length
+      base_radius = length * Math.tan(angle_rad.clamp(0.01_f32, 1.55_f32)).to_f32
+
+      segs = segments.clamp(8, 64)
+      step = MathHelpers::TAU / segs.to_f32
+
+      (0...segs).each do |i|
+        a0 = i.to_f32 * step
+        a1 = (i + 1).to_f32 * step
+
+        p0 = base_center + (u * Math.cos(a0).to_f32 + v * Math.sin(a0).to_f32) * base_radius
+        p1 = base_center + (u * Math.cos(a1).to_f32 + v * Math.sin(a1).to_f32) * base_radius
+
+        build_line(p0, p1, color, verts, cols)
+
+        if i % (segs // 4).clamp(1, 16) == 0
+          build_line(tip, p0, color, verts, cols)
+        end
+      end
+    end
+
+    # Generates an arbitrary 3D planar circle ring.
+    def self.build_circle_3d(
+      center : Godot::Vector3,
+      normal : Godot::Vector3,
+      radius : Float32,
+      segments : Int32,
+      color : Godot::Color,
+      verts : Array(Godot::Vector3),
+      cols : Array(Godot::Color)
+    ) : Void
+      return if radius <= 0.0_f32
+
+      u, v = MathHelpers.orthonormal_plane(normal)
+      segs = segments.clamp(8, 64)
+      step = MathHelpers::TAU / segs.to_f32
+
+      (0...segs).each do |i|
+        a0 = i.to_f32 * step
+        a1 = (i + 1).to_f32 * step
+        p0 = center + (u * Math.cos(a0).to_f32 + v * Math.sin(a0).to_f32) * radius
+        p1 = center + (u * Math.cos(a1).to_f32 + v * Math.sin(a1).to_f32) * radius
+        build_line(p0, p1, color, verts, cols)
+      end
+    end
+
+    # Generates a 3D actor card frame with ground anchor line.
+    def self.build_actor_card_3d(
+      position : Godot::Vector3,
+      size : Godot::Vector2,
+      color : Godot::Color,
+      verts : Array(Godot::Vector3),
+      cols : Array(Godot::Color)
+    ) : Void
+      card_h = size.y
+      card_w = size.x
+      half_w = card_w * 0.5_f32
+
+      pole_bottom = position
+      pole_top = position + Godot::Vector3.new(0.0_f32, card_h * 0.3_f32, 0.0_f32)
+      build_line(pole_bottom, pole_top, color, verts, cols)
+
+      # Card wireframe rect floating above anchor
+      y_bot = pole_top.y
+      y_top = y_bot + card_h
+
+      c0 = Godot::Vector3.new(position.x - half_w, y_bot, position.z)
+      c1 = Godot::Vector3.new(position.x + half_w, y_bot, position.z)
+      c2 = Godot::Vector3.new(position.x + half_w, y_top, position.z)
+      c3 = Godot::Vector3.new(position.x - half_w, y_top, position.z)
+
+      build_line(c0, c1, color, verts, cols)
+      build_line(c1, c2, color, verts, cols)
+      build_line(c2, c3, color, verts, cols)
+      build_line(c3, c0, color, verts, cols)
+    end
+
     # Generates a 2D line segment between two canvas pixel coordinates.
     def self.build_line_2d(
       from : Godot::Vector2,
@@ -844,6 +1114,148 @@ module Diorite
       return if points.size < 2
       (0...points.size - 1).each do |i|
         build_line_2d(points[i], points[i + 1], color, verts, cols)
+      end
+    end
+
+    # Generates a 2D wireframe stadium capsule connecting two center points with semicircular caps.
+    def self.build_capsule_2d(
+      p0 : Godot::Vector2,
+      p1 : Godot::Vector2,
+      radius : Float32,
+      color : Godot::Color,
+      verts : Array(Godot::Vector2),
+      cols : Array(Godot::Color),
+      segments : Int32 = 12
+    ) : Void
+      dir = p1 - p0
+      len = dir.length
+      if len < 0.001_f32
+        build_circle_2d(p0, radius, segments * 2, color, verts, cols)
+        return
+      end
+
+      norm = dir / len
+      perp = norm.perpendicular * radius
+
+      # Side parallel connecting lines
+      build_line_2d(p0 + perp, p1 + perp, color, verts, cols)
+      build_line_2d(p0 - perp, p1 - perp, color, verts, cols)
+
+      # Semicircle at p1 facing outward
+      base_ang = Math.atan2(norm.y, norm.x).to_f32
+      step = MathHelpers::PI / segments.to_f32
+
+      (0...segments).each do |i|
+        a0 = base_ang - (MathHelpers::PI * 0.5_f32) + i.to_f32 * step
+        a1 = base_ang - (MathHelpers::PI * 0.5_f32) + (i + 1).to_f32 * step
+        pt0 = p1 + Godot::Vector2.new(Math.cos(a0).to_f32 * radius, Math.sin(a0).to_f32 * radius)
+        pt1 = p1 + Godot::Vector2.new(Math.cos(a1).to_f32 * radius, Math.sin(a1).to_f32 * radius)
+        build_line_2d(pt0, pt1, color, verts, cols)
+      end
+
+      # Semicircle at p0 facing backward
+      (0...segments).each do |i|
+        a0 = base_ang + (MathHelpers::PI * 0.5_f32) + i.to_f32 * step
+        a1 = base_ang + (MathHelpers::PI * 0.5_f32) + (i + 1).to_f32 * step
+        pt0 = p0 + Godot::Vector2.new(Math.cos(a0).to_f32 * radius, Math.sin(a0).to_f32 * radius)
+        pt1 = p0 + Godot::Vector2.new(Math.cos(a1).to_f32 * radius, Math.sin(a1).to_f32 * radius)
+        build_line_2d(pt0, pt1, color, verts, cols)
+      end
+    end
+
+    # Generates a 2D vision cone or field-of-view wedge.
+    def self.build_vision_cone_2d(
+      origin : Godot::Vector2,
+      dir : Godot::Vector2,
+      distance : Float32,
+      angle_rad : Float32,
+      segments : Int32,
+      color : Godot::Color,
+      verts : Array(Godot::Vector2),
+      cols : Array(Godot::Color)
+    ) : Void
+      return if distance <= 0.0_f32
+
+      base_ang = dir.length > 0.001_f32 ? Math.atan2(dir.y, dir.x).to_f32 : 0.0_f32
+      half_ang = angle_rad * 0.5_f32
+      start_ang = base_ang - half_ang
+      end_ang = base_ang + half_ang
+
+      build_sector_2d(origin, distance, start_ang, end_ang, segments, color, verts, cols)
+    end
+
+    # Generates a 2D circular arc segment.
+    def self.build_arc_2d(
+      center : Godot::Vector2,
+      radius : Float32,
+      start_angle : Float32,
+      end_angle : Float32,
+      segments : Int32,
+      color : Godot::Color,
+      verts : Array(Godot::Vector2),
+      cols : Array(Godot::Color)
+    ) : Void
+      segs = segments.clamp(4, 64)
+      step = (end_angle - start_angle) / segs.to_f32
+
+      (0...segs).each do |i|
+        a0 = start_angle + i.to_f32 * step
+        a1 = start_angle + (i + 1).to_f32 * step
+        p0 = center + Godot::Vector2.new(Math.cos(a0).to_f32 * radius, Math.sin(a0).to_f32 * radius)
+        p1 = center + Godot::Vector2.new(Math.cos(a1).to_f32 * radius, Math.sin(a1).to_f32 * radius)
+        build_line_2d(p0, p1, color, verts, cols)
+      end
+    end
+
+    # Generates a 2D pie-slice sector with bounding radial rays.
+    def self.build_sector_2d(
+      center : Godot::Vector2,
+      radius : Float32,
+      start_angle : Float32,
+      end_angle : Float32,
+      segments : Int32,
+      color : Godot::Color,
+      verts : Array(Godot::Vector2),
+      cols : Array(Godot::Color)
+    ) : Void
+      build_arc_2d(center, radius, start_angle, end_angle, segments, color, verts, cols)
+
+      p_start = center + Godot::Vector2.new(Math.cos(start_angle).to_f32 * radius, Math.sin(start_angle).to_f32 * radius)
+      p_end = center + Godot::Vector2.new(Math.cos(end_angle).to_f32 * radius, Math.sin(end_angle).to_f32 * radius)
+
+      build_line_2d(center, p_start, color, verts, cols)
+      build_line_2d(center, p_end, color, verts, cols)
+    end
+
+    # Generates a 2D calibrated measuring ruler with distance tick marks.
+    def self.build_ruler_2d(
+      from : Godot::Vector2,
+      to : Godot::Vector2,
+      color : Godot::Color,
+      verts : Array(Godot::Vector2),
+      cols : Array(Godot::Color),
+      tick_step : Float32 = 20.0_f32,
+      tick_size : Float32 = 8.0_f32
+    ) : Void
+      build_line_2d(from, to, color, verts, cols)
+
+      dir = to - from
+      len = dir.length
+      return if len < 0.001_f32
+
+      norm = dir / len
+      perp = norm.perpendicular * (tick_size * 0.5_f32)
+
+      # Start and end caps
+      build_line_2d(from - perp, from + perp, color, verts, cols)
+      build_line_2d(to - perp, to + perp, color, verts, cols)
+
+      step_size = tick_step.clamp(2.0_f32, len)
+      num_ticks = (len / step_size).to_i32
+
+      (1...num_ticks).each do |i|
+        pos = from + norm * (i.to_f32 * step_size)
+        build_line_2d(pos - perp, pos + perp, color, verts, cols)
       end
     end
   end

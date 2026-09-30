@@ -14,7 +14,7 @@
 <script type="text/javascript" src="../js/doc.js"></script>
 
   <meta name="repository-name" content="diorite">
-  <title>Diorite::Shape3DType - diorite main-dev</title>
+  <title>Diorite::TelemetrySeries - diorite main-dev</title>
   <script type="text/javascript">
     CrystalDocs.base_path = "../";
   </script>
@@ -222,7 +222,7 @@
       
     </li>
   
-  <li class=" current" data-id="diorite/Diorite/Shape3DType" data-name="diorite::shape3dtype">
+  <li class=" " data-id="diorite/Diorite/Shape3DType" data-name="diorite::shape3dtype">
       <a href="../Diorite/Shape3DType.html">Shape3DType</a>
       
     </li>
@@ -242,7 +242,7 @@
       
     </li>
   
-  <li class=" " data-id="diorite/Diorite/TelemetrySeries" data-name="diorite::telemetryseries">
+  <li class=" current" data-id="diorite/Diorite/TelemetrySeries" data-name="diorite::telemetryseries">
       <a href="../Diorite/TelemetrySeries.html">TelemetrySeries</a>
       
     </li>
@@ -342,14 +342,27 @@
 <h1 class="type-name">
 
   <span class="kind">
-    enum
-  </span> Diorite::<wbr>Shape3DType
+    class
+  </span> Diorite::<wbr>TelemetrySeries
 
 </h1>
 
 
+  <ul class="superclass-hierarchy"><li class="superclass"><a href="../Diorite/TelemetrySeries.html">Diorite::TelemetrySeries</a></li><li class="superclass">Reference</li><li class="superclass">Object</li></ul>
 
 
+
+
+  <h2>
+    <a id="overview" class="anchor" href="#overview">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Overview
+  </h2>
+
+  <p>Data buffer for an individual line series within a multi-series <code><a href="../Diorite/TelemetryGraph.html">TelemetryGraph</a></code>.</p>
 
 
 
@@ -376,100 +389,35 @@
   </h2>
   
     
-      src\diorite\nodes\debug_shape_3d.cr
+      src\diorite\core\telemetry_graph.cr
     
     <br/>
   
 
 
 
+
+
   
-    <h2>
-      <a id="enum-members" class="anchor" href="#enum-members">
+  <h2>
+    <a id="constructors" class="anchor" href="#constructors">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
   </svg>
 </a>
-      Enum Members
-    </h2>
-  
-  <dl>
+    Constructors
+  </h2>
+  <ul class="list-summary">
     
-      <dt class="entry-const" id="Box">
-        <strong>Box</strong> = <code><span class="n">0</span></code>
-      </dt>
-      
+      <li class="entry-summary">
+        <a href="#new%28name%3AString%2Ccolor%3AGodot%3A%3AColor%2Ccapacity%3AInt32%3D60%29-class-method" class="signature"><strong>.new</strong>(name : String, color : Godot::Color, capacity : Int32 = <span class="n">60</span>)</a>
+        
+          <div class="summary"><p>Creates a new series buffer.</p></div>
+        
+      </li>
     
-      <dt class="entry-const" id="Sphere">
-        <strong>Sphere</strong> = <code><span class="n">1</span></code>
-      </dt>
-      
-    
-      <dt class="entry-const" id="Cylinder">
-        <strong>Cylinder</strong> = <code><span class="n">2</span></code>
-      </dt>
-      
-    
-      <dt class="entry-const" id="Capsule">
-        <strong>Capsule</strong> = <code><span class="n">3</span></code>
-      </dt>
-      
-    
-      <dt class="entry-const" id="Line">
-        <strong>Line</strong> = <code><span class="n">4</span></code>
-      </dt>
-      
-    
-      <dt class="entry-const" id="Arrow">
-        <strong>Arrow</strong> = <code><span class="n">5</span></code>
-      </dt>
-      
-    
-      <dt class="entry-const" id="Gizmo">
-        <strong>Gizmo</strong> = <code><span class="n">6</span></code>
-      </dt>
-      
-    
-      <dt class="entry-const" id="Grid">
-        <strong>Grid</strong> = <code><span class="n">7</span></code>
-      </dt>
-      
-    
-      <dt class="entry-const" id="Plane">
-        <strong>Plane</strong> = <code><span class="n">8</span></code>
-      </dt>
-      
-    
-      <dt class="entry-const" id="VisionCone">
-        <strong>VisionCone</strong> = <code><span class="n">9</span></code>
-      </dt>
-      
-    
-      <dt class="entry-const" id="TrajectoryArc">
-        <strong>TrajectoryArc</strong> = <code><span class="n">10</span></code>
-      </dt>
-      
-    
-      <dt class="entry-const" id="Spring">
-        <strong>Spring</strong> = <code><span class="n">11</span></code>
-      </dt>
-      
-    
-      <dt class="entry-const" id="Ruler">
-        <strong>Ruler</strong> = <code><span class="n">12</span></code>
-      </dt>
-      
-    
-      <dt class="entry-const" id="BillboardSquare">
-        <strong>BillboardSquare</strong> = <code><span class="n">13</span></code>
-      </dt>
-      
-    
-  </dl>
+  </ul>
 
-
-
-  
 
   
 
@@ -487,100 +435,44 @@
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#arrow%3F-instance-method" class="signature"><strong>#arrow?</strong></a>
+        <a href="#add_sample%28value%3ANumber%2Cmax_samples%3AInt32%29%3AVoid-instance-method" class="signature"><strong>#add_sample</strong>(value : Number, max_samples : Int32) : Void</a>
         
-          <div class="summary"><p>Returns <code>true</code> if this enum value equals <code><a href="../Diorite/Shape3DType.html#Arrow">Arrow</a></code></p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#billboard_square%3F-instance-method" class="signature"><strong>#billboard_square?</strong></a>
-        
-          <div class="summary"><p>Returns <code>true</code> if this enum value equals <code><a href="../Diorite/Shape3DType.html#BillboardSquare">BillboardSquare</a></code></p></div>
+          <div class="summary"><p>Appends a new scalar sample to this series, popping the oldest sample if at capacity.</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#box%3F-instance-method" class="signature"><strong>#box?</strong></a>
+        <a href="#clear%3AVoid-instance-method" class="signature"><strong>#clear</strong> : Void</a>
         
-          <div class="summary"><p>Returns <code>true</code> if this enum value equals <code><a href="../Diorite/Shape3DType.html#Box">Box</a></code></p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#capsule%3F-instance-method" class="signature"><strong>#capsule?</strong></a>
-        
-          <div class="summary"><p>Returns <code>true</code> if this enum value equals <code><a href="../Diorite/Shape3DType.html#Capsule">Capsule</a></code></p></div>
+          <div class="summary"><p>Clears all collected sample history from this series.</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#cylinder%3F-instance-method" class="signature"><strong>#cylinder?</strong></a>
+        <a href="#color%3AGodot%3A%3AColor-instance-method" class="signature"><strong>#color</strong> : Godot::Color</a>
         
-          <div class="summary"><p>Returns <code>true</code> if this enum value equals <code><a href="../Diorite/Shape3DType.html#Cylinder">Cylinder</a></code></p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#gizmo%3F-instance-method" class="signature"><strong>#gizmo?</strong></a>
-        
-          <div class="summary"><p>Returns <code>true</code> if this enum value equals <code><a href="../Diorite/Shape3DType.html#Gizmo">Gizmo</a></code></p></div>
+          <div class="summary"><p>Curve line color.</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#grid%3F-instance-method" class="signature"><strong>#grid?</strong></a>
+        <a href="#latest_value%3AFloat32-instance-method" class="signature"><strong>#latest_value</strong> : Float32</a>
         
-          <div class="summary"><p>Returns <code>true</code> if this enum value equals <code><a href="../Diorite/Shape3DType.html#Grid">Grid</a></code></p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#line%3F-instance-method" class="signature"><strong>#line?</strong></a>
-        
-          <div class="summary"><p>Returns <code>true</code> if this enum value equals <code><a href="../Diorite/Shape3DType.html#Line">Line</a></code></p></div>
+          <div class="summary"><p>Returns the most recently appended value, or <code>0.0</code> if empty.</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#plane%3F-instance-method" class="signature"><strong>#plane?</strong></a>
+        <a href="#name%3AString-instance-method" class="signature"><strong>#name</strong> : String</a>
         
-          <div class="summary"><p>Returns <code>true</code> if this enum value equals <code><a href="../Diorite/Shape3DType.html#Plane">Plane</a></code></p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#ruler%3F-instance-method" class="signature"><strong>#ruler?</strong></a>
-        
-          <div class="summary"><p>Returns <code>true</code> if this enum value equals <code><a href="../Diorite/Shape3DType.html#Ruler">Ruler</a></code></p></div>
+          <div class="summary"><p>Name or identifier for this series.</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#sphere%3F-instance-method" class="signature"><strong>#sphere?</strong></a>
+        <a href="#samples%3AArray%28Float32%29-instance-method" class="signature"><strong>#samples</strong> : Array(Float32)</a>
         
-          <div class="summary"><p>Returns <code>true</code> if this enum value equals <code><a href="../Diorite/Shape3DType.html#Sphere">Sphere</a></code></p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#spring%3F-instance-method" class="signature"><strong>#spring?</strong></a>
-        
-          <div class="summary"><p>Returns <code>true</code> if this enum value equals <code><a href="../Diorite/Shape3DType.html#Spring">Spring</a></code></p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#trajectory_arc%3F-instance-method" class="signature"><strong>#trajectory_arc?</strong></a>
-        
-          <div class="summary"><p>Returns <code>true</code> if this enum value equals <code><a href="../Diorite/Shape3DType.html#TrajectoryArc">TrajectoryArc</a></code></p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#vision_cone%3F-instance-method" class="signature"><strong>#vision_cone?</strong></a>
-        
-          <div class="summary"><p>Returns <code>true</code> if this enum value equals <code><a href="../Diorite/Shape3DType.html#VisionCone">VisionCone</a></code></p></div>
+          <div class="summary"><p>Array storing current active history samples in chronological order.</p></div>
         
       </li>
     
@@ -616,35 +508,38 @@
 
 
     
-      
-
-
-      
-
-
-      
-
-
-      
-
-
-    
-      
-
-
-      
-
-
-      
-
-
-      
-
-
-    
   </div>
 
   
+  <h2>
+    <a id="constructor-detail" class="anchor" href="#constructor-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Constructor Detail
+  </h2>
+  
+    <div class="entry-detail" id="new(name:String,color:Godot::Color,capacity:Int32=60)-class-method">
+      <div class="signature">
+        
+        def self.<strong>new</strong>(name : String, color : Godot::Color, capacity : Int32 = <span class="n">60</span>)
+
+        <a class="method-permalink" href="#new%28name%3AString%2Ccolor%3AGodot%3A%3AColor%2Ccapacity%3AInt32%3D60%29-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Creates a new series buffer.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+
 
   
 
@@ -660,17 +555,17 @@
     Instance Method Detail
   </h2>
   
-    <div class="entry-detail" id="arrow?-instance-method">
+    <div class="entry-detail" id="add_sample(value:Number,max_samples:Int32):Void-instance-method">
       <div class="signature">
         
-        def <strong>arrow?</strong>
+        def <strong>add_sample</strong>(value : Number, max_samples : Int32) : Void
 
-        <a class="method-permalink" href="#arrow%3F-instance-method">#</a>
+        <a class="method-permalink" href="#add_sample%28value%3ANumber%2Cmax_samples%3AInt32%29%3AVoid-instance-method">#</a>
       </div>
       
         <div class="doc">
           
-          <p>Returns <code>true</code> if this enum value equals <code><a href="../Diorite/Shape3DType.html#Arrow">Arrow</a></code></p>
+          <p>Appends a new scalar sample to this series, popping the oldest sample if at capacity.</p>
         </div>
       
       <br/>
@@ -679,17 +574,17 @@
       </div>
     </div>
   
-    <div class="entry-detail" id="billboard_square?-instance-method">
+    <div class="entry-detail" id="clear:Void-instance-method">
       <div class="signature">
         
-        def <strong>billboard_square?</strong>
+        def <strong>clear</strong> : Void
 
-        <a class="method-permalink" href="#billboard_square%3F-instance-method">#</a>
+        <a class="method-permalink" href="#clear%3AVoid-instance-method">#</a>
       </div>
       
         <div class="doc">
           
-          <p>Returns <code>true</code> if this enum value equals <code><a href="../Diorite/Shape3DType.html#BillboardSquare">BillboardSquare</a></code></p>
+          <p>Clears all collected sample history from this series.</p>
         </div>
       
       <br/>
@@ -698,17 +593,17 @@
       </div>
     </div>
   
-    <div class="entry-detail" id="box?-instance-method">
+    <div class="entry-detail" id="color:Godot::Color-instance-method">
       <div class="signature">
         
-        def <strong>box?</strong>
+        def <strong>color</strong> : Godot::Color
 
-        <a class="method-permalink" href="#box%3F-instance-method">#</a>
+        <a class="method-permalink" href="#color%3AGodot%3A%3AColor-instance-method">#</a>
       </div>
       
         <div class="doc">
           
-          <p>Returns <code>true</code> if this enum value equals <code><a href="../Diorite/Shape3DType.html#Box">Box</a></code></p>
+          <p>Curve line color.</p>
         </div>
       
       <br/>
@@ -717,17 +612,17 @@
       </div>
     </div>
   
-    <div class="entry-detail" id="capsule?-instance-method">
+    <div class="entry-detail" id="latest_value:Float32-instance-method">
       <div class="signature">
         
-        def <strong>capsule?</strong>
+        def <strong>latest_value</strong> : Float32
 
-        <a class="method-permalink" href="#capsule%3F-instance-method">#</a>
+        <a class="method-permalink" href="#latest_value%3AFloat32-instance-method">#</a>
       </div>
       
         <div class="doc">
           
-          <p>Returns <code>true</code> if this enum value equals <code><a href="../Diorite/Shape3DType.html#Capsule">Capsule</a></code></p>
+          <p>Returns the most recently appended value, or <code>0.0</code> if empty.</p>
         </div>
       
       <br/>
@@ -736,17 +631,17 @@
       </div>
     </div>
   
-    <div class="entry-detail" id="cylinder?-instance-method">
+    <div class="entry-detail" id="name:String-instance-method">
       <div class="signature">
         
-        def <strong>cylinder?</strong>
+        def <strong>name</strong> : String
 
-        <a class="method-permalink" href="#cylinder%3F-instance-method">#</a>
+        <a class="method-permalink" href="#name%3AString-instance-method">#</a>
       </div>
       
         <div class="doc">
           
-          <p>Returns <code>true</code> if this enum value equals <code><a href="../Diorite/Shape3DType.html#Cylinder">Cylinder</a></code></p>
+          <p>Name or identifier for this series.</p>
         </div>
       
       <br/>
@@ -755,169 +650,17 @@
       </div>
     </div>
   
-    <div class="entry-detail" id="gizmo?-instance-method">
+    <div class="entry-detail" id="samples:Array(Float32)-instance-method">
       <div class="signature">
         
-        def <strong>gizmo?</strong>
+        def <strong>samples</strong> : Array(Float32)
 
-        <a class="method-permalink" href="#gizmo%3F-instance-method">#</a>
+        <a class="method-permalink" href="#samples%3AArray%28Float32%29-instance-method">#</a>
       </div>
       
         <div class="doc">
           
-          <p>Returns <code>true</code> if this enum value equals <code><a href="../Diorite/Shape3DType.html#Gizmo">Gizmo</a></code></p>
-        </div>
-      
-      <br/>
-      <div>
-        
-      </div>
-    </div>
-  
-    <div class="entry-detail" id="grid?-instance-method">
-      <div class="signature">
-        
-        def <strong>grid?</strong>
-
-        <a class="method-permalink" href="#grid%3F-instance-method">#</a>
-      </div>
-      
-        <div class="doc">
-          
-          <p>Returns <code>true</code> if this enum value equals <code><a href="../Diorite/Shape3DType.html#Grid">Grid</a></code></p>
-        </div>
-      
-      <br/>
-      <div>
-        
-      </div>
-    </div>
-  
-    <div class="entry-detail" id="line?-instance-method">
-      <div class="signature">
-        
-        def <strong>line?</strong>
-
-        <a class="method-permalink" href="#line%3F-instance-method">#</a>
-      </div>
-      
-        <div class="doc">
-          
-          <p>Returns <code>true</code> if this enum value equals <code><a href="../Diorite/Shape3DType.html#Line">Line</a></code></p>
-        </div>
-      
-      <br/>
-      <div>
-        
-      </div>
-    </div>
-  
-    <div class="entry-detail" id="plane?-instance-method">
-      <div class="signature">
-        
-        def <strong>plane?</strong>
-
-        <a class="method-permalink" href="#plane%3F-instance-method">#</a>
-      </div>
-      
-        <div class="doc">
-          
-          <p>Returns <code>true</code> if this enum value equals <code><a href="../Diorite/Shape3DType.html#Plane">Plane</a></code></p>
-        </div>
-      
-      <br/>
-      <div>
-        
-      </div>
-    </div>
-  
-    <div class="entry-detail" id="ruler?-instance-method">
-      <div class="signature">
-        
-        def <strong>ruler?</strong>
-
-        <a class="method-permalink" href="#ruler%3F-instance-method">#</a>
-      </div>
-      
-        <div class="doc">
-          
-          <p>Returns <code>true</code> if this enum value equals <code><a href="../Diorite/Shape3DType.html#Ruler">Ruler</a></code></p>
-        </div>
-      
-      <br/>
-      <div>
-        
-      </div>
-    </div>
-  
-    <div class="entry-detail" id="sphere?-instance-method">
-      <div class="signature">
-        
-        def <strong>sphere?</strong>
-
-        <a class="method-permalink" href="#sphere%3F-instance-method">#</a>
-      </div>
-      
-        <div class="doc">
-          
-          <p>Returns <code>true</code> if this enum value equals <code><a href="../Diorite/Shape3DType.html#Sphere">Sphere</a></code></p>
-        </div>
-      
-      <br/>
-      <div>
-        
-      </div>
-    </div>
-  
-    <div class="entry-detail" id="spring?-instance-method">
-      <div class="signature">
-        
-        def <strong>spring?</strong>
-
-        <a class="method-permalink" href="#spring%3F-instance-method">#</a>
-      </div>
-      
-        <div class="doc">
-          
-          <p>Returns <code>true</code> if this enum value equals <code><a href="../Diorite/Shape3DType.html#Spring">Spring</a></code></p>
-        </div>
-      
-      <br/>
-      <div>
-        
-      </div>
-    </div>
-  
-    <div class="entry-detail" id="trajectory_arc?-instance-method">
-      <div class="signature">
-        
-        def <strong>trajectory_arc?</strong>
-
-        <a class="method-permalink" href="#trajectory_arc%3F-instance-method">#</a>
-      </div>
-      
-        <div class="doc">
-          
-          <p>Returns <code>true</code> if this enum value equals <code><a href="../Diorite/Shape3DType.html#TrajectoryArc">TrajectoryArc</a></code></p>
-        </div>
-      
-      <br/>
-      <div>
-        
-      </div>
-    </div>
-  
-    <div class="entry-detail" id="vision_cone?-instance-method">
-      <div class="signature">
-        
-        def <strong>vision_cone?</strong>
-
-        <a class="method-permalink" href="#vision_cone%3F-instance-method">#</a>
-      </div>
-      
-        <div class="doc">
-          
-          <p>Returns <code>true</code> if this enum value equals <code><a href="../Diorite/Shape3DType.html#VisionCone">VisionCone</a></code></p>
+          <p>Array storing current active history samples in chronological order.</p>
         </div>
       
       <br/>

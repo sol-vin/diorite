@@ -14,7 +14,7 @@
 <script type="text/javascript" src="../js/doc.js"></script>
 
   <meta name="repository-name" content="diorite">
-  <title>Diorite::Shape2DType - diorite main-dev</title>
+  <title>Diorite::ChartBuilder - diorite main-dev</title>
   <script type="text/javascript">
     CrystalDocs.base_path = "../";
   </script>
@@ -77,7 +77,7 @@
       
     </li>
   
-  <li class=" " data-id="diorite/Diorite/ChartBuilder" data-name="diorite::chartbuilder">
+  <li class=" current" data-id="diorite/Diorite/ChartBuilder" data-name="diorite::chartbuilder">
       <a href="../Diorite/ChartBuilder.html">ChartBuilder</a>
       
     </li>
@@ -217,7 +217,7 @@
       
     </li>
   
-  <li class=" current" data-id="diorite/Diorite/Shape2DType" data-name="diorite::shape2dtype">
+  <li class=" " data-id="diorite/Diorite/Shape2DType" data-name="diorite::shape2dtype">
       <a href="../Diorite/Shape2DType.html">Shape2DType</a>
       
     </li>
@@ -342,8 +342,8 @@
 <h1 class="type-name">
 
   <span class="kind">
-    enum
-  </span> Diorite::<wbr>Shape2DType
+    module
+  </span> Diorite::<wbr>ChartBuilder
 
 </h1>
 
@@ -360,13 +360,28 @@
     Overview
   </h2>
 
-  <p>Supported 2D debug shape kinds for node-based rendering.</p>
+  <p>Algorithmic geometry synthesizer for data visualization (Pie/Donut charts, Bar charts, Gauges).</p>
+<p>Emits line-list vertices and colors directly to immediate-mesh vertex arrays with zero GC pressure.</p>
 
 
 
 
 
 
+
+  <h2>
+    <a id="included-modules" class="anchor" href="#included-modules">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Included Modules
+  </h2>
+  <ul class="other-types-list">
+    
+      <li class="other-type"><a href="../Diorite/MathHelpers.html">Diorite::MathHelpers</a></li>
+    
+  </ul>
 
 
 
@@ -387,96 +402,69 @@
   </h2>
   
     
-      src\diorite\nodes\debug_shape_2d.cr
+      src\diorite\core\chart_builder.cr
     
     <br/>
   
 
 
 
-  
-    <h2>
-      <a id="enum-members" class="anchor" href="#enum-members">
-  <svg class="octicon-link" aria-hidden="true">
-    <use href="#octicon-link"/>
-  </svg>
-</a>
-      Enum Members
-    </h2>
-  
-  <dl>
-    
-      <dt class="entry-const" id="Line">
-        <strong>Line</strong> = <code><span class="n">0</span></code>
-      </dt>
-      
-    
-      <dt class="entry-const" id="Arrow">
-        <strong>Arrow</strong> = <code><span class="n">1</span></code>
-      </dt>
-      
-    
-      <dt class="entry-const" id="Rect">
-        <strong>Rect</strong> = <code><span class="n">2</span></code>
-      </dt>
-      
-    
-      <dt class="entry-const" id="Circle">
-        <strong>Circle</strong> = <code><span class="n">3</span></code>
-      </dt>
-      
-    
-  </dl>
 
-
-
-  
-
-  
 
   
 
   
   <h2>
-    <a id="instance-method-summary" class="anchor" href="#instance-method-summary">
+    <a id="class-method-summary" class="anchor" href="#class-method-summary">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
   </svg>
 </a>
-    Instance Method Summary
+    Class Method Summary
   </h2>
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#arrow%3F-instance-method" class="signature"><strong>#arrow?</strong></a>
+        <a href="#build_bar_chart_2d%28rect%3AGodot%3A%3ARect2%2Cbars%3AArray%28BarData%29%2Chorizontal%3ABool%2Cverts%3AArray%28Godot%3A%3AVector2%29%2Ccols%3AArray%28Godot%3A%3AColor%29%29%3AVoid-class-method" class="signature"><strong>.build_bar_chart_2d</strong>(rect : Godot::Rect2, bars : Array(BarData), horizontal : Bool, verts : Array(Godot::Vector2), cols : Array(Godot::Color)) : Void</a>
         
-          <div class="summary"><p>Returns <code>true</code> if this enum value equals <code><a href="../Diorite/Shape2DType.html#Arrow">Arrow</a></code></p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#circle%3F-instance-method" class="signature"><strong>#circle?</strong></a>
-        
-          <div class="summary"><p>Returns <code>true</code> if this enum value equals <code><a href="../Diorite/Shape2DType.html#Circle">Circle</a></code></p></div>
+          <div class="summary"><p>Builds a 2D Bar chart with axis frame and bar outlines.</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#line%3F-instance-method" class="signature"><strong>#line?</strong></a>
+        <a href="#build_gauge_2d%28center%3AGodot%3A%3AVector2%2Cradius%3AFloat32%2Cvalue%3AFloat32%2Cmin_val%3AFloat32%2Cmax_val%3AFloat32%2Ccolor%3AGodot%3A%3AColor%2Cverts%3AArray%28Godot%3A%3AVector2%29%2Ccols%3AArray%28Godot%3A%3AColor%29%2Cstart_angle%3AFloat32%3D2.3561945_f32%2Cend_angle%3AFloat32%3D7.0685834_f32%2Cticks%3AInt32%3D6%29%3AVoid-class-method" class="signature"><strong>.build_gauge_2d</strong>(center : Godot::Vector2, radius : Float32, value : Float32, min_val : Float32, max_val : Float32, color : Godot::Color, verts : Array(Godot::Vector2), cols : Array(Godot::Color), start_angle : Float32 = <span class="n">2.3561945_f32</span>, end_angle : Float32 = <span class="n">7.0685834_f32</span>, ticks : Int32 = <span class="n">6</span>) : Void</a>
         
-          <div class="summary"><p>Returns <code>true</code> if this enum value equals <code><a href="../Diorite/Shape2DType.html#Line">Line</a></code></p></div>
+          <div class="summary"><p>Builds a 2D radial gauge with scale ticks and needle indicator.</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#rect%3F-instance-method" class="signature"><strong>#rect?</strong></a>
+        <a href="#build_gauge_3d%28center%3AGodot%3A%3AVector3%2Cnormal%3AGodot%3A%3AVector3%2Cradius%3AFloat32%2Cvalue%3AFloat32%2Cmin_val%3AFloat32%2Cmax_val%3AFloat32%2Ccolor%3AGodot%3A%3AColor%2Cverts%3AArray%28Godot%3A%3AVector3%29%2Ccols%3AArray%28Godot%3A%3AColor%29%2Cstart_angle%3AFloat32%3D2.3561945_f32%2Cend_angle%3AFloat32%3D7.0685834_f32%2Cticks%3AInt32%3D6%29%3AVoid-class-method" class="signature"><strong>.build_gauge_3d</strong>(center : Godot::Vector3, normal : Godot::Vector3, radius : Float32, value : Float32, min_val : Float32, max_val : Float32, color : Godot::Color, verts : Array(Godot::Vector3), cols : Array(Godot::Color), start_angle : Float32 = <span class="n">2.3561945_f32</span>, end_angle : Float32 = <span class="n">7.0685834_f32</span>, ticks : Int32 = <span class="n">6</span>) : Void</a>
         
-          <div class="summary"><p>Returns <code>true</code> if this enum value equals <code><a href="../Diorite/Shape2DType.html#Rect">Rect</a></code></p></div>
+          <div class="summary"><p>Builds a 3D radial gauge oriented on a plane by normal.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#build_pie_chart_2d%28center%3AGodot%3A%3AVector2%2Cradius%3AFloat32%2Cinner_radius%3AFloat32%2Cslices%3AArray%28PieSlice%29%2Cverts%3AArray%28Godot%3A%3AVector2%29%2Ccols%3AArray%28Godot%3A%3AColor%29%2Csegments_per_full_turn%3AInt32%3D64%29%3AVoid-class-method" class="signature"><strong>.build_pie_chart_2d</strong>(center : Godot::Vector2, radius : Float32, inner_radius : Float32, slices : Array(PieSlice), verts : Array(Godot::Vector2), cols : Array(Godot::Color), segments_per_full_turn : Int32 = <span class="n">64</span>) : Void</a>
+        
+          <div class="summary"><p>Builds a 2D Pie or Donut chart on the canvas overlay.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#build_pie_chart_3d%28center%3AGodot%3A%3AVector3%2Cnormal%3AGodot%3A%3AVector3%2Cradius%3AFloat32%2Cinner_radius%3AFloat32%2Cslices%3AArray%28PieSlice%29%2Cverts%3AArray%28Godot%3A%3AVector3%29%2Ccols%3AArray%28Godot%3A%3AColor%29%2Csegments_per_full_turn%3AInt32%3D64%29%3AVoid-class-method" class="signature"><strong>.build_pie_chart_3d</strong>(center : Godot::Vector3, normal : Godot::Vector3, radius : Float32, inner_radius : Float32, slices : Array(PieSlice), verts : Array(Godot::Vector3), cols : Array(Godot::Color), segments_per_full_turn : Int32 = <span class="n">64</span>) : Void</a>
+        
+          <div class="summary"><p>Builds a 3D Pie or Donut chart oriented by normal.</p></div>
         
       </li>
     
   </ul>
 
+
+  
+
+  
 
 
   <div class="methods-inherited">
@@ -489,44 +477,34 @@
 
       
 
-
-      
-
-
+  <h3>Class methods inherited from module <code><a href="../Diorite/MathHelpers.html">Diorite::MathHelpers</a></code></h3>
+  
+  
+    <a href="../Diorite/MathHelpers.html#deg_to_rad%28degrees%3ANumber%29%3AFloat32-class-method" class="tooltip">
+      <span>deg_to_rad(degrees : Number) : Float32</span>
+    deg_to_rad</a>, 
     
-      
-
-
-      
-
-
-      
-
-
-      
-
-
+  
+    <a href="../Diorite/MathHelpers.html#find_perpendicular%28normal%3AGodot%3A%3AVector3%29%3AGodot%3A%3AVector3-class-method" class="tooltip">
+      <span>find_perpendicular(normal : Godot::Vector3) : Godot::Vector3</span>
+    find_perpendicular</a>, 
     
-      
-
-
-      
-
-
-      
-
-
-      
-
-
+  
+    <a href="../Diorite/MathHelpers.html#orthonormal_plane%28normal%3AGodot%3A%3AVector3%29%3ATuple%28Godot%3A%3AVector3%2CGodot%3A%3AVector3%29-class-method" class="tooltip">
+      <span>orthonormal_plane(normal : Godot::Vector3) : Tuple(Godot::Vector3, Godot::Vector3)</span>
+    orthonormal_plane</a>, 
     
-      
-
-
-      
-
-
-      
+  
+    <a href="../Diorite/MathHelpers.html#rad_to_deg%28radians%3ANumber%29%3AFloat32-class-method" class="tooltip">
+      <span>rad_to_deg(radians : Number) : Float32</span>
+    rad_to_deg</a>, 
+    
+  
+    <a href="../Diorite/MathHelpers.html#rotate_around_axis%28point%3AGodot%3A%3AVector3%2Caxis%3AGodot%3A%3AVector3%2Ctheta%3AFloat32%29%3AGodot%3A%3AVector3-class-method" class="tooltip">
+      <span>rotate_around_axis(point : Godot::Vector3, axis : Godot::Vector3, theta : Float32) : Godot::Vector3</span>
+    rotate_around_axis</a>
+    
+  
 
 
       
@@ -538,30 +516,26 @@
   
 
   
-
-  
-
-  
   <h2>
-    <a id="instance-method-detail" class="anchor" href="#instance-method-detail">
+    <a id="class-method-detail" class="anchor" href="#class-method-detail">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
   </svg>
 </a>
-    Instance Method Detail
+    Class Method Detail
   </h2>
   
-    <div class="entry-detail" id="arrow?-instance-method">
+    <div class="entry-detail" id="build_bar_chart_2d(rect:Godot::Rect2,bars:Array(BarData),horizontal:Bool,verts:Array(Godot::Vector2),cols:Array(Godot::Color)):Void-class-method">
       <div class="signature">
         
-        def <strong>arrow?</strong>
+        def self.<strong>build_bar_chart_2d</strong>(rect : Godot::Rect2, bars : Array(<a href="../Diorite/BarData.html">BarData</a>), horizontal : Bool, verts : Array(Godot::Vector2), cols : Array(Godot::Color)) : Void
 
-        <a class="method-permalink" href="#arrow%3F-instance-method">#</a>
+        <a class="method-permalink" href="#build_bar_chart_2d%28rect%3AGodot%3A%3ARect2%2Cbars%3AArray%28BarData%29%2Chorizontal%3ABool%2Cverts%3AArray%28Godot%3A%3AVector2%29%2Ccols%3AArray%28Godot%3A%3AColor%29%29%3AVoid-class-method">#</a>
       </div>
       
         <div class="doc">
           
-          <p>Returns <code>true</code> if this enum value equals <code><a href="../Diorite/Shape2DType.html#Arrow">Arrow</a></code></p>
+          <p>Builds a 2D Bar chart with axis frame and bar outlines.</p>
         </div>
       
       <br/>
@@ -570,17 +544,17 @@
       </div>
     </div>
   
-    <div class="entry-detail" id="circle?-instance-method">
+    <div class="entry-detail" id="build_gauge_2d(center:Godot::Vector2,radius:Float32,value:Float32,min_val:Float32,max_val:Float32,color:Godot::Color,verts:Array(Godot::Vector2),cols:Array(Godot::Color),start_angle:Float32=2.3561945_f32,end_angle:Float32=7.0685834_f32,ticks:Int32=6):Void-class-method">
       <div class="signature">
         
-        def <strong>circle?</strong>
+        def self.<strong>build_gauge_2d</strong>(center : Godot::Vector2, radius : Float32, value : Float32, min_val : Float32, max_val : Float32, color : Godot::Color, verts : Array(Godot::Vector2), cols : Array(Godot::Color), start_angle : Float32 = <span class="n">2.3561945_f32</span>, end_angle : Float32 = <span class="n">7.0685834_f32</span>, ticks : Int32 = <span class="n">6</span>) : Void
 
-        <a class="method-permalink" href="#circle%3F-instance-method">#</a>
+        <a class="method-permalink" href="#build_gauge_2d%28center%3AGodot%3A%3AVector2%2Cradius%3AFloat32%2Cvalue%3AFloat32%2Cmin_val%3AFloat32%2Cmax_val%3AFloat32%2Ccolor%3AGodot%3A%3AColor%2Cverts%3AArray%28Godot%3A%3AVector2%29%2Ccols%3AArray%28Godot%3A%3AColor%29%2Cstart_angle%3AFloat32%3D2.3561945_f32%2Cend_angle%3AFloat32%3D7.0685834_f32%2Cticks%3AInt32%3D6%29%3AVoid-class-method">#</a>
       </div>
       
         <div class="doc">
           
-          <p>Returns <code>true</code> if this enum value equals <code><a href="../Diorite/Shape2DType.html#Circle">Circle</a></code></p>
+          <p>Builds a 2D radial gauge with scale ticks and needle indicator.</p>
         </div>
       
       <br/>
@@ -589,17 +563,17 @@
       </div>
     </div>
   
-    <div class="entry-detail" id="line?-instance-method">
+    <div class="entry-detail" id="build_gauge_3d(center:Godot::Vector3,normal:Godot::Vector3,radius:Float32,value:Float32,min_val:Float32,max_val:Float32,color:Godot::Color,verts:Array(Godot::Vector3),cols:Array(Godot::Color),start_angle:Float32=2.3561945_f32,end_angle:Float32=7.0685834_f32,ticks:Int32=6):Void-class-method">
       <div class="signature">
         
-        def <strong>line?</strong>
+        def self.<strong>build_gauge_3d</strong>(center : Godot::Vector3, normal : Godot::Vector3, radius : Float32, value : Float32, min_val : Float32, max_val : Float32, color : Godot::Color, verts : Array(Godot::Vector3), cols : Array(Godot::Color), start_angle : Float32 = <span class="n">2.3561945_f32</span>, end_angle : Float32 = <span class="n">7.0685834_f32</span>, ticks : Int32 = <span class="n">6</span>) : Void
 
-        <a class="method-permalink" href="#line%3F-instance-method">#</a>
+        <a class="method-permalink" href="#build_gauge_3d%28center%3AGodot%3A%3AVector3%2Cnormal%3AGodot%3A%3AVector3%2Cradius%3AFloat32%2Cvalue%3AFloat32%2Cmin_val%3AFloat32%2Cmax_val%3AFloat32%2Ccolor%3AGodot%3A%3AColor%2Cverts%3AArray%28Godot%3A%3AVector3%29%2Ccols%3AArray%28Godot%3A%3AColor%29%2Cstart_angle%3AFloat32%3D2.3561945_f32%2Cend_angle%3AFloat32%3D7.0685834_f32%2Cticks%3AInt32%3D6%29%3AVoid-class-method">#</a>
       </div>
       
         <div class="doc">
           
-          <p>Returns <code>true</code> if this enum value equals <code><a href="../Diorite/Shape2DType.html#Line">Line</a></code></p>
+          <p>Builds a 3D radial gauge oriented on a plane by normal.</p>
         </div>
       
       <br/>
@@ -608,17 +582,36 @@
       </div>
     </div>
   
-    <div class="entry-detail" id="rect?-instance-method">
+    <div class="entry-detail" id="build_pie_chart_2d(center:Godot::Vector2,radius:Float32,inner_radius:Float32,slices:Array(PieSlice),verts:Array(Godot::Vector2),cols:Array(Godot::Color),segments_per_full_turn:Int32=64):Void-class-method">
       <div class="signature">
         
-        def <strong>rect?</strong>
+        def self.<strong>build_pie_chart_2d</strong>(center : Godot::Vector2, radius : Float32, inner_radius : Float32, slices : Array(<a href="../Diorite/PieSlice.html">PieSlice</a>), verts : Array(Godot::Vector2), cols : Array(Godot::Color), segments_per_full_turn : Int32 = <span class="n">64</span>) : Void
 
-        <a class="method-permalink" href="#rect%3F-instance-method">#</a>
+        <a class="method-permalink" href="#build_pie_chart_2d%28center%3AGodot%3A%3AVector2%2Cradius%3AFloat32%2Cinner_radius%3AFloat32%2Cslices%3AArray%28PieSlice%29%2Cverts%3AArray%28Godot%3A%3AVector2%29%2Ccols%3AArray%28Godot%3A%3AColor%29%2Csegments_per_full_turn%3AInt32%3D64%29%3AVoid-class-method">#</a>
       </div>
       
         <div class="doc">
           
-          <p>Returns <code>true</code> if this enum value equals <code><a href="../Diorite/Shape2DType.html#Rect">Rect</a></code></p>
+          <p>Builds a 2D Pie or Donut chart on the canvas overlay.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="build_pie_chart_3d(center:Godot::Vector3,normal:Godot::Vector3,radius:Float32,inner_radius:Float32,slices:Array(PieSlice),verts:Array(Godot::Vector3),cols:Array(Godot::Color),segments_per_full_turn:Int32=64):Void-class-method">
+      <div class="signature">
+        
+        def self.<strong>build_pie_chart_3d</strong>(center : Godot::Vector3, normal : Godot::Vector3, radius : Float32, inner_radius : Float32, slices : Array(<a href="../Diorite/PieSlice.html">PieSlice</a>), verts : Array(Godot::Vector3), cols : Array(Godot::Color), segments_per_full_turn : Int32 = <span class="n">64</span>) : Void
+
+        <a class="method-permalink" href="#build_pie_chart_3d%28center%3AGodot%3A%3AVector3%2Cnormal%3AGodot%3A%3AVector3%2Cradius%3AFloat32%2Cinner_radius%3AFloat32%2Cslices%3AArray%28PieSlice%29%2Cverts%3AArray%28Godot%3A%3AVector3%29%2Ccols%3AArray%28Godot%3A%3AColor%29%2Csegments_per_full_turn%3AInt32%3D64%29%3AVoid-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Builds a 3D Pie or Donut chart oriented by normal.</p>
         </div>
       
       <br/>
@@ -628,6 +621,10 @@
     </div>
   
 
+
+  
+
+  
 
 
 </div>

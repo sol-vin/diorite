@@ -213,20 +213,102 @@ puts ""
 # -----------------------------------------------------------------------------
 # 6. Full-Frame Simulation (Mixed Heavy Frame)
 # -----------------------------------------------------------------------------
-puts ">>> 6. FULL-FRAME HEAVY WORKLOAD SIMULATION"
-puts "Simulating a frame drawing 500 mixed 3D shapes + 200 2D shapes + text labels..."
+# -----------------------------------------------------------------------------
+# 7. Spatial Helpers & Splines Benchmark
+# -----------------------------------------------------------------------------
+puts ">>> 7. SPATIAL HELPERS & SPLINES BENCHMARK"
+bez_p0 = Godot::Vector3.new(0, 0, 0)
+bez_p1 = Godot::Vector3.new(1, 4, 0)
+bez_p2 = Godot::Vector3.new(3, 4, 0)
+bez_p3 = Godot::Vector3.new(4, 0, 0)
 
 Benchmark.ips do |x|
-  x.report("Heavy Frame (700 primitives)") do
-    Diorite::DebugDraw.clear
-    500.times do |i|
-      Diorite::DebugDraw.line_3d(v_zero, v_target, c_red)
+  x.report("SphereCast (12 rings + rays)") do
+    verts_3d.clear; cols_3d.clear
+    Diorite::GeometryBuilder.build_sphere_cast(v_zero, v_target, 0.5_f32, true, c_green, verts_3d, cols_3d)
+  end
+
+  x.report("CapsuleCast (24 segs + rays)") do
+    verts_3d.clear; cols_3d.clear
+    Diorite::GeometryBuilder.build_capsule_cast(v_zero, v_target, 0.5_f32, 1.8_f32, false, c_blue, verts_3d, cols_3d)
+  end
+
+  x.report("BoxCast (2 boxes + 8 edges)") do
+    verts_3d.clear; cols_3d.clear
+    Diorite::GeometryBuilder.build_box_cast(v_zero, v_target, v_size, false, c_red, verts_3d, cols_3d)
+  end
+
+  x.report("Bezier Cubic (32 segs)") do
+    verts_3d.clear; cols_3d.clear
+    Diorite::GeometryBuilder.build_bezier_cubic(bez_p0, bez_p1, bez_p2, bez_p3, 32, c_green, verts_3d, cols_3d)
+  end
+
+  x.report("Catmull-Rom Spline (20 pts)") do
+    verts_3d.clear; cols_3d.clear
+    Diorite::GeometryBuilder.build_catmull_rom(path_pts_3d, 16, c_blue, verts_3d, cols_3d)
+  end
+end
+puts ""
+
+# -----------------------------------------------------------------------------
+# 8. Data Visualization & Charting Benchmark
+# -----------------------------------------------------------------------------
+puts ">>> 8. DATA VISUALIZATION & CHARTS BENCHMARK"
+demo_slices = [
+  Diorite::PieSlice.new("A", 30.0_f32, c_red),
+  Diorite::PieSlice.new("B", 50.0_f32, c_green),
+  Diorite::PieSlice.new("C", 20.0_f32, c_blue),
+]
+demo_bars = [
+  Diorite::BarData.new("Entities", 120.0_f32, c_red),
+  Diorite::BarData.new("Particles", 450.0_f32, c_green),
+  Diorite::BarData.new("Lights", 30.0_f32, c_blue),
+]
+
+Benchmark.ips do |x|
+  x.report("2D Pie Chart (3 slices)") do
+    verts_2d.clear; cols_2d.clear
+    Diorite::ChartBuilder.build_pie_chart_2d(v2_target, 50.0_f32, 0.0_f32, demo_slices, verts_2d, cols_2d)
+  end
+
+  x.report("3D Donut Chart (3 slices)") do
+    verts_3d.clear; cols_3d.clear
+    Diorite::ChartBuilder.build_pie_chart_3d(v_zero, v_up, 2.0_f32, 0.5_f32, demo_slices, verts_3d, cols_3d)
+  end
+
+  x.report("2D Bar Chart (3 bars)") do
+    verts_2d.clear; cols_2d.clear
+    Diorite::ChartBuilder.build_bar_chart_2d(rect_demo, demo_bars, false, verts_2d, cols_2d)
+  end
+
+  x.report("2D Radial Gauge") do
+    verts_2d.clear; cols_2d.clear
+    Diorite::ChartBuilder.build_gauge_2d(v2_target, 40.0_f32, 75.0_f32, 0.0_f32, 100.0_f32, c_green, verts_2d, cols_2d)
+  end
+end
+puts ""
+
+# -----------------------------------------------------------------------------
+# 9. Transform Stack & Channel Overhead Benchmark
+# -----------------------------------------------------------------------------
+puts ">>> 9. TRANSFORM STACK & CHANNEL OVERHEAD BENCHMARK"
+xform_demo = Godot::Transform3D.new(basis_ident, Godot::Vector3.new(10, 20, 30))
+
+Benchmark.ips do |x|
+  x.report("Standard line_3d") do
+    Diorite::DebugDraw.line_3d(v_zero, v_target)
+  end
+
+  x.report("line_3d with_transform") do
+    Diorite::DebugDraw.with_transform(xform_demo) do
+      Diorite::DebugDraw.line_3d(v_zero, v_target)
     end
-    200.times do |i|
-      Diorite::DebugDraw.circle_2d(v2_target, 20.0_f32, c_blue)
+  end
+
+  x.report("line_3d with channel block") do
+    Diorite::DebugDraw.channel("ai") do |d|
+      d.line_3d(v_zero, v_target)
     end
-    Diorite::DebugDraw.text_3d(v_target, "Unit Benchmark", c_green)
-    Diorite::DebugDraw.text_2d(v2_zero, "Frame Time: 16ms", c_red)
   end
 end
 

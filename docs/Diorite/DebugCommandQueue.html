@@ -72,6 +72,16 @@
       
         <ul>
   
+  <li class=" " data-id="diorite/Diorite/BarData" data-name="diorite::bardata">
+      <a href="../Diorite/BarData.html">BarData</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/ChartBuilder" data-name="diorite::chartbuilder">
+      <a href="../Diorite/ChartBuilder.html">ChartBuilder</a>
+      
+    </li>
+  
   <li class=" " data-id="diorite/Diorite/Command2D" data-name="diorite::command2d">
       <a href="../Diorite/Command2D.html">Command2D</a>
       
@@ -202,6 +212,11 @@
       
     </li>
   
+  <li class=" " data-id="diorite/Diorite/PieSlice" data-name="diorite::pieslice">
+      <a href="../Diorite/PieSlice.html">PieSlice</a>
+      
+    </li>
+  
   <li class=" " data-id="diorite/Diorite/Shape2DType" data-name="diorite::shape2dtype">
       <a href="../Diorite/Shape2DType.html">Shape2DType</a>
       
@@ -224,6 +239,16 @@
   
   <li class=" " data-id="diorite/Diorite/TelemetryGraph" data-name="diorite::telemetrygraph">
       <a href="../Diorite/TelemetryGraph.html">TelemetryGraph</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/TelemetrySeries" data-name="diorite::telemetryseries">
+      <a href="../Diorite/TelemetrySeries.html">TelemetrySeries</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/TelemetryThreshold" data-name="diorite::telemetrythreshold">
+      <a href="../Diorite/TelemetryThreshold.html">TelemetryThreshold</a>
       
     </li>
   
@@ -256,6 +281,16 @@
       <a href="../Lapis/Docs/GENERAL.html">GENERAL</a>
       
         <ul>
+  
+  <li class=" " data-id="diorite/Lapis/Docs/GENERAL/CHARTING" data-name="lapis::docs::general::charting">
+      <a href="../Lapis/Docs/GENERAL/CHARTING.html">CHARTING</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Lapis/Docs/GENERAL/GAME_HELPERS" data-name="lapis::docs::general::game_helpers">
+      <a href="../Lapis/Docs/GENERAL/GAME_HELPERS.html">GAME_HELPERS</a>
+      
+    </li>
   
   <li class=" " data-id="diorite/Lapis/Docs/GENERAL/NODES" data-name="lapis::docs::general::nodes">
       <a href="../Lapis/Docs/GENERAL/NODES.html">NODES</a>
@@ -382,6 +417,13 @@
   <ul class="list-summary">
     
       <li class="entry-summary">
+        <a href="#channel_enabled%3F%28name%3AString%29%3ABool-instance-method" class="signature"><strong>#channel_enabled?</strong>(name : String) : Bool</a>
+        
+          <div class="summary"><p>Returns true if the channel is currently enabled.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
         <a href="#clear%3AVoid-instance-method" class="signature"><strong>#clear</strong> : Void</a>
         
           <div class="summary"><p>Alias for <code><a href="../Diorite/DebugCommandQueue.html#clear_all%3AVoid-instance-method">#clear_all</a></code>.</p></div>
@@ -406,6 +448,79 @@
         <a href="#commands_3d%3AArray%28Command3D%29-instance-method" class="signature"><strong>#commands_3d</strong> : Array(Command3D)</a>
         
           <div class="summary"><p>Active 3D primitives queued for rendering.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#disable_channel%28name%3AString%29%3AVoid-instance-method" class="signature"><strong>#disable_channel</strong>(name : String) : Void</a>
+        
+          <div class="summary"><p>Disables a filtered channel, suppressing all associated commands.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#disabled_channels%3ASet%28String%29-instance-method" class="signature"><strong>#disabled_channels</strong> : Set(String)</a>
+        
+          <div class="summary"><p>Explicitly disabled channel names.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#enable_channel%28name%3AString%29%3AVoid-instance-method" class="signature"><strong>#enable_channel</strong>(name : String) : Void</a>
+        
+          <div class="summary"><p>Enables a filtered channel.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#enabled%3ABool-instance-method" class="signature"><strong>#enabled</strong> : Bool</a>
+        
+          <div class="summary"><p>Master switch toggling all debug drawing on/off.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#enabled%3D%28enabled%3ABool%29-instance-method" class="signature"><strong>#enabled=</strong>(enabled : Bool)</a>
+        
+          <div class="summary"><p>Master switch toggling all debug drawing on/off.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#frame_time_us%3AFloat64-instance-method" class="signature"><strong>#frame_time_us</strong> : Float64</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#frame_time_us%3D%28frame_time_us%3AFloat64%29-instance-method" class="signature"><strong>#frame_time_us=</strong>(frame_time_us : Float64)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#freeze%21%3AVoid-instance-method" class="signature"><strong>#freeze!</strong> : Void</a>
+        
+          <div class="summary"><p>Freezes debug drawing decay for spatial inspection.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#frozen%3ABool-instance-method" class="signature"><strong>#frozen</strong> : Bool</a>
+        
+          <div class="summary"><p>Pauses frame decay allowing static freecam inspection of active debug shapes.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#frozen%3D%28frozen%3ABool%29-instance-method" class="signature"><strong>#frozen=</strong>(frozen : Bool)</a>
+        
+          <div class="summary"><p>Pauses frame decay allowing static freecam inspection of active debug shapes.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#frozen%3F%3ABool-instance-method" class="signature"><strong>#frozen?</strong> : Bool</a>
+        
+          <div class="summary"><p>Returns whether the debug queue is frozen.</p></div>
         
       </li>
     
@@ -466,9 +581,23 @@
       </li>
     
       <li class="entry-summary">
+        <a href="#toggle_freeze%21%3AVoid-instance-method" class="signature"><strong>#toggle_freeze!</strong> : Void</a>
+        
+          <div class="summary"><p>Toggles freeze state.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
         <a href="#trails%3AHash%28String%2CArray%28Godot%3A%3AVector3%29%29-instance-method" class="signature"><strong>#trails</strong> : Hash(String, Array(Godot::Vector3))</a>
         
           <div class="summary"><p>Entity history trails indexed by unique entity ID.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#unfreeze%21%3AVoid-instance-method" class="signature"><strong>#unfreeze!</strong> : Void</a>
+        
+          <div class="summary"><p>Unfreezes debug drawing decay.</p></div>
         
       </li>
     
@@ -483,6 +612,30 @@
         <a href="#update_trail%28id%3AString%2Cpt%3AGodot%3A%3AVector3%2Cmax_pts%3AInt32%29%3AArray%28Godot%3A%3AVector3%29-instance-method" class="signature"><strong>#update_trail</strong>(id : String, pt : Godot::Vector3, max_pts : Int32) : Array(Godot::Vector3)</a>
         
           <div class="summary"><p>Appends a coordinate <em>pt</em> to the entity motion trail <em>id</em>, capping length at <em>max_pts</em>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#verts_2d_last_frame%3AInt32-instance-method" class="signature"><strong>#verts_2d_last_frame</strong> : Int32</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#verts_2d_last_frame%3D%28verts_2d_last_frame%3AInt32%29-instance-method" class="signature"><strong>#verts_2d_last_frame=</strong>(verts_2d_last_frame : Int32)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#verts_3d_last_frame%3AInt32-instance-method" class="signature"><strong>#verts_3d_last_frame</strong> : Int32</a>
+        
+          <div class="summary"><p>Performance telemetry counters.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#verts_3d_last_frame%3D%28verts_3d_last_frame%3AInt32%29-instance-method" class="signature"><strong>#verts_3d_last_frame=</strong>(verts_3d_last_frame : Int32)</a>
+        
+          <div class="summary"><p>Performance telemetry counters.</p></div>
         
       </li>
     
@@ -535,6 +688,25 @@
 </a>
     Instance Method Detail
   </h2>
+  
+    <div class="entry-detail" id="channel_enabled?(name:String):Bool-instance-method">
+      <div class="signature">
+        
+        def <strong>channel_enabled?</strong>(name : String) : Bool
+
+        <a class="method-permalink" href="#channel_enabled%3F%28name%3AString%29%3ABool-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns true if the channel is currently enabled.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
   
     <div class="entry-detail" id="clear:Void-instance-method">
       <div class="signature">
@@ -604,6 +776,205 @@
         <div class="doc">
           
           <p>Active 3D primitives queued for rendering.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="disable_channel(name:String):Void-instance-method">
+      <div class="signature">
+        
+        def <strong>disable_channel</strong>(name : String) : Void
+
+        <a class="method-permalink" href="#disable_channel%28name%3AString%29%3AVoid-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Disables a filtered channel, suppressing all associated commands.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="disabled_channels:Set(String)-instance-method">
+      <div class="signature">
+        
+        def <strong>disabled_channels</strong> : Set(String)
+
+        <a class="method-permalink" href="#disabled_channels%3ASet%28String%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Explicitly disabled channel names.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="enable_channel(name:String):Void-instance-method">
+      <div class="signature">
+        
+        def <strong>enable_channel</strong>(name : String) : Void
+
+        <a class="method-permalink" href="#enable_channel%28name%3AString%29%3AVoid-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Enables a filtered channel.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="enabled:Bool-instance-method">
+      <div class="signature">
+        
+        def <strong>enabled</strong> : Bool
+
+        <a class="method-permalink" href="#enabled%3ABool-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Master switch toggling all debug drawing on/off.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="enabled=(enabled:Bool)-instance-method">
+      <div class="signature">
+        
+        def <strong>enabled=</strong>(enabled : Bool)
+
+        <a class="method-permalink" href="#enabled%3D%28enabled%3ABool%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Master switch toggling all debug drawing on/off.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="frame_time_us:Float64-instance-method">
+      <div class="signature">
+        
+        def <strong>frame_time_us</strong> : Float64
+
+        <a class="method-permalink" href="#frame_time_us%3AFloat64-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="frame_time_us=(frame_time_us:Float64)-instance-method">
+      <div class="signature">
+        
+        def <strong>frame_time_us=</strong>(frame_time_us : Float64)
+
+        <a class="method-permalink" href="#frame_time_us%3D%28frame_time_us%3AFloat64%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="freeze!:Void-instance-method">
+      <div class="signature">
+        
+        def <strong>freeze!</strong> : Void
+
+        <a class="method-permalink" href="#freeze%21%3AVoid-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Freezes debug drawing decay for spatial inspection.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="frozen:Bool-instance-method">
+      <div class="signature">
+        
+        def <strong>frozen</strong> : Bool
+
+        <a class="method-permalink" href="#frozen%3ABool-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Pauses frame decay allowing static freecam inspection of active debug shapes.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="frozen=(frozen:Bool)-instance-method">
+      <div class="signature">
+        
+        def <strong>frozen=</strong>(frozen : Bool)
+
+        <a class="method-permalink" href="#frozen%3D%28frozen%3ABool%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Pauses frame decay allowing static freecam inspection of active debug shapes.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="frozen?:Bool-instance-method">
+      <div class="signature">
+        
+        def <strong>frozen?</strong> : Bool
+
+        <a class="method-permalink" href="#frozen%3F%3ABool-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns whether the debug queue is frozen.</p>
         </div>
       
       <br/>
@@ -764,6 +1135,25 @@
       </div>
     </div>
   
+    <div class="entry-detail" id="toggle_freeze!:Void-instance-method">
+      <div class="signature">
+        
+        def <strong>toggle_freeze!</strong> : Void
+
+        <a class="method-permalink" href="#toggle_freeze%21%3AVoid-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Toggles freeze state.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
     <div class="entry-detail" id="trails:Hash(String,Array(Godot::Vector3))-instance-method">
       <div class="signature">
         
@@ -775,6 +1165,25 @@
         <div class="doc">
           
           <p>Entity history trails indexed by unique entity ID.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="unfreeze!:Void-instance-method">
+      <div class="signature">
+        
+        def <strong>unfreeze!</strong> : Void
+
+        <a class="method-permalink" href="#unfreeze%21%3AVoid-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Unfreezes debug drawing decay.</p>
         </div>
       
       <br/>
@@ -813,6 +1222,72 @@
         <div class="doc">
           
           <p>Appends a coordinate <em>pt</em> to the entity motion trail <em>id</em>, capping length at <em>max_pts</em>.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="verts_2d_last_frame:Int32-instance-method">
+      <div class="signature">
+        
+        def <strong>verts_2d_last_frame</strong> : Int32
+
+        <a class="method-permalink" href="#verts_2d_last_frame%3AInt32-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="verts_2d_last_frame=(verts_2d_last_frame:Int32)-instance-method">
+      <div class="signature">
+        
+        def <strong>verts_2d_last_frame=</strong>(verts_2d_last_frame : Int32)
+
+        <a class="method-permalink" href="#verts_2d_last_frame%3D%28verts_2d_last_frame%3AInt32%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="verts_3d_last_frame:Int32-instance-method">
+      <div class="signature">
+        
+        def <strong>verts_3d_last_frame</strong> : Int32
+
+        <a class="method-permalink" href="#verts_3d_last_frame%3AInt32-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Performance telemetry counters.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="verts_3d_last_frame=(verts_3d_last_frame:Int32)-instance-method">
+      <div class="signature">
+        
+        def <strong>verts_3d_last_frame=</strong>(verts_3d_last_frame : Int32)
+
+        <a class="method-permalink" href="#verts_3d_last_frame%3D%28verts_3d_last_frame%3AInt32%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Performance telemetry counters.</p>
         </div>
       
       <br/>

@@ -72,6 +72,16 @@
       
         <ul>
   
+  <li class=" " data-id="diorite/Diorite/BarData" data-name="diorite::bardata">
+      <a href="../Diorite/BarData.html">BarData</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/ChartBuilder" data-name="diorite::chartbuilder">
+      <a href="../Diorite/ChartBuilder.html">ChartBuilder</a>
+      
+    </li>
+  
   <li class=" " data-id="diorite/Diorite/Command2D" data-name="diorite::command2d">
       <a href="../Diorite/Command2D.html">Command2D</a>
       
@@ -202,6 +212,11 @@
       
     </li>
   
+  <li class=" " data-id="diorite/Diorite/PieSlice" data-name="diorite::pieslice">
+      <a href="../Diorite/PieSlice.html">PieSlice</a>
+      
+    </li>
+  
   <li class=" " data-id="diorite/Diorite/Shape2DType" data-name="diorite::shape2dtype">
       <a href="../Diorite/Shape2DType.html">Shape2DType</a>
       
@@ -224,6 +239,16 @@
   
   <li class=" " data-id="diorite/Diorite/TelemetryGraph" data-name="diorite::telemetrygraph">
       <a href="../Diorite/TelemetryGraph.html">TelemetryGraph</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/TelemetrySeries" data-name="diorite::telemetryseries">
+      <a href="../Diorite/TelemetrySeries.html">TelemetrySeries</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/TelemetryThreshold" data-name="diorite::telemetrythreshold">
+      <a href="../Diorite/TelemetryThreshold.html">TelemetryThreshold</a>
       
     </li>
   
@@ -256,6 +281,16 @@
       <a href="../Lapis/Docs/GENERAL.html">GENERAL</a>
       
         <ul>
+  
+  <li class=" " data-id="diorite/Lapis/Docs/GENERAL/CHARTING" data-name="lapis::docs::general::charting">
+      <a href="../Lapis/Docs/GENERAL/CHARTING.html">CHARTING</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Lapis/Docs/GENERAL/GAME_HELPERS" data-name="lapis::docs::general::game_helpers">
+      <a href="../Lapis/Docs/GENERAL/GAME_HELPERS.html">GAME_HELPERS</a>
+      
+    </li>
   
   <li class=" " data-id="diorite/Lapis/Docs/GENERAL/NODES" data-name="lapis::docs::general::nodes">
       <a href="../Lapis/Docs/GENERAL/NODES.html">NODES</a>
@@ -486,6 +521,56 @@
       </dt>
       
     
+      <dt class="entry-const" id="SphereCast">
+        <strong>SphereCast</strong> = <code><span class="n">23</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="CapsuleCast">
+        <strong>CapsuleCast</strong> = <code><span class="n">24</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="BoxCast">
+        <strong>BoxCast</strong> = <code><span class="n">25</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="BezierCubic">
+        <strong>BezierCubic</strong> = <code><span class="n">26</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="CatmullRom">
+        <strong>CatmullRom</strong> = <code><span class="n">27</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Circle3D">
+        <strong>Circle3D</strong> = <code><span class="n">28</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Cone3D">
+        <strong>Cone3D</strong> = <code><span class="n">29</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="PieChart3D">
+        <strong>PieChart3D</strong> = <code><span class="n">30</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="Gauge3D">
+        <strong>Gauge3D</strong> = <code><span class="n">31</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="ActorCard3D">
+        <strong>ActorCard3D</strong> = <code><span class="n">32</span></code>
+      </dt>
+      
+    
   </dl>
 
 
@@ -508,9 +593,23 @@
   <ul class="list-summary">
     
       <li class="entry-summary">
+        <a href="#actor_card3_d%3F-instance-method" class="signature"><strong>#actor_card3_d?</strong></a>
+        
+          <div class="summary"><p>Returns <code>true</code> if this enum value equals <code><a href="../Diorite/ShapeKind3D.html#ActorCard3D">ActorCard3D</a></code></p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
         <a href="#arrow%3F-instance-method" class="signature"><strong>#arrow?</strong></a>
         
           <div class="summary"><p>Returns <code>true</code> if this enum value equals <code><a href="../Diorite/ShapeKind3D.html#Arrow">Arrow</a></code></p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#bezier_cubic%3F-instance-method" class="signature"><strong>#bezier_cubic?</strong></a>
+        
+          <div class="summary"><p>Returns <code>true</code> if this enum value equals <code><a href="../Diorite/ShapeKind3D.html#BezierCubic">BezierCubic</a></code></p></div>
         
       </li>
     
@@ -529,6 +628,13 @@
       </li>
     
       <li class="entry-summary">
+        <a href="#box_cast%3F-instance-method" class="signature"><strong>#box_cast?</strong></a>
+        
+          <div class="summary"><p>Returns <code>true</code> if this enum value equals <code><a href="../Diorite/ShapeKind3D.html#BoxCast">BoxCast</a></code></p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
         <a href="#camera_frustum%3F-instance-method" class="signature"><strong>#camera_frustum?</strong></a>
         
           <div class="summary"><p>Returns <code>true</code> if this enum value equals <code><a href="../Diorite/ShapeKind3D.html#CameraFrustum">CameraFrustum</a></code></p></div>
@@ -543,9 +649,44 @@
       </li>
     
       <li class="entry-summary">
+        <a href="#capsule_cast%3F-instance-method" class="signature"><strong>#capsule_cast?</strong></a>
+        
+          <div class="summary"><p>Returns <code>true</code> if this enum value equals <code><a href="../Diorite/ShapeKind3D.html#CapsuleCast">CapsuleCast</a></code></p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#catmull_rom%3F-instance-method" class="signature"><strong>#catmull_rom?</strong></a>
+        
+          <div class="summary"><p>Returns <code>true</code> if this enum value equals <code><a href="../Diorite/ShapeKind3D.html#CatmullRom">CatmullRom</a></code></p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#circle3_d%3F-instance-method" class="signature"><strong>#circle3_d?</strong></a>
+        
+          <div class="summary"><p>Returns <code>true</code> if this enum value equals <code><a href="../Diorite/ShapeKind3D.html#Circle3D">Circle3D</a></code></p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#cone3_d%3F-instance-method" class="signature"><strong>#cone3_d?</strong></a>
+        
+          <div class="summary"><p>Returns <code>true</code> if this enum value equals <code><a href="../Diorite/ShapeKind3D.html#Cone3D">Cone3D</a></code></p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
         <a href="#cylinder%3F-instance-method" class="signature"><strong>#cylinder?</strong></a>
         
           <div class="summary"><p>Returns <code>true</code> if this enum value equals <code><a href="../Diorite/ShapeKind3D.html#Cylinder">Cylinder</a></code></p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#gauge3_d%3F-instance-method" class="signature"><strong>#gauge3_d?</strong></a>
+        
+          <div class="summary"><p>Returns <code>true</code> if this enum value equals <code><a href="../Diorite/ShapeKind3D.html#Gauge3D">Gauge3D</a></code></p></div>
         
       </li>
     
@@ -588,6 +729,13 @@
         <a href="#obb%3F-instance-method" class="signature"><strong>#obb?</strong></a>
         
           <div class="summary"><p>Returns <code>true</code> if this enum value equals <code><a href="../Diorite/ShapeKind3D.html#OBB">OBB</a></code></p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#pie_chart3_d%3F-instance-method" class="signature"><strong>#pie_chart3_d?</strong></a>
+        
+          <div class="summary"><p>Returns <code>true</code> if this enum value equals <code><a href="../Diorite/ShapeKind3D.html#PieChart3D">PieChart3D</a></code></p></div>
         
       </li>
     
@@ -637,6 +785,13 @@
         <a href="#sphere%3F-instance-method" class="signature"><strong>#sphere?</strong></a>
         
           <div class="summary"><p>Returns <code>true</code> if this enum value equals <code><a href="../Diorite/ShapeKind3D.html#Sphere">Sphere</a></code></p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#sphere_cast%3F-instance-method" class="signature"><strong>#sphere_cast?</strong></a>
+        
+          <div class="summary"><p>Returns <code>true</code> if this enum value equals <code><a href="../Diorite/ShapeKind3D.html#SphereCast">SphereCast</a></code></p></div>
         
       </li>
     
@@ -744,6 +899,25 @@
     Instance Method Detail
   </h2>
   
+    <div class="entry-detail" id="actor_card3_d?-instance-method">
+      <div class="signature">
+        
+        def <strong>actor_card3_d?</strong>
+
+        <a class="method-permalink" href="#actor_card3_d%3F-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns <code>true</code> if this enum value equals <code><a href="../Diorite/ShapeKind3D.html#ActorCard3D">ActorCard3D</a></code></p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
     <div class="entry-detail" id="arrow?-instance-method">
       <div class="signature">
         
@@ -755,6 +929,25 @@
         <div class="doc">
           
           <p>Returns <code>true</code> if this enum value equals <code><a href="../Diorite/ShapeKind3D.html#Arrow">Arrow</a></code></p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="bezier_cubic?-instance-method">
+      <div class="signature">
+        
+        def <strong>bezier_cubic?</strong>
+
+        <a class="method-permalink" href="#bezier_cubic%3F-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns <code>true</code> if this enum value equals <code><a href="../Diorite/ShapeKind3D.html#BezierCubic">BezierCubic</a></code></p>
         </div>
       
       <br/>
@@ -801,6 +994,25 @@
       </div>
     </div>
   
+    <div class="entry-detail" id="box_cast?-instance-method">
+      <div class="signature">
+        
+        def <strong>box_cast?</strong>
+
+        <a class="method-permalink" href="#box_cast%3F-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns <code>true</code> if this enum value equals <code><a href="../Diorite/ShapeKind3D.html#BoxCast">BoxCast</a></code></p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
     <div class="entry-detail" id="camera_frustum?-instance-method">
       <div class="signature">
         
@@ -839,6 +1051,82 @@
       </div>
     </div>
   
+    <div class="entry-detail" id="capsule_cast?-instance-method">
+      <div class="signature">
+        
+        def <strong>capsule_cast?</strong>
+
+        <a class="method-permalink" href="#capsule_cast%3F-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns <code>true</code> if this enum value equals <code><a href="../Diorite/ShapeKind3D.html#CapsuleCast">CapsuleCast</a></code></p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="catmull_rom?-instance-method">
+      <div class="signature">
+        
+        def <strong>catmull_rom?</strong>
+
+        <a class="method-permalink" href="#catmull_rom%3F-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns <code>true</code> if this enum value equals <code><a href="../Diorite/ShapeKind3D.html#CatmullRom">CatmullRom</a></code></p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="circle3_d?-instance-method">
+      <div class="signature">
+        
+        def <strong>circle3_d?</strong>
+
+        <a class="method-permalink" href="#circle3_d%3F-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns <code>true</code> if this enum value equals <code><a href="../Diorite/ShapeKind3D.html#Circle3D">Circle3D</a></code></p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="cone3_d?-instance-method">
+      <div class="signature">
+        
+        def <strong>cone3_d?</strong>
+
+        <a class="method-permalink" href="#cone3_d%3F-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns <code>true</code> if this enum value equals <code><a href="../Diorite/ShapeKind3D.html#Cone3D">Cone3D</a></code></p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
     <div class="entry-detail" id="cylinder?-instance-method">
       <div class="signature">
         
@@ -850,6 +1138,25 @@
         <div class="doc">
           
           <p>Returns <code>true</code> if this enum value equals <code><a href="../Diorite/ShapeKind3D.html#Cylinder">Cylinder</a></code></p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="gauge3_d?-instance-method">
+      <div class="signature">
+        
+        def <strong>gauge3_d?</strong>
+
+        <a class="method-permalink" href="#gauge3_d%3F-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns <code>true</code> if this enum value equals <code><a href="../Diorite/ShapeKind3D.html#Gauge3D">Gauge3D</a></code></p>
         </div>
       
       <br/>
@@ -964,6 +1271,25 @@
         <div class="doc">
           
           <p>Returns <code>true</code> if this enum value equals <code><a href="../Diorite/ShapeKind3D.html#OBB">OBB</a></code></p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="pie_chart3_d?-instance-method">
+      <div class="signature">
+        
+        def <strong>pie_chart3_d?</strong>
+
+        <a class="method-permalink" href="#pie_chart3_d%3F-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns <code>true</code> if this enum value equals <code><a href="../Diorite/ShapeKind3D.html#PieChart3D">PieChart3D</a></code></p>
         </div>
       
       <br/>
@@ -1097,6 +1423,25 @@
         <div class="doc">
           
           <p>Returns <code>true</code> if this enum value equals <code><a href="../Diorite/ShapeKind3D.html#Sphere">Sphere</a></code></p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="sphere_cast?-instance-method">
+      <div class="signature">
+        
+        def <strong>sphere_cast?</strong>
+
+        <a class="method-permalink" href="#sphere_cast%3F-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns <code>true</code> if this enum value equals <code><a href="../Diorite/ShapeKind3D.html#SphereCast">SphereCast</a></code></p>
         </div>
       
       <br/>

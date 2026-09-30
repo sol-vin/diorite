@@ -72,6 +72,16 @@
       
         <ul>
   
+  <li class=" " data-id="diorite/Diorite/BarData" data-name="diorite::bardata">
+      <a href="../Diorite/BarData.html">BarData</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/ChartBuilder" data-name="diorite::chartbuilder">
+      <a href="../Diorite/ChartBuilder.html">ChartBuilder</a>
+      
+    </li>
+  
   <li class=" " data-id="diorite/Diorite/Command2D" data-name="diorite::command2d">
       <a href="../Diorite/Command2D.html">Command2D</a>
       
@@ -202,6 +212,11 @@
       
     </li>
   
+  <li class=" " data-id="diorite/Diorite/PieSlice" data-name="diorite::pieslice">
+      <a href="../Diorite/PieSlice.html">PieSlice</a>
+      
+    </li>
+  
   <li class=" " data-id="diorite/Diorite/Shape2DType" data-name="diorite::shape2dtype">
       <a href="../Diorite/Shape2DType.html">Shape2DType</a>
       
@@ -224,6 +239,16 @@
   
   <li class=" current" data-id="diorite/Diorite/TelemetryGraph" data-name="diorite::telemetrygraph">
       <a href="../Diorite/TelemetryGraph.html">TelemetryGraph</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/TelemetrySeries" data-name="diorite::telemetryseries">
+      <a href="../Diorite/TelemetrySeries.html">TelemetrySeries</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/TelemetryThreshold" data-name="diorite::telemetrythreshold">
+      <a href="../Diorite/TelemetryThreshold.html">TelemetryThreshold</a>
       
     </li>
   
@@ -256,6 +281,16 @@
       <a href="../Lapis/Docs/GENERAL.html">GENERAL</a>
       
         <ul>
+  
+  <li class=" " data-id="diorite/Lapis/Docs/GENERAL/CHARTING" data-name="lapis::docs::general::charting">
+      <a href="../Lapis/Docs/GENERAL/CHARTING.html">CHARTING</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Lapis/Docs/GENERAL/GAME_HELPERS" data-name="lapis::docs::general::game_helpers">
+      <a href="../Lapis/Docs/GENERAL/GAME_HELPERS.html">GAME_HELPERS</a>
+      
+    </li>
   
   <li class=" " data-id="diorite/Lapis/Docs/GENERAL/NODES" data-name="lapis::docs::general::nodes">
       <a href="../Lapis/Docs/GENERAL/NODES.html">NODES</a>
@@ -330,8 +365,11 @@
   <p>High-performance circular buffer and geometry builder for 2D real-time telemetry sparkline graphs.</p>
 <p>Retains a fixed window of historical samples and transforms them into 2D line primitives
 and background border outlines inside a designated canvas viewport rectangle.</p>
+<p>Supports single-series or multi-series telemetry with horizontal threshold limit indicators.</p>
 <pre><code class="language-crystal">graph <span class="o">=</span> <span class="t">TelemetryGraph</span>.new(<span class="s">&quot;Frametime&quot;</span>, <span class="t">Rect2</span>.new(<span class="n">10</span>, <span class="n">10</span>, <span class="n">200</span>, <span class="n">60</span>), min_val: <span class="n">0.0</span>, max_val: <span class="n">33.3</span>)
-graph.add_sample(<span class="n">16.6</span>)</code></pre>
+graph.add_sample(<span class="n">16.6</span>)
+graph.add_threshold(<span class="n">16.66_f32</span>, <span class="t">Color</span>.new(<span class="n">1.0</span>, <span class="n">0.2</span>, <span class="n">0.2</span>, <span class="n">0.8</span>), <span class="s">&quot;60 FPS&quot;</span>)
+graph.add_series_sample(<span class="s">&quot;Physics&quot;</span>, <span class="n">8.3</span>, <span class="t">Color</span>.new(<span class="n">0.2</span>, <span class="n">0.6</span>, <span class="n">1.0</span>))</code></pre>
 
 
 
@@ -406,7 +444,21 @@ graph.add_sample(<span class="n">16.6</span>)</code></pre>
       <li class="entry-summary">
         <a href="#add_sample%28value%3ANumber%29%3AVoid-instance-method" class="signature"><strong>#add_sample</strong>(value : Number) : Void</a>
         
-          <div class="summary"><p>Appends a new scalar sample <em>value</em> to the history ring buffer.</p></div>
+          <div class="summary"><p>Appends a new scalar sample <em>value</em> to the primary history ring buffer.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#add_series_sample%28series_name%3AString%2Cvalue%3ANumber%2Cseries_color%3AGodot%3A%3AColor%7CNil%3Dnil%29%3AVoid-instance-method" class="signature"><strong>#add_series_sample</strong>(series_name : String, value : Number, series_color : Godot::Color | Nil = <span class="n">nil</span>) : Void</a>
+        
+          <div class="summary"><p>Appends a new scalar sample to a named series, creating the series if it doesn't already exist.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#add_threshold%28value%3ANumber%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%281.0_f32%2C0.3_f32%2C0.3_f32%2C0.8_f32%29%2Clabel%3AString%3D%22%22%29%3AVoid-instance-method" class="signature"><strong>#add_threshold</strong>(value : Number, color : Godot::Color = <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">1.0_f32</span>, <span class="n">0.3_f32</span>, <span class="n">0.3_f32</span>, <span class="n">0.8_f32</span>), label : String = <span class="s">&quot;&quot;</span>) : Void</a>
+        
+          <div class="summary"><p>Adds a horizontal threshold line across the graph.</p></div>
         
       </li>
     
@@ -420,7 +472,7 @@ graph.add_sample(<span class="n">16.6</span>)</code></pre>
       <li class="entry-summary">
         <a href="#clear%3AVoid-instance-method" class="signature"><strong>#clear</strong> : Void</a>
         
-          <div class="summary"><p>Clears all collected sample history from the graph.</p></div>
+          <div class="summary"><p>Clears all collected sample history and thresholds from the graph.</p></div>
         
       </li>
     
@@ -434,7 +486,7 @@ graph.add_sample(<span class="n">16.6</span>)</code></pre>
       <li class="entry-summary">
         <a href="#latest_value%3AFloat32-instance-method" class="signature"><strong>#latest_value</strong> : Float32</a>
         
-          <div class="summary"><p>Returns the most recently appended value, or <code>0.0</code> if empty.</p></div>
+          <div class="summary"><p>Returns the most recently appended value on the primary series, or <code>0.0</code> if empty.</p></div>
         
       </li>
     
@@ -469,7 +521,21 @@ graph.add_sample(<span class="n">16.6</span>)</code></pre>
       <li class="entry-summary">
         <a href="#samples%3AArray%28Float32%29-instance-method" class="signature"><strong>#samples</strong> : Array(Float32)</a>
         
-          <div class="summary"><p>Array storing current active history samples in chronological order.</p></div>
+          <div class="summary"><p>Array storing current active history samples in chronological order for the default series.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#series%3AHash%28String%2CTelemetrySeries%29-instance-method" class="signature"><strong>#series</strong> : Hash(String, TelemetrySeries)</a>
+        
+          <div class="summary"><p>Named series dictionary for multi-metric overlay graphs.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#thresholds%3AArray%28TelemetryThreshold%29-instance-method" class="signature"><strong>#thresholds</strong> : Array(TelemetryThreshold)</a>
+        
+          <div class="summary"><p>List of horizontal threshold guidelines.</p></div>
         
       </li>
     
@@ -569,8 +635,46 @@ graph.add_sample(<span class="n">16.6</span>)</code></pre>
       
         <div class="doc">
           
-          <p>Appends a new scalar sample <em>value</em> to the history ring buffer.</p>
+          <p>Appends a new scalar sample <em>value</em> to the primary history ring buffer.</p>
 <p>Automatically discards the oldest sample if the buffer has reached <code><a href="../Diorite/TelemetryGraph.html#max_samples%3AInt32-instance-method">#max_samples</a></code>.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="add_series_sample(series_name:String,value:Number,series_color:Godot::Color|Nil=nil):Void-instance-method">
+      <div class="signature">
+        
+        def <strong>add_series_sample</strong>(series_name : String, value : Number, series_color : Godot::Color | Nil = <span class="n">nil</span>) : Void
+
+        <a class="method-permalink" href="#add_series_sample%28series_name%3AString%2Cvalue%3ANumber%2Cseries_color%3AGodot%3A%3AColor%7CNil%3Dnil%29%3AVoid-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Appends a new scalar sample to a named series, creating the series if it doesn't already exist.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="add_threshold(value:Number,color:Godot::Color=Godot::Color.new(1.0_f32,0.3_f32,0.3_f32,0.8_f32),label:String=&quot;&quot;):Void-instance-method">
+      <div class="signature">
+        
+        def <strong>add_threshold</strong>(value : Number, color : Godot::Color = <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">1.0_f32</span>, <span class="n">0.3_f32</span>, <span class="n">0.3_f32</span>, <span class="n">0.8_f32</span>), label : String = <span class="s">&quot;&quot;</span>) : Void
+
+        <a class="method-permalink" href="#add_threshold%28value%3ANumber%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%281.0_f32%2C0.3_f32%2C0.3_f32%2C0.8_f32%29%2Clabel%3AString%3D%22%22%29%3AVoid-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Adds a horizontal threshold line across the graph.</p>
         </div>
       
       <br/>
@@ -609,7 +713,7 @@ graph.add_sample(<span class="n">16.6</span>)</code></pre>
       
         <div class="doc">
           
-          <p>Clears all collected sample history from the graph.</p>
+          <p>Clears all collected sample history and thresholds from the graph.</p>
         </div>
       
       <br/>
@@ -647,7 +751,7 @@ graph.add_sample(<span class="n">16.6</span>)</code></pre>
       
         <div class="doc">
           
-          <p>Returns the most recently appended value, or <code>0.0</code> if empty.</p>
+          <p>Returns the most recently appended value on the primary series, or <code>0.0</code> if empty.</p>
         </div>
       
       <br/>
@@ -742,7 +846,45 @@ graph.add_sample(<span class="n">16.6</span>)</code></pre>
       
         <div class="doc">
           
-          <p>Array storing current active history samples in chronological order.</p>
+          <p>Array storing current active history samples in chronological order for the default series.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="series:Hash(String,TelemetrySeries)-instance-method">
+      <div class="signature">
+        
+        def <strong>series</strong> : Hash(String, <a href="../Diorite/TelemetrySeries.html">TelemetrySeries</a>)
+
+        <a class="method-permalink" href="#series%3AHash%28String%2CTelemetrySeries%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Named series dictionary for multi-metric overlay graphs.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="thresholds:Array(TelemetryThreshold)-instance-method">
+      <div class="signature">
+        
+        def <strong>thresholds</strong> : Array(<a href="../Diorite/TelemetryThreshold.html">TelemetryThreshold</a>)
+
+        <a class="method-permalink" href="#thresholds%3AArray%28TelemetryThreshold%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>List of horizontal threshold guidelines.</p>
         </div>
       
       <br/>

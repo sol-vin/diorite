@@ -2,6 +2,26 @@ require "./geometry_builder"
 require "./telemetry_graph"
 
 module Diorite
+  # Represents a single data slice in a 2D or 3D Pie or Donut chart.
+  struct PieSlice
+    property label : String
+    property value : Float32
+    property color : Godot::Color
+
+    def initialize(@label : String, @value : Float32, @color : Godot::Color)
+    end
+  end
+
+  # Represents a single bar in a 2D bar chart or histogram.
+  struct BarData
+    property label : String
+    property value : Float32
+    property color : Godot::Color
+
+    def initialize(@label : String, @value : Float32, @color : Godot::Color)
+    end
+  end
+
   # Enumeration of all supported 3D debug shape kinds.
   enum ShapeKind3D
     Line
@@ -27,6 +47,16 @@ module Diorite
     SurfaceDisk
     Ruler
     Reticle
+    SphereCast
+    CapsuleCast
+    BoxCast
+    BezierCubic
+    CatmullRom
+    Circle3D
+    Cone3D
+    PieChart3D
+    Gauge3D
+    ActorCard3D
   end
 
   # Enumeration of all supported 2D debug shape kinds.
@@ -37,6 +67,14 @@ module Diorite
     Circle
     Points
     Path
+    Capsule
+    VisionCone
+    Arc
+    Sector
+    Ruler
+    PieChart
+    BarChart
+    Gauge
   end
 
   # Internal command payload representing an immediate-mode 3D draw request.
@@ -55,6 +93,9 @@ module Diorite
 
     # Whether this command renders on top with depth test disabled.
     property on_top : Bool
+
+    # Filter channel / layer category this command belongs to.
+    property channel : String = "default"
 
     # Vector parameter 0 (primary position, start point, or center).
     property v0 : Godot::Vector3 = Godot::Vector3.new
@@ -94,6 +135,18 @@ module Diorite
 
     # Whether the box or shape is rendered as a wireframe.
     property wireframe : Bool = true
+
+    # Chart slices for 3D pie charts.
+    property pie_slices : Array(PieSlice)? = nil
+
+    # Key-value stats dictionary for 3D actor cards.
+    property stats_hash : Hash(String, String)? = nil
+
+    # Label title for gauges or actor cards.
+    property title : String = ""
+
+    # Hit status flag for shape sweeps.
+    property hit : Bool = false
 
     # Creates a new 3D command with default parameters.
     def initialize(
@@ -150,6 +203,30 @@ module Diorite
     # Whether the 2D primitive is filled or wireframe.
     property filled : Bool = false
 
+    # Filter channel / layer category this command belongs to.
+    property channel : String = "default"
+
+    # Float parameter 1 (auxiliary float, e.g. inner radius or secondary size).
+    property f1 : Float32 = 0.0_f32
+
+    # Float parameter 2 (start angle or auxiliary float).
+    property f2 : Float32 = 0.0_f32
+
+    # Float parameter 3 (end angle or auxiliary float).
+    property f3 : Float32 = 0.0_f32
+
+    # Boolean parameter 0 (e.g. horizontal bar chart orientation).
+    property b0 : Bool = false
+
+    # Chart slices for 2D pie or donut charts.
+    property pie_slices : Array(PieSlice)? = nil
+
+    # Bar elements for 2D bar chart or histogram.
+    property bar_data : Array(BarData)? = nil
+
+    # Chart title label.
+    property title : String = ""
+
     # Polyline vertex array.
     property points : Array(Godot::Vector2)? = nil
 
@@ -195,8 +272,11 @@ module Diorite
     # Whether this text label bypasses depth testing.
     property on_top : Bool
 
+    # Filter channel / layer category this command belongs to.
+    property channel : String = "default"
+
     # Creates a new 3D text billboard command.
-    def initialize(@position : Godot::Vector3, @text : String, @color : Godot::Color, @duration : Float64 = 0.0, @on_top : Bool = true)
+    def initialize(@position : Godot::Vector3, @text : String, @color : Godot::Color, @duration : Float64 = 0.0, @on_top : Bool = true, @channel : String = "default")
       @remaining_time = @duration
     end
 
@@ -230,8 +310,11 @@ module Diorite
     # Remaining lifetime in seconds.
     property remaining_time : Float64
 
+    # Filter channel / layer category this command belongs to.
+    property channel : String = "default"
+
     # Creates a new 2D text label command.
-    def initialize(@position : Godot::Vector2, @text : String, @color : Godot::Color, @duration : Float64 = 0.0)
+    def initialize(@position : Godot::Vector2, @text : String, @color : Godot::Color, @duration : Float64 = 0.0, @channel : String = "default")
       @remaining_time = @duration
     end
 
@@ -252,6 +335,55 @@ module Diorite
   #
   # Thread-safe and designed to process thousands of queued items per frame with zero GC allocations.
   class DebugCommandQueue
+    # Master switch toggling all debug drawing on/off.
+    property enabled : Bool = true
+
+    # Pauses frame decay allowing static freecam inspection of active debug shapes.
+    property frozen : Bool = false
+
+    # Explicitly disabled channel names.
+    getter disabled_channels : Set(String) = Set(String).new
+
+    # Performance telemetry counters.
+    property verts_3d_last_frame : Int32 = 0
+    property verts_2d_last_frame : Int32 = 0
+    property frame_time_us : Float64 = 0.0
+
+    # Enables a filtered channel.
+    def enable_channel(name : String) : Void
+      @disabled_channels.delete(name)
+    end
+
+    # Disables a filtered channel, suppressing all associated commands.
+    def disable_channel(name : String) : Void
+      @disabled_channels.add(name)
+    end
+
+    # Returns true if the channel is currently enabled.
+    def channel_enabled?(name : String) : Bool
+      !@disabled_channels.includes?(name)
+    end
+
+    # Freezes debug drawing decay for spatial inspection.
+    def freeze! : Void
+      @frozen = true
+    end
+
+    # Unfreezes debug drawing decay.
+    def unfreeze! : Void
+      @frozen = false
+    end
+
+    # Toggles freeze state.
+    def toggle_freeze! : Void
+      @frozen = !@frozen
+    end
+
+    # Returns whether the debug queue is frozen.
+    def frozen? : Bool
+      @frozen
+    end
+
     # Active 3D primitives queued for rendering.
     getter commands_3d : Array(Command3D) = Array(Command3D).new
 
@@ -309,6 +441,8 @@ module Diorite
 
     # Advances time on duration commands and purges expired or single-frame items.
     def step_and_clean(delta : Float64) : Void
+      return if @frozen
+
       @commands_3d.each(&.step(delta))
       @commands_2d.each(&.step(delta))
       @text_3d.each(&.step(delta))

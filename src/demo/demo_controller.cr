@@ -135,12 +135,38 @@ node DemoController < Node3D do
     DebugDraw.trail_3d("orbiter", moving_pt, max_points: 50, color: Godot::Color.new(0.2, 1.0, 0.8))
     DebugDraw.sphere_3d(moving_pt, radius: 0.15_f32, color: Godot::Color.new(0.2, 1.0, 0.8), rings: 8)
 
+    # 10. Swept SphereCast
+    cast_start = Godot::Vector3.new(-6.0_f32, 1.0_f32, -2.0_f32)
+    cast_end = Godot::Vector3.new(-6.0_f32, 1.0_f32, 2.0_f32)
+    DebugDraw.sphere_cast_3d(cast_start, cast_end, radius: 0.4_f32, hit: (Math.sin(t * 3.0) > 0.0))
+
+    # 11. 3D Actor Card
+    DebugDraw.actor_card_3d(
+      Godot::Vector3.new(0.0_f32, 0.0_f32, 2.0_f32),
+      "Player 1",
+      {"HP" => "100%", "MP" => "80/100"},
+      size: Godot::Vector2.new(1.4_f32, 0.8_f32),
+      color: Godot::Color.new(0.2_f32, 0.9_f32, 1.0_f32, 1.0_f32)
+    )
+
     # --- 3. 2D Overlay Items & Telemetry Graph ---
     DebugDraw.line_2d(Godot::Vector2.new(20, 120), Godot::Vector2.new(160, 120), Godot::Color.new(1, 0.5, 0.2))
     DebugDraw.arrow_2d(Godot::Vector2.new(20, 150), Godot::Vector2.new(160, 150), Godot::Color.new(0.2, 0.8, 1))
     DebugDraw.rect_2d(Godot::Rect2.new(20, 180, 80, 50), Godot::Color.new(1, 0.2, 0.6))
     DebugDraw.circle_2d(Godot::Vector2.new(150, 205), radius: 25.0_f32, color: Godot::Color.new(0.8, 1, 0.2))
     DebugDraw.text_2d(Godot::Vector2.new(20, 245), "Diorite 2D Overlay active", Godot::Color.new(1, 1, 1))
+
+    # 2D Donut Chart
+    demo_slices = [
+      Diorite::PieSlice.new("Physics", 45.0_f32, Godot::Color.new(1.0_f32, 0.3_f32, 0.3_f32, 1.0_f32)),
+      Diorite::PieSlice.new("Render", 35.0_f32, Godot::Color.new(0.3_f32, 0.9_f32, 0.3_f32, 1.0_f32)),
+      Diorite::PieSlice.new("Scripts", 20.0_f32, Godot::Color.new(0.3_f32, 0.6_f32, 1.0_f32, 1.0_f32))
+    ]
+    DebugDraw.pie_chart_2d(Godot::Vector2.new(260.0_f32, 200.0_f32), radius: 35.0_f32, slices: demo_slices, inner_radius: 18.0_f32)
+
+    # 2D Radial Gauge
+    gauge_val = 50.0_f32 + Math.sin(t * 2.0).to_f32 * 40.0_f32
+    DebugDraw.gauge_2d(Godot::Vector2.new(370.0_f32, 200.0_f32), radius: 35.0_f32, value: gauge_val, min_val: 0.0_f32, max_val: 100.0_f32, title: "Speed")
 
     # Real-Time Telemetry Graph
     simulated_fps = 60.0_f32 + Math.sin(t * 5.0).to_f32 * 15.0_f32

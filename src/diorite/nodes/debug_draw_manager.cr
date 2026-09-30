@@ -1,6 +1,7 @@
 require "lapis"
 require "../core/dsl"
 require "../core/debug_material"
+require "../core/chart_builder"
 
 module Diorite
   # Central coordinator node managing batch immediate-mode rendering for 2D and 3D debug primitives.
@@ -14,6 +15,10 @@ module Diorite
     # Toggles whether all debug primitives and labels are processed and drawn.
     @[Export]
     property enabled : Bool = true
+
+    # Optional on-screen performance and channel HUD overlay.
+    @[Export]
+    property show_stats : Bool = false
 
     @mesh_inst_on_top : Godot::MeshInstance3D? = nil
     @immediate_mesh_on_top : Godot::ImmediateMesh? = nil
@@ -76,14 +81,33 @@ module Diorite
     end
 
     def _process(delta : Float64) : Void
-      return unless @enabled
+      return unless @enabled && DebugDraw.queue.enabled
+
+      start_time = Time.instant
 
       render_3d
       render_2d
       render_text_3d
       render_text_2d
 
+      DebugDraw.queue.verts_3d_last_frame = @verts_top.size + @verts_depth.size
+      DebugDraw.queue.verts_2d_last_frame = @verts_2d.size
+      DebugDraw.queue.frame_time_us = (Time.instant - start_time).total_microseconds
+
+      if @show_stats
+        render_stats_hud
+      end
+
       DebugDraw.queue.step_and_clean(delta)
+    end
+
+    private def render_stats_hud : Void
+      v3 = DebugDraw.queue.verts_3d_last_frame
+      v2 = DebugDraw.queue.verts_2d_last_frame
+      us = DebugDraw.queue.frame_time_us.round(1)
+      frozen_str = DebugDraw.queue.frozen? ? " [FROZEN]" : ""
+      hud_text = "Diorite#{frozen_str} | 3D Verts: #{v3} | 2D Verts: #{v2} | Render: #{us}µs"
+      DebugDraw.text_2d(Godot::Vector2.new(16.0_f32, 16.0_f32), hud_text, Godot::Color.new(0.4_f32, 1.0_f32, 0.4_f32, 1.0_f32))
     end
 
     private def render_3d : Void
@@ -98,6 +122,8 @@ module Diorite
 
       # Dispatch each queued 3D command
       DebugDraw.queue.commands_3d.each do |cmd|
+        next unless DebugDraw.queue.channel_enabled?(cmd.channel)
+
         target_verts = cmd.on_top ? @verts_top : @verts_depth
         target_cols = cmd.on_top ? @cols_top : @cols_depth
 
@@ -150,6 +176,30 @@ module Diorite
           GeometryBuilder.build_ruler(cmd.v0, cmd.v1, cmd.f0, cmd.color, target_verts, target_cols)
         when ShapeKind3D::Reticle
           GeometryBuilder.build_reticle(cmd.v0, cmd.v1, cmd.f0, cmd.color, target_verts, target_cols)
+        when ShapeKind3D::SphereCast
+          GeometryBuilder.build_sphere_cast(cmd.v0, cmd.v1, cmd.f0, cmd.hit, cmd.color, target_verts, target_cols)
+        when ShapeKind3D::CapsuleCast
+          GeometryBuilder.build_capsule_cast(cmd.v0, cmd.v1, cmd.f0, cmd.f1, cmd.hit, cmd.color, target_verts, target_cols)
+        when ShapeKind3D::BoxCast
+          GeometryBuilder.build_box_cast(cmd.v0, cmd.v1, cmd.v2, cmd.hit, cmd.color, target_verts, target_cols)
+        when ShapeKind3D::BezierCubic
+          GeometryBuilder.build_bezier_cubic(cmd.v0, cmd.v1, cmd.v2, cmd.v3, cmd.i0, cmd.color, target_verts, target_cols, cmd.wireframe)
+        when ShapeKind3D::CatmullRom
+          if p = cmd.path
+            GeometryBuilder.build_catmull_rom(p, cmd.i0, cmd.color, target_verts, target_cols, cmd.wireframe)
+          end
+        when ShapeKind3D::Cone3D
+          GeometryBuilder.build_cone_3d(cmd.v0, cmd.v1, cmd.f0, cmd.f1, cmd.i0, cmd.color, target_verts, target_cols)
+        when ShapeKind3D::Circle3D
+          GeometryBuilder.build_circle_3d(cmd.v0, cmd.v1, cmd.f0, cmd.i0, cmd.color, target_verts, target_cols)
+        when ShapeKind3D::ActorCard3D
+          GeometryBuilder.build_actor_card_3d(cmd.v0, Godot::Vector2.new(cmd.f0, cmd.f1), cmd.color, target_verts, target_cols)
+        when ShapeKind3D::PieChart3D
+          if slices = cmd.pie_slices
+            ChartBuilder.build_pie_chart_3d(cmd.v0, cmd.v1, cmd.f0, cmd.f1, slices, target_verts, target_cols)
+          end
+        when ShapeKind3D::Gauge3D
+          ChartBuilder.build_gauge_3d(cmd.v0, cmd.v1, cmd.f0, cmd.f1, cmd.f2, cmd.f3, cmd.color, target_verts, target_cols)
         end
       end
 
@@ -185,6 +235,8 @@ module Diorite
 
       # 1. 2D Draw Commands
       DebugDraw.queue.commands_2d.each do |cmd|
+        next unless DebugDraw.queue.channel_enabled?(cmd.channel)
+
         case cmd.kind
         when ShapeKind2D::Line
           GeometryBuilder.build_line_2d(cmd.p0, cmd.p1, cmd.color, @verts_2d, @cols_2d)
@@ -202,6 +254,26 @@ module Diorite
           if pts = cmd.points
             GeometryBuilder.build_path_2d(pts, cmd.color, @verts_2d, @cols_2d)
           end
+        when ShapeKind2D::Capsule
+          GeometryBuilder.build_capsule_2d(cmd.p0, cmd.p1, cmd.f0, cmd.color, @verts_2d, @cols_2d, cmd.i0 > 0 ? cmd.i0 : 12)
+        when ShapeKind2D::VisionCone
+          GeometryBuilder.build_vision_cone_2d(cmd.p0, cmd.p1, cmd.f0, cmd.f1, cmd.i0 > 0 ? cmd.i0 : 16, cmd.color, @verts_2d, @cols_2d)
+        when ShapeKind2D::Arc
+          GeometryBuilder.build_arc_2d(cmd.p0, cmd.f0, cmd.f2, cmd.f3, cmd.i0 > 0 ? cmd.i0 : 24, cmd.color, @verts_2d, @cols_2d)
+        when ShapeKind2D::Sector
+          GeometryBuilder.build_sector_2d(cmd.p0, cmd.f0, cmd.f2, cmd.f3, cmd.i0 > 0 ? cmd.i0 : 24, cmd.color, @verts_2d, @cols_2d)
+        when ShapeKind2D::Ruler
+          GeometryBuilder.build_ruler_2d(cmd.p0, cmd.p1, cmd.color, @verts_2d, @cols_2d, cmd.f0 > 0 ? cmd.f0 : 20.0_f32, cmd.f1 > 0 ? cmd.f1 : 8.0_f32)
+        when ShapeKind2D::PieChart
+          if slices = cmd.pie_slices
+            ChartBuilder.build_pie_chart_2d(cmd.p0, cmd.f0, cmd.f1, slices, @verts_2d, @cols_2d)
+          end
+        when ShapeKind2D::BarChart
+          if bars = cmd.bar_data
+            ChartBuilder.build_bar_chart_2d(cmd.rect, bars, cmd.b0, @verts_2d, @cols_2d)
+          end
+        when ShapeKind2D::Gauge
+          ChartBuilder.build_gauge_2d(cmd.p0, cmd.f0, cmd.f1, cmd.f2, cmd.f3, cmd.color, @verts_2d, @cols_2d)
         end
       end
 
@@ -222,7 +294,7 @@ module Diorite
     end
 
     private def render_text_3d : Void
-      cmds = DebugDraw.queue.text_3d
+      cmds = DebugDraw.queue.text_3d.select { |c| DebugDraw.queue.channel_enabled?(c.channel) }
 
       # Grow label pool if needed
       while @label3d_pool.size < cmds.size
@@ -255,7 +327,7 @@ module Diorite
       layer = @canvas_layer
       return unless layer
 
-      cmds = DebugDraw.queue.text_2d
+      cmds = DebugDraw.queue.text_2d.select { |c| DebugDraw.queue.channel_enabled?(c.channel) }
 
       while @label2d_pool.size < cmds.size
         lbl = Godot.create(Godot::Label)
