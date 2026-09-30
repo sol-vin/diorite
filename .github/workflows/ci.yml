@@ -30,6 +30,10 @@ jobs:
           echo "version=$GODOT_VER" >> "$GITHUB_OUTPUT"
           echo "GODOT_VERSION=$GODOT_VER" >> "$GITHUB_ENV"
 
+      - name: Update Apt Cache (Linux)
+        if: runner.os == 'Linux'
+        run: sudo apt-get update -y
+
       - name: Install Crystal
         uses: crystal-lang/install-crystal@v1
         with:
@@ -38,7 +42,6 @@ jobs:
       - name: Install Linux Build Dependencies
         if: runner.os == 'Linux'
         run: |
-          sudo apt-get update
           sudo apt-get install -y lld make gcc g++ xvfb
 
       - name: Verify Toolchain
