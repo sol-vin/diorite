@@ -1,10 +1,16 @@
 require "./math_helpers"
 
 module Diorite
+  # High-performance algorithmic generator for 2D and 3D debug geometry.
+  #
+  # Emits line-list vertices (`Vector3` or `Vector2`) and vertex color arrays suitable for direct
+  # ingestion by Godot's `ImmediateMesh` surface buffers (`surface_add_vertex` and `surface_set_color`).
+  #
+  # Designed for zero heap reallocation during frame loops when passed pre-sized arrays.
   module GeometryBuilder
     include MathHelpers
 
-    # --- 1. Line ---
+    # Generates a single 3D line segment between *from* and *to*.
     def self.build_line(
       from : Godot::Vector3,
       to : Godot::Vector3,
@@ -18,7 +24,7 @@ module Diorite
       cols << color
     end
 
-    # --- 2. Arrow & Line with Arrow ---
+    # Generates a 3D directional arrow with a 4-fin conical arrowhead.
     def self.build_arrow(
       from : Godot::Vector3,
       to : Godot::Vector3,
@@ -55,7 +61,7 @@ module Diorite
       end
     end
 
-    # --- 3. Line Path ---
+    # Generates a continuous 3D polyline connecting an ordered list of *points*.
     def self.build_line_path(
       points : Array(Godot::Vector3),
       color : Godot::Color,
@@ -68,7 +74,7 @@ module Diorite
       end
     end
 
-    # --- 4. Box (AABB) ---
+    # Generates an axis-aligned 3D bounding box (AABB) wireframe with 12 edges.
     def self.build_box(
       center : Godot::Vector3,
       size : Godot::Vector3,
@@ -108,7 +114,7 @@ module Diorite
       build_line(c3, c7, color, verts, cols)
     end
 
-    # --- 5. Sphere (3 orthogonal major circles + latitude/longitude rings) ---
+    # Generates a 3D wireframe sphere composed of 3 orthogonal intersecting rings.
     def self.build_sphere(
       center : Godot::Vector3,
       radius : Float32,
@@ -139,7 +145,7 @@ module Diorite
       end
     end
 
-    # --- 6. Cylinder ---
+    # Generates a 3D wireframe cylinder with circular caps and longitudinal ribs.
     def self.build_cylinder(
       center : Godot::Vector3,
       radius : Float32,
@@ -179,7 +185,7 @@ module Diorite
       end
     end
 
-    # --- 7. Capsule ---
+    # Generates a 3D wireframe capsule with hemispherical domes and side struts.
     def self.build_capsule(
       center : Godot::Vector3,
       radius : Float32,
@@ -237,7 +243,7 @@ module Diorite
       end
     end
 
-    # --- 8. Plane ---
+    # Generates an oriented 3D plane quad with a center normal pointer.
     def self.build_plane(
       center : Godot::Vector3,
       normal : Godot::Vector3,
@@ -249,14 +255,15 @@ module Diorite
       n = normal.normalized
       u, v = MathHelpers.orthonormal_plane(n)
 
-      hx = size.x * 0.5_f32
-      hy = size.y * 0.5_f32
+      hu = size.x * 0.5_f32
+      hv = size.y * 0.5_f32
 
-      p0 = center - u * hx - v * hy
-      p1 = center + u * hx - v * hy
-      p2 = center + u * hx + v * hy
-      p3 = center - u * hx + v * hy
+      p0 = center - u * hu - v * hv
+      p1 = center + u * hu - v * hv
+      p2 = center + u * hu + v * hv
+      p3 = center - u * hu + v * hv
 
+      # Perimeter
       build_line(p0, p1, color, verts, cols)
       build_line(p1, p2, color, verts, cols)
       build_line(p2, p3, color, verts, cols)
@@ -266,11 +273,11 @@ module Diorite
       build_line(p0, p2, color, verts, cols)
       build_line(p1, p3, color, verts, cols)
 
-      # Normal indicator
-      build_arrow(center, center + n * (Math.min(size.x, size.y) * 0.4_f32), color, 0.15_f32, verts, cols)
+      # Surface normal arrow
+      build_arrow(center, center + n * (Math.min(hu, hv) * 0.8_f32), color, 0.2_f32, verts, cols)
     end
 
-    # --- 9. Points (3D crosshairs) ---
+    # Generates small 3D crosshair markers for an array of world *points*.
     def self.build_points(
       points : Array(Godot::Vector3),
       size : Float32,
@@ -279,14 +286,14 @@ module Diorite
       cols : Array(Godot::Color)
     ) : Void
       hs = size * 0.5_f32
-      points.each do |p|
-        build_line(p - Godot::Vector3.new(hs, 0, 0), p + Godot::Vector3.new(hs, 0, 0), color, verts, cols)
-        build_line(p - Godot::Vector3.new(0, hs, 0), p + Godot::Vector3.new(0, hs, 0), color, verts, cols)
-        build_line(p - Godot::Vector3.new(0, 0, hs), p + Godot::Vector3.new(0, 0, hs), color, verts, cols)
+      points.each do |pt|
+        build_line(pt - Godot::Vector3.new(hs, 0, 0), pt + Godot::Vector3.new(hs, 0, 0), color, verts, cols)
+        build_line(pt - Godot::Vector3.new(0, hs, 0), pt + Godot::Vector3.new(0, hs, 0), color, verts, cols)
+        build_line(pt - Godot::Vector3.new(0, 0, hs), pt + Godot::Vector3.new(0, 0, hs), color, verts, cols)
       end
     end
 
-    # --- 10. Position 3D (3 crossing axes) ---
+    # Generates a 3-axis crossing crosshair indicating position and scale.
     def self.build_position_3d(
       origin : Godot::Vector3,
       size : Float32,
@@ -294,13 +301,12 @@ module Diorite
       verts : Array(Godot::Vector3),
       cols : Array(Godot::Color)
     ) : Void
-      hs = size * 0.5_f32
-      build_line(origin - Godot::Vector3.new(hs, 0, 0), origin + Godot::Vector3.new(hs, 0, 0), color, verts, cols)
-      build_line(origin - Godot::Vector3.new(0, hs, 0), origin + Godot::Vector3.new(0, hs, 0), color, verts, cols)
-      build_line(origin - Godot::Vector3.new(0, 0, hs), origin + Godot::Vector3.new(0, 0, hs), color, verts, cols)
+      build_line(origin - Godot::Vector3.new(size, 0, 0), origin + Godot::Vector3.new(size, 0, 0), color, verts, cols)
+      build_line(origin - Godot::Vector3.new(0, size, 0), origin + Godot::Vector3.new(0, size, 0), color, verts, cols)
+      build_line(origin - Godot::Vector3.new(0, 0, size), origin + Godot::Vector3.new(0, 0, size), color, verts, cols)
     end
 
-    # --- 11. Coordinate Gizmo (RGB colored X, Y, Z axes) ---
+    # Generates a 3D coordinate transform gizmo with Red=X, Green=Y, Blue=Z axis vectors.
     def self.build_gizmo(
       origin : Godot::Vector3,
       basis : Godot::Basis,
@@ -308,23 +314,21 @@ module Diorite
       verts : Array(Godot::Vector3),
       cols : Array(Godot::Color)
     ) : Void
-      # X axis = Red
       red = Godot::Color.new(1.0_f32, 0.1_f32, 0.1_f32, 1.0_f32)
-      x_end = origin + basis.x.normalized * size
-      build_arrow(origin, x_end, red, size * 0.2_f32, verts, cols)
-
-      # Y axis = Green
-      green = Godot::Color.new(0.1_f32, 1.0_f32, 0.1_f32, 1.0_f32)
-      y_end = origin + basis.y.normalized * size
-      build_arrow(origin, y_end, green, size * 0.2_f32, verts, cols)
-
-      # Z axis = Blue
+      green = Godot::Color.new(0.1_f32, 0.9_f32, 0.1_f32, 1.0_f32)
       blue = Godot::Color.new(0.2_f32, 0.4_f32, 1.0_f32, 1.0_f32)
-      z_end = origin + basis.z.normalized * size
-      build_arrow(origin, z_end, blue, size * 0.2_f32, verts, cols)
+
+      # Extract columns/axes from Basis as local coordinate axes
+      axis_x = basis.x.normalized * size
+      axis_y = basis.y.normalized * size
+      axis_z = basis.z.normalized * size
+
+      build_arrow(origin, origin + axis_x, red, size * 0.2_f32, verts, cols)
+      build_arrow(origin, origin + axis_y, green, size * 0.2_f32, verts, cols)
+      build_arrow(origin, origin + axis_z, blue, size * 0.2_f32, verts, cols)
     end
 
-    # --- 12. Grid ---
+    # Generates a 3D ground reference grid plane.
     def self.build_grid(
       center : Godot::Vector3,
       size : Godot::Vector2,
@@ -337,21 +341,21 @@ module Diorite
       hx = size.x * 0.5_f32
       hz = size.y * 0.5_f32
 
-      step_x = size.x / subs.to_f32
-      step_z = size.y / subs.to_f32
+      dx = size.x / subs.to_f32
+      dz = size.y / subs.to_f32
 
       (0..subs).each do |i|
-        z = -hz + i * step_z
-        build_line(center + Godot::Vector3.new(-hx, 0, z), center + Godot::Vector3.new(hx, 0, z), color, verts, cols)
-      end
-
-      (0..subs).each do |i|
-        x = -hx + i * step_x
+        # Lines parallel to Z axis
+        x = -hx + i.to_f32 * dx
         build_line(center + Godot::Vector3.new(x, 0, -hz), center + Godot::Vector3.new(x, 0, hz), color, verts, cols)
+
+        # Lines parallel to X axis
+        z = -hz + i.to_f32 * dz
+        build_line(center + Godot::Vector3.new(-hx, 0, z), center + Godot::Vector3.new(hx, 0, z), color, verts, cols)
       end
     end
 
-    # --- 13. Camera Frustum ---
+    # Generates a 3D camera view frustum pyramid with near and far clipping rectangles.
     def self.build_camera_frustum(
       origin : Godot::Vector3,
       basis : Godot::Basis,
@@ -363,54 +367,53 @@ module Diorite
       verts : Array(Godot::Vector3),
       cols : Array(Godot::Color)
     ) : Void
-      rad = MathHelpers.deg_to_rad(fov_deg * 0.5_f32)
-      tan_f = Math.tan(rad).to_f32
-
-      near_h = near * tan_f
-      near_w = near_h * aspect
-
-      far_h = far * tan_f
-      far_w = far_h * aspect
-
-      forward = -basis.z.normalized
+      fwd = -basis.z.normalized
       up = basis.y.normalized
       right = basis.x.normalized
 
-      nc = origin + forward * near
-      fc = origin + forward * far
+      half_fov_rad = MathHelpers.deg_to_rad(fov_deg * 0.5_f32)
+      tan_fov = Math.tan(half_fov_rad).to_f32
 
-      # Near quad corners
-      n_tl = nc + up * near_h - right * near_w
-      n_tr = nc + up * near_h + right * near_w
-      n_br = nc - up * near_h + right * near_w
-      n_bl = nc - up * near_h - right * near_w
+      near_h = near * tan_fov
+      near_w = near_h * aspect
+      far_h = far * tan_fov
+      far_w = far_h * aspect
 
-      # Far quad corners
-      f_tl = fc + up * far_h - right * far_w
-      f_tr = fc + up * far_h + right * far_w
-      f_br = fc - up * far_h + right * far_w
-      f_bl = fc - up * far_h - right * far_w
+      near_center = origin + fwd * near
+      far_center = origin + fwd * far
 
-      # Near rectangle
+      # Near rectangle corners
+      n_tl = near_center + up * near_h - right * near_w
+      n_tr = near_center + up * near_h + right * near_w
+      n_br = near_center - up * near_h + right * near_w
+      n_bl = near_center - up * near_h - right * near_w
+
+      # Far rectangle corners
+      f_tl = far_center + up * far_h - right * far_w
+      f_tr = far_center + up * far_h + right * far_w
+      f_br = far_center - up * far_h + right * far_w
+      f_bl = far_center - up * far_h - right * far_w
+
+      # Near plane rectangle
       build_line(n_tl, n_tr, color, verts, cols)
       build_line(n_tr, n_br, color, verts, cols)
       build_line(n_br, n_bl, color, verts, cols)
       build_line(n_bl, n_tl, color, verts, cols)
 
-      # Far rectangle
+      # Far plane rectangle
       build_line(f_tl, f_tr, color, verts, cols)
       build_line(f_tr, f_br, color, verts, cols)
       build_line(f_br, f_bl, color, verts, cols)
       build_line(f_bl, f_tl, color, verts, cols)
 
-      # Frustum pyramids edges
+      # Connecting pyramid rays
       build_line(origin, f_tl, color, verts, cols)
       build_line(origin, f_tr, color, verts, cols)
       build_line(origin, f_br, color, verts, cols)
       build_line(origin, f_bl, color, verts, cols)
     end
 
-    # --- 14. Billboard Opaque Square ---
+    # Generates a camera-facing billboard square marker in 3D world space.
     def self.build_billboard_square(
       position : Godot::Vector3,
       size : Float32,
@@ -419,25 +422,24 @@ module Diorite
       verts : Array(Godot::Vector3),
       cols : Array(Godot::Color)
     ) : Void
-      to_cam = (camera_pos - position)
-      norm = to_cam.length > 0.001_f32 ? to_cam.normalized : Godot::Vector3.new(0, 0, 1)
-      u, v = MathHelpers.orthonormal_plane(norm)
+      dir_to_cam = (camera_pos - position)
+      norm = dir_to_cam.length > 0.001_f32 ? dir_to_cam.normalized : Godot::Vector3.new(0, 0, 1)
 
+      u, v = MathHelpers.orthonormal_plane(norm)
       hs = size * 0.5_f32
+
       p0 = position - u * hs - v * hs
       p1 = position + u * hs - v * hs
       p2 = position + u * hs + v * hs
       p3 = position - u * hs + v * hs
 
-      # Wireframe square
       build_line(p0, p1, color, verts, cols)
       build_line(p1, p2, color, verts, cols)
       build_line(p2, p3, color, verts, cols)
       build_line(p3, p0, color, verts, cols)
-      build_line(p0, p2, color, verts, cols)
     end
 
-    # --- INNOVATIVE ITEM 1: Raycast Hit Visualizer ---
+    # Generates a raycast hit visualization: incident ray, surface impact disc, and surface normal reflection vector.
     def self.build_ray_hit(
       origin : Godot::Vector3,
       hit_point : Godot::Vector3,
@@ -446,31 +448,25 @@ module Diorite
       verts : Array(Godot::Vector3),
       cols : Array(Godot::Color)
     ) : Void
-      # 1. Incident ray
+      # 1. Incoming ray line
       build_line(origin, hit_point, color, verts, cols)
 
-      # 2. Surface normal arrow pointing outward from hit point
+      # 2. Surface impact disk
+      build_surface_disk(hit_point, normal, 0.35_f32, 16, color, verts, cols)
+
+      # 3. Reflected / Normal indicator
       norm = normal.normalized
-      arrow_col = Godot::Color.new(0.2_f32, 1.0_f32, 0.4_f32, 1.0_f32)
-      build_arrow(hit_point, hit_point + norm * 0.8_f32, arrow_col, 0.2_f32, verts, cols)
+      norm_color = Godot::Color.new(0.2_f32, 1.0_f32, 0.4_f32, 1.0_f32)
+      build_arrow(hit_point, hit_point + norm * 1.0_f32, norm_color, 0.2_f32, verts, cols)
 
-      # 3. Surface impact ring
-      disk_col = Godot::Color.new(1.0_f32, 0.3_f32, 0.3_f32, 1.0_f32)
-      u, v = MathHelpers.orthonormal_plane(norm)
-      radius = 0.3_f32
-      segs = 16
-      step = MathHelpers::TAU / segs.to_f32
-
-      (0...segs).each do |i|
-        a0 = i * step
-        a1 = (i + 1) * step
-        p0 = hit_point + u * (Math.cos(a0).to_f32 * radius) + v * (Math.sin(a0).to_f32 * radius)
-        p1 = hit_point + u * (Math.cos(a1).to_f32 * radius) + v * (Math.sin(a1).to_f32 * radius)
-        build_line(p0, p1, disk_col, verts, cols)
-      end
+      # 4. Computed reflection ray
+      incoming_dir = (hit_point - origin).normalized
+      refl_dir = incoming_dir - norm * (2.0_f32 * incoming_dir.dot(norm))
+      refl_color = Godot::Color.new(1.0_f32, 0.3_f32, 0.3_f32, 0.8_f32)
+      build_line(hit_point, hit_point + refl_dir * 1.5_f32, refl_color, verts, cols)
     end
 
-    # --- INNOVATIVE ITEM 2: Parabolic Trajectory Arc Predictor ---
+    # Generates a ballistic parabolic trajectory arc computed under gravity.
     def self.build_trajectory_arc(
       origin : Godot::Vector3,
       velocity : Godot::Vector3,
@@ -481,33 +477,22 @@ module Diorite
       verts : Array(Godot::Vector3),
       cols : Array(Godot::Color)
     ) : Void
-      st = steps.clamp(4, 100)
-      dt = max_time / st.to_f32
+      step_count = steps.clamp(4, 100)
+      dt = max_time / step_count.to_f32
 
-      prev = origin
-      (1..st).each do |i|
-        t = i * dt
-        # p(t) = p0 + v0*t + 0.5*g*t^2
-        curr = origin + velocity * t + gravity * (0.5_f32 * t * t)
-        build_line(prev, curr, color, verts, cols)
-        prev = curr
+      prev_pt = origin
+      (1..step_count).each do |i|
+        t = i.to_f32 * dt
+        curr_pt = origin + velocity * t + gravity * (0.5_f32 * t * t)
+        build_line(prev_pt, curr_pt, color, verts, cols)
+        prev_pt = curr_pt
       end
 
-      # Impact ring at terminal position
-      term_col = Godot::Color.new(1.0_f32, 0.2_f32, 0.2_f32, 1.0_f32)
-      radius = 0.4_f32
-      segs = 16
-      step = MathHelpers::TAU / segs.to_f32
-      (0...segs).each do |i|
-        a0 = i * step
-        a1 = (i + 1) * step
-        p0 = prev + Godot::Vector3.new(Math.cos(a0).to_f32 * radius, 0, Math.sin(a0).to_f32 * radius)
-        p1 = prev + Godot::Vector3.new(Math.cos(a1).to_f32 * radius, 0, Math.sin(a1).to_f32 * radius)
-        build_line(p0, p1, term_col, verts, cols)
-      end
+      # Ground impact footprint circle at terminal point
+      build_surface_disk(prev_pt, Godot::Vector3.new(0, 1, 0), 0.4_f32, 16, color, verts, cols)
     end
 
-    # --- INNOVATIVE ITEM 3: Vision / Sensor Cone ---
+    # Generates a spherical sector vision/detection cone for AI sensory perception.
     def self.build_vision_cone(
       origin : Godot::Vector3,
       direction : Godot::Vector3,
@@ -519,42 +504,54 @@ module Diorite
       cols : Array(Godot::Color)
     ) : Void
       dir = direction.normalized
-      half_rad = MathHelpers.deg_to_rad(angle_deg * 0.5_f32)
-      base_dist = Math.cos(half_rad).to_f32 * range
-      base_radius = Math.sin(half_rad).to_f32 * range
-
       u, v = MathHelpers.orthonormal_plane(dir)
-      base_center = origin + dir * base_dist
 
-      segs = segments.clamp(8, 36)
+      half_angle_rad = MathHelpers.deg_to_rad(angle_deg * 0.5_f32)
+      cos_half = Math.cos(half_angle_rad).to_f32
+      sin_half = Math.sin(half_angle_rad).to_f32
+
+      segs = segments.clamp(8, 48)
       step = MathHelpers::TAU / segs.to_f32
 
+      base_radius = range * sin_half
+      base_dist = range * cos_half
+      base_center = origin + dir * base_dist
+
+      # Base circle perimeter and 4 radial rays
+      prev_pt : Godot::Vector3? = nil
+      first_pt : Godot::Vector3? = nil
+
       (0...segs).each do |i|
-        a0 = i * step
-        a1 = (i + 1) * step
+        theta = i * step
+        cu = Math.cos(theta).to_f32 * base_radius
+        cv = Math.sin(theta).to_f32 * base_radius
+        pt = base_center + u * cu + v * cv
 
-        c0 = Math.cos(a0).to_f32 * base_radius
-        s0 = Math.sin(a0).to_f32 * base_radius
-        c1 = Math.cos(a1).to_f32 * base_radius
-        s1 = Math.sin(a1).to_f32 * base_radius
+        first_pt = pt if i == 0
+        if p = prev_pt
+          build_line(p, pt, color, verts, cols)
+        end
+        prev_pt = pt
 
-        p0 = base_center + u * c0 + v * s0
-        p1 = base_center + u * c1 + v * s1
-
-        # Base circle arc
-        build_line(p0, p1, color, verts, cols)
-
-        # Ray from apex to base perimeter (every quarter or 4 segments)
+        # 4 rays from eye origin to cone perimeter
         if i % (segs // 4) == 0
-          build_line(origin, p0, color, verts, cols)
+          build_line(origin, pt, color, verts, cols)
         end
       end
 
-      # Center bore ray
-      build_line(origin, origin + dir * range, color, verts, cols)
+      # Close circle
+      if f = first_pt
+        if p = prev_pt
+          build_line(p, f, color, verts, cols)
+        end
+      end
+
+      # Forward centerline
+      center_col = Godot::Color.new(color.r, color.g, color.b, 0.4_f32)
+      build_line(origin, origin + dir * range, center_col, verts, cols)
     end
 
-    # --- INNOVATIVE ITEM 4: Oriented Bounding Box (OBB) ---
+    # Generates an arbitrarily oriented bounding box (OBB) defined by a 3x3 rotation `Basis`.
     def self.build_obb(
       center : Godot::Vector3,
       size : Godot::Vector3,
@@ -567,39 +564,41 @@ module Diorite
       hy = size.y * 0.5_f32
       hz = size.z * 0.5_f32
 
-      bx = basis.x.normalized * hx
-      by = basis.y.normalized * hy
-      bz = basis.z.normalized * hz
+      # Basis columns
+      bx = basis.x.normalized
+      by = basis.y.normalized
+      bz = basis.z.normalized
 
-      c0 = center - bx - by - bz
-      c1 = center + bx - by - bz
-      c2 = center + bx - by + bz
-      c3 = center - bx - by + bz
-      c4 = center - bx + by - bz
-      c5 = center + bx + by - bz
-      c6 = center + bx + by + bz
-      c7 = center - bx + by + bz
+      # 8 transformed corners
+      c0 = center - bx * hx - by * hy - bz * hz
+      c1 = center + bx * hx - by * hy - bz * hz
+      c2 = center + bx * hx - by * hy + bz * hz
+      c3 = center - bx * hx - by * hy + bz * hz
+      c4 = center - bx * hx + by * hy - bz * hz
+      c5 = center + bx * hx + by * hy - bz * hz
+      c6 = center + bx * hx + by * hy + bz * hz
+      c7 = center - bx * hx + by * hy + bz * hz
 
-      # Bottom
+      # Bottom face
       build_line(c0, c1, color, verts, cols)
       build_line(c1, c2, color, verts, cols)
       build_line(c2, c3, color, verts, cols)
       build_line(c3, c0, color, verts, cols)
 
-      # Top
+      # Top face
       build_line(c4, c5, color, verts, cols)
       build_line(c5, c6, color, verts, cols)
       build_line(c6, c7, color, verts, cols)
       build_line(c7, c4, color, verts, cols)
 
-      # Vertical edges
+      # Connecting pillars
       build_line(c0, c4, color, verts, cols)
       build_line(c1, c5, color, verts, cols)
       build_line(c2, c6, color, verts, cols)
       build_line(c3, c7, color, verts, cols)
     end
 
-    # --- INNOVATIVE ITEM 5: Helical Spring / Joint ---
+    # Generates a 3D helical wire spring between two world endpoints.
     def self.build_spring(
       from : Godot::Vector3,
       to : Godot::Vector3,
@@ -610,32 +609,33 @@ module Diorite
       verts : Array(Godot::Vector3),
       cols : Array(Godot::Color)
     ) : Void
-      axis = (to - from)
-      length = axis.length
-      return if length < 0.0001_f32
+      axis = to - from
+      len = axis.length
+      return if len < 0.0001_f32
 
-      dir = axis / length
-      u, v = MathHelpers.orthonormal_plane(dir)
+      norm_axis = axis / len
+      u, v = MathHelpers.orthonormal_plane(norm_axis)
 
-      total_coils = coils.clamp(1, 30)
-      total_segs = (total_coils * segments).clamp(16, 200)
+      total_coils = coils.clamp(2, 60)
+      segs_per_coil = segments.clamp(6, 32)
+      total_steps = total_coils * segs_per_coil
 
-      prev = from
-      (1..total_segs).each do |i|
-        t = i.to_f32 / total_segs.to_f32
-        angle = t * total_coils * MathHelpers::TAU
+      prev_pt = from
+      (1..total_steps).each do |i|
+        fraction = i.to_f32 / total_steps.to_f32
+        curr_dist = fraction * len
+        theta = fraction * total_coils.to_f32 * MathHelpers::TAU
 
-        pt_on_axis = from + dir * (t * length)
-        offset = u * (Math.cos(angle).to_f32 * radius) + v * (Math.sin(angle).to_f32 * radius)
-        curr = pt_on_axis + offset
+        curr_pt = from + norm_axis * curr_dist +
+                  u * (Math.cos(theta).to_f32 * radius) +
+                  v * (Math.sin(theta).to_f32 * radius)
 
-        build_line(prev, curr, color, verts, cols)
-        prev = curr
+        build_line(prev_pt, curr_pt, color, verts, cols)
+        prev_pt = curr_pt
       end
-      build_line(prev, to, color, verts, cols)
     end
 
-    # --- INNOVATIVE ITEM 6: Surface Contact Disk ---
+    # Generates a normal-aligned circular surface disc indicating a collision or ground contact patch.
     def self.build_surface_disk(
       position : Godot::Vector3,
       normal : Godot::Vector3,
@@ -648,22 +648,24 @@ module Diorite
       norm = normal.normalized
       u, v = MathHelpers.orthonormal_plane(norm)
 
-      segs = segments.clamp(8, 36)
+      segs = segments.clamp(8, 48)
       step = MathHelpers::TAU / segs.to_f32
 
       (0...segs).each do |i|
         a0 = i * step
         a1 = (i + 1) * step
+
         p0 = position + u * (Math.cos(a0).to_f32 * radius) + v * (Math.sin(a0).to_f32 * radius)
         p1 = position + u * (Math.cos(a1).to_f32 * radius) + v * (Math.sin(a1).to_f32 * radius)
         build_line(p0, p1, color, verts, cols)
       end
 
-      # Orthogonal normal arrow
-      build_arrow(position, position + norm * (radius * 1.5_f32), color, radius * 0.3_f32, verts, cols)
+      # Crosshairs through center
+      build_line(position - u * radius, position + u * radius, color, verts, cols)
+      build_line(position - v * radius, position + v * radius, color, verts, cols)
     end
 
-    # --- INNOVATIVE ITEM 7: Distance Measurement Ruler ---
+    # Generates a calibrated distance measurement ruler bar with tick marks between two points.
     def self.build_ruler(
       from : Godot::Vector3,
       to : Godot::Vector3,
@@ -672,32 +674,33 @@ module Diorite
       verts : Array(Godot::Vector3),
       cols : Array(Godot::Color)
     ) : Void
-      dir = (to - from)
-      len = dir.length
-      return if len < 0.0001_f32
-
-      # Main span line
+      # Main line
       build_line(from, to, color, verts, cols)
 
-      # End caps
-      norm = dir / len
-      u, _ = MathHelpers.orthonormal_plane(norm)
+      diff = to - from
+      dist = diff.length
+      return if dist < 0.01_f32
+
+      norm_dir = diff / dist
+      u, v = MathHelpers.orthonormal_plane(norm_dir)
       ht = tick_size * 0.5_f32
 
+      # Terminal end caps
       build_line(from - u * ht, from + u * ht, color, verts, cols)
       build_line(to - u * ht, to + u * ht, color, verts, cols)
 
-      # Intermediate centimeter / meter tick marks
-      ticks = (len / 1.0_f32).to_i
-      if ticks > 1 && ticks < 20
-        (1...ticks).each do |t_idx|
-          pt = from + norm * t_idx.to_f32
+      # Metric subdivision ticks every 1 unit
+      ticks = dist.floor.to_i32
+      if ticks > 1
+        (1...ticks).each do |step|
+          pt = from + norm_dir * step.to_f32
+          # Sub-ticks are half-height
           build_line(pt - u * (ht * 0.5_f32), pt + u * (ht * 0.5_f32), color, verts, cols)
         end
       end
     end
 
-    # --- INNOVATIVE ITEM 8: Reticle 3D ---
+    # Generates an aim reticle with a center circle and 4 corner target brackets.
     def self.build_reticle(
       position : Godot::Vector3,
       normal : Godot::Vector3,
@@ -730,7 +733,7 @@ module Diorite
       end
     end
 
-    # --- 2D Items ---
+    # Generates a 2D line segment between two canvas pixel coordinates.
     def self.build_line_2d(
       from : Godot::Vector2,
       to : Godot::Vector2,
@@ -744,6 +747,7 @@ module Diorite
       cols << color
     end
 
+    # Generates a 2D directional arrow with a triangular head on the canvas overlay.
     def self.build_arrow_2d(
       from : Godot::Vector2,
       to : Godot::Vector2,
@@ -771,6 +775,7 @@ module Diorite
       build_line_2d(to, f1, color, verts, cols)
     end
 
+    # Generates a 2D wireframe rectangle on the canvas overlay.
     def self.build_rect_2d(
       rect : Godot::Rect2,
       color : Godot::Color,
@@ -793,6 +798,7 @@ module Diorite
       build_line_2d(p3, p0, color, verts, cols)
     end
 
+    # Generates a 2D wireframe circle on the canvas overlay.
     def self.build_circle_2d(
       center : Godot::Vector2,
       radius : Float32,
@@ -810,6 +816,34 @@ module Diorite
         p0 = center + Godot::Vector2.new(Math.cos(a0).to_f32 * radius, Math.sin(a0).to_f32 * radius)
         p1 = center + Godot::Vector2.new(Math.cos(a1).to_f32 * radius, Math.sin(a1).to_f32 * radius)
         build_line_2d(p0, p1, color, verts, cols)
+      end
+    end
+
+    # Generates crosshair markers for a collection of 2D points on the canvas.
+    def self.build_points_2d(
+      points : Array(Godot::Vector2),
+      size : Float32,
+      color : Godot::Color,
+      verts : Array(Godot::Vector2),
+      cols : Array(Godot::Color)
+    ) : Void
+      hs = size * 0.5_f32
+      points.each do |pt|
+        build_line_2d(pt - Godot::Vector2.new(hs, 0.0_f32), pt + Godot::Vector2.new(hs, 0.0_f32), color, verts, cols)
+        build_line_2d(pt - Godot::Vector2.new(0.0_f32, hs), pt + Godot::Vector2.new(0.0_f32, hs), color, verts, cols)
+      end
+    end
+
+    # Generates a continuous 2D polyline connecting an ordered list of canvas points.
+    def self.build_path_2d(
+      points : Array(Godot::Vector2),
+      color : Godot::Color,
+      verts : Array(Godot::Vector2),
+      cols : Array(Godot::Color)
+    ) : Void
+      return if points.size < 2
+      (0...points.size - 1).each do |i|
+        build_line_2d(points[i], points[i + 1], color, verts, cols)
       end
     end
   end

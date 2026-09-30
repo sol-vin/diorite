@@ -1,0 +1,37 @@
+id: NODES
+title: Diorite Scene Node System
+summary: Using Diorite's exported Node3D and Node2D classes for in-editor placement and persistent hierarchy visualization.
+description: |
+  In addition to the immediate-mode Frame DSL, Diorite provides concrete Node classes
+  that integrate directly with Godot's Scene Tree, Inspector, and in-editor gizmo system.
+
+topics:
+  - title: 3D Shape Nodes
+    description: "DebugLine3D, DebugArrow3D, DebugBox3D, DebugSphere3D, DebugCylinder3D, DebugCapsule3D, DebugVisionCone3D, DebugAxes3D, DebugGrid3D, DebugSpring3D, DebugRuler3D."
+  - title: 2D Shape Nodes
+    description: "DebugLine2D, DebugArrow2D, DebugRect2D, DebugCircle2D."
+
+examples:
+  - title: Adding a Debug Box to a Scene
+    code: |
+      box = Diorite::DebugBox3D.new
+      box.box_size = Vector3.new(2, 2, 2)
+      box.color = Color.new(0, 1, 0, 1)
+      box.wireframe = true
+      add_child(box)
+  - title: Adding a Debug Vision Cone to an AI Actor
+    code: |
+      cone = Diorite::DebugVisionCone3D.new
+      cone.cone_angle = 75.0_f32
+      cone.cone_range = 15.0_f32
+      cone.color = Color.new(1, 0.2, 0.2, 0.8)
+      npc.add_child(cone)
+
+pitfalls:
+  - "Always add nodes to the scene tree (add_child) so that _ready initializes their internal MeshInstance and materials."
+
+faq:
+  - q: Can I inspect and tweak debug node properties in the Godot Editor Inspector?
+    a: "Yes, all properties (@box_size, @color, @cone_angle, etc.) are exported with @[Export] annotations."
+  - q: Do node-based shapes persist between frames?
+    a: "Yes, nodes exist in the scene tree until explicitly removed with queue_free."

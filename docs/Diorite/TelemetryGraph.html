@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Crystal Docs 1.20.3">
+<meta name="crystal_docs.project_version" content="main-dev">
+<meta name="crystal_docs.project_name" content="diorite">
+
+
+
+<link href="../css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../js/doc.js"></script>
+
+  <meta name="repository-name" content="diorite">
+  <title>Diorite::TelemetryGraph - diorite main-dev</title>
+  <script type="text/javascript">
+    CrystalDocs.base_path = "../";
+  </script>
+</head>
+<body>
+
+<svg class="hidden">
+  <symbol id="octicon-link" viewBox="0 0 16 16">
+    <path fill="currentColor" fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+  </symbol>
+</svg>
+<input type="checkbox" id="sidebar-btn">
+<label for="sidebar-btn" id="sidebar-btn-label">
+  <svg class="open" xmlns="http://www.w3.org/2000/svg" height="2em" width="2em" viewBox="0 0 512 512"><title>Open Sidebar</title><path fill="currentColor" d="M80 96v64h352V96H80zm0 112v64h352v-64H80zm0 112v64h352v-64H80z"></path></svg>
+  <svg class="close" xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 512 512"><title>Close Sidebar</title><path fill="currentColor" d="m118.6 73.4-45.2 45.2L210.7 256 73.4 393.4l45.2 45.2L256 301.3l137.4 137.3 45.2-45.2L301.3 256l137.3-137.4-45.2-45.2L256 210.7Z"></path></svg>
+</label>
+<div class="sidebar">
+  <div class="sidebar-header">
+    <div class="search-box">
+      <input type="search" class="search-input" placeholder="Search..." spellcheck="false" aria-label="Search">
+    </div>
+
+    <div class="project-summary">
+      <h1 class="project-name">
+        <a href="../index.html">
+          diorite
+        </a>
+      </h1>
+
+      <span class="project-version">
+        main-dev
+      </span>
+    </div>
+  </div>
+
+  <div class="search-results hidden">
+    <ul class="search-list"></ul>
+  </div>
+
+  <div class="types-list">
+    <ul>
+  
+  <li class=" " data-id="diorite/toplevel" data-name="top level namespace">
+      <a href="../toplevel.html">Top Level Namespace</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/DemoController" data-name="democontroller">
+      <a href="../DemoController.html">DemoController</a>
+      
+    </li>
+  
+  <li class="parent open current" data-id="diorite/Diorite" data-name="diorite">
+      <a href="../Diorite.html">Diorite</a>
+      
+        <ul>
+  
+  <li class=" " data-id="diorite/Diorite/Command2D" data-name="diorite::command2d">
+      <a href="../Diorite/Command2D.html">Command2D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/Command3D" data-name="diorite::command3d">
+      <a href="../Diorite/Command3D.html">Command3D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugArrow2D" data-name="diorite::debugarrow2d">
+      <a href="../Diorite/DebugArrow2D.html">DebugArrow2D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugArrow3D" data-name="diorite::debugarrow3d">
+      <a href="../Diorite/DebugArrow3D.html">DebugArrow3D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugAxes3D" data-name="diorite::debugaxes3d">
+      <a href="../Diorite/DebugAxes3D.html">DebugAxes3D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugBox3D" data-name="diorite::debugbox3d">
+      <a href="../Diorite/DebugBox3D.html">DebugBox3D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugCapsule3D" data-name="diorite::debugcapsule3d">
+      <a href="../Diorite/DebugCapsule3D.html">DebugCapsule3D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugCircle2D" data-name="diorite::debugcircle2d">
+      <a href="../Diorite/DebugCircle2D.html">DebugCircle2D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugCommandQueue" data-name="diorite::debugcommandqueue">
+      <a href="../Diorite/DebugCommandQueue.html">DebugCommandQueue</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugCylinder3D" data-name="diorite::debugcylinder3d">
+      <a href="../Diorite/DebugCylinder3D.html">DebugCylinder3D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugDraw" data-name="diorite::debugdraw">
+      <a href="../Diorite/DebugDraw.html">DebugDraw</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugDrawManager" data-name="diorite::debugdrawmanager">
+      <a href="../Diorite/DebugDrawManager.html">DebugDrawManager</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugGrid3D" data-name="diorite::debuggrid3d">
+      <a href="../Diorite/DebugGrid3D.html">DebugGrid3D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugLine2D" data-name="diorite::debugline2d">
+      <a href="../Diorite/DebugLine2D.html">DebugLine2D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugLine3D" data-name="diorite::debugline3d">
+      <a href="../Diorite/DebugLine3D.html">DebugLine3D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugMaterialManager" data-name="diorite::debugmaterialmanager">
+      <a href="../Diorite/DebugMaterialManager.html">DebugMaterialManager</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugRect2D" data-name="diorite::debugrect2d">
+      <a href="../Diorite/DebugRect2D.html">DebugRect2D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugRuler3D" data-name="diorite::debugruler3d">
+      <a href="../Diorite/DebugRuler3D.html">DebugRuler3D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugShape2D" data-name="diorite::debugshape2d">
+      <a href="../Diorite/DebugShape2D.html">DebugShape2D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugShape3D" data-name="diorite::debugshape3d">
+      <a href="../Diorite/DebugShape3D.html">DebugShape3D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugSphere3D" data-name="diorite::debugsphere3d">
+      <a href="../Diorite/DebugSphere3D.html">DebugSphere3D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugSpring3D" data-name="diorite::debugspring3d">
+      <a href="../Diorite/DebugSpring3D.html">DebugSpring3D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugVisionCone3D" data-name="diorite::debugvisioncone3d">
+      <a href="../Diorite/DebugVisionCone3D.html">DebugVisionCone3D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/FrameContext" data-name="diorite::framecontext">
+      <a href="../Diorite/FrameContext.html">FrameContext</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/GeometryBuilder" data-name="diorite::geometrybuilder">
+      <a href="../Diorite/GeometryBuilder.html">GeometryBuilder</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/MathHelpers" data-name="diorite::mathhelpers">
+      <a href="../Diorite/MathHelpers.html">MathHelpers</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/Shape2DType" data-name="diorite::shape2dtype">
+      <a href="../Diorite/Shape2DType.html">Shape2DType</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/Shape3DType" data-name="diorite::shape3dtype">
+      <a href="../Diorite/Shape3DType.html">Shape3DType</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/ShapeKind2D" data-name="diorite::shapekind2d">
+      <a href="../Diorite/ShapeKind2D.html">ShapeKind2D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/ShapeKind3D" data-name="diorite::shapekind3d">
+      <a href="../Diorite/ShapeKind3D.html">ShapeKind3D</a>
+      
+    </li>
+  
+  <li class=" current" data-id="diorite/Diorite/TelemetryGraph" data-name="diorite::telemetrygraph">
+      <a href="../Diorite/TelemetryGraph.html">TelemetryGraph</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/TextCommand2D" data-name="diorite::textcommand2d">
+      <a href="../Diorite/TextCommand2D.html">TextCommand2D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/TextCommand3D" data-name="diorite::textcommand3d">
+      <a href="../Diorite/TextCommand3D.html">TextCommand3D</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent " data-id="diorite/Lapis" data-name="lapis">
+      <a href="../Lapis.html">Lapis</a>
+      
+        <ul>
+  
+  <li class="parent " data-id="diorite/Lapis/Docs" data-name="lapis::docs">
+      <a href="../Lapis/Docs.html">Docs</a>
+      
+        <ul>
+  
+  <li class="parent " data-id="diorite/Lapis/Docs/GENERAL" data-name="lapis::docs::general">
+      <a href="../Lapis/Docs/GENERAL.html">GENERAL</a>
+      
+        <ul>
+  
+  <li class=" " data-id="diorite/Lapis/Docs/GENERAL/NODES" data-name="lapis::docs::general::nodes">
+      <a href="../Lapis/Docs/GENERAL/NODES.html">NODES</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Lapis/Docs/GENERAL/OVERVIEW" data-name="lapis::docs::general::overview">
+      <a href="../Lapis/Docs/GENERAL/OVERVIEW.html">OVERVIEW</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Lapis/Docs/GENERAL/PIPELINE" data-name="lapis::docs::general::pipeline">
+      <a href="../Lapis/Docs/GENERAL/PIPELINE.html">PIPELINE</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Lapis/Docs/GENERAL/PRIMITIVES" data-name="lapis::docs::general::primitives">
+      <a href="../Lapis/Docs/GENERAL/PRIMITIVES.html">PRIMITIVES</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="diorite/MainNode" data-name="mainnode">
+      <a href="../MainNode.html">MainNode</a>
+      
+    </li>
+  
+</ul>
+
+  </div>
+</div>
+
+
+<div class="main-content">
+<h1 class="type-name">
+
+  <span class="kind">
+    class
+  </span> Diorite::<wbr>TelemetryGraph
+
+</h1>
+
+
+  <ul class="superclass-hierarchy"><li class="superclass"><a href="../Diorite/TelemetryGraph.html">Diorite::TelemetryGraph</a></li><li class="superclass">Reference</li><li class="superclass">Object</li></ul>
+
+
+
+
+  <h2>
+    <a id="overview" class="anchor" href="#overview">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Overview
+  </h2>
+
+  <p>High-performance circular buffer and geometry builder for 2D real-time telemetry sparkline graphs.</p>
+<p>Retains a fixed window of historical samples and transforms them into 2D line primitives
+and background border outlines inside a designated canvas viewport rectangle.</p>
+<pre><code class="language-crystal">graph <span class="o">=</span> <span class="t">TelemetryGraph</span>.new(<span class="s">&quot;Frametime&quot;</span>, <span class="t">Rect2</span>.new(<span class="n">10</span>, <span class="n">10</span>, <span class="n">200</span>, <span class="n">60</span>), min_val: <span class="n">0.0</span>, max_val: <span class="n">33.3</span>)
+graph.add_sample(<span class="n">16.6</span>)</code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2>
+    <a id="defined-in" class="anchor" href="#defined-in">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Defined in:
+  </h2>
+  
+    
+      src\diorite\core\telemetry_graph.cr
+    
+    <br/>
+  
+
+
+
+
+
+  
+  <h2>
+    <a id="constructors" class="anchor" href="#constructors">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Constructors
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#new%28title%3AString%2Crect%3AGodot%3A%3ARect2%3DGodot%3A%3ARect2.new%2820.0_f32%2C20.0_f32%2C160.0_f32%2C50.0_f32%29%2Cmin_val%3AFloat32%3D0.0_f32%2Cmax_val%3AFloat32%3D100.0_f32%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%280.2_f32%2C0.9_f32%2C0.3_f32%2C1.0_f32%29%2Cmax_samples%3AInt32%3D60%29-class-method" class="signature"><strong>.new</strong>(title : String, rect : Godot::Rect2 = <span class="t">Godot</span><span class="t">::</span><span class="t">Rect2</span>.new(<span class="n">20.0_f32</span>, <span class="n">20.0_f32</span>, <span class="n">160.0_f32</span>, <span class="n">50.0_f32</span>), min_val : Float32 = <span class="n">0.0_f32</span>, max_val : Float32 = <span class="n">100.0_f32</span>, color : Godot::Color = <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">0.2_f32</span>, <span class="n">0.9_f32</span>, <span class="n">0.3_f32</span>, <span class="n">1.0_f32</span>), max_samples : Int32 = <span class="n">60</span>)</a>
+        
+          <div class="summary"><p>Creates a new <code><a href="../Diorite/TelemetryGraph.html">TelemetryGraph</a></code> with the given configuration parameters.</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+  
+
+  
+
+  
+  <h2>
+    <a id="instance-method-summary" class="anchor" href="#instance-method-summary">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Instance Method Summary
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#add_sample%28value%3ANumber%29%3AVoid-instance-method" class="signature"><strong>#add_sample</strong>(value : Number) : Void</a>
+        
+          <div class="summary"><p>Appends a new scalar sample <em>value</em> to the history ring buffer.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#build_geometry%28lines_out%3AArray%28Godot%3A%3AVector2%29%2Ccolors_out%3AArray%28Godot%3A%3AColor%29%29%3AVoid-instance-method" class="signature"><strong>#build_geometry</strong>(lines_out : Array(Godot::Vector2), colors_out : Array(Godot::Color)) : Void</a>
+        
+          <div class="summary"><p>Builds line segments and background boundary outlines for rendering on the 2D canvas.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#clear%3AVoid-instance-method" class="signature"><strong>#clear</strong> : Void</a>
+        
+          <div class="summary"><p>Clears all collected sample history from the graph.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#color%3AGodot%3A%3AColor-instance-method" class="signature"><strong>#color</strong> : Godot::Color</a>
+        
+          <div class="summary"><p>Primary line and border outline color.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#latest_value%3AFloat32-instance-method" class="signature"><strong>#latest_value</strong> : Float32</a>
+        
+          <div class="summary"><p>Returns the most recently appended value, or <code>0.0</code> if empty.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#max_samples%3AInt32-instance-method" class="signature"><strong>#max_samples</strong> : Int32</a>
+        
+          <div class="summary"><p>Maximum historical sample capacity before older values are evicted.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#max_val%3AFloat32-instance-method" class="signature"><strong>#max_val</strong> : Float32</a>
+        
+          <div class="summary"><p>Expected upper value bound for normalization.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#min_val%3AFloat32-instance-method" class="signature"><strong>#min_val</strong> : Float32</a>
+        
+          <div class="summary"><p>Expected lower value bound for normalization.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#rect%3AGodot%3A%3ARect2-instance-method" class="signature"><strong>#rect</strong> : Godot::Rect2</a>
+        
+          <div class="summary"><p>2D screen coordinate bounding rectangle for the graph box.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#samples%3AArray%28Float32%29-instance-method" class="signature"><strong>#samples</strong> : Array(Float32)</a>
+        
+          <div class="summary"><p>Array storing current active history samples in chronological order.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#title%3AString-instance-method" class="signature"><strong>#title</strong> : String</a>
+        
+          <div class="summary"><p>Title or metric name displayed above the graph.</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+  <div class="methods-inherited">
+    
+      
+
+
+      
+
+
+      
+
+
+      
+
+
+    
+      
+
+
+      
+
+
+      
+
+
+      
+
+
+    
+  </div>
+
+  
+  <h2>
+    <a id="constructor-detail" class="anchor" href="#constructor-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Constructor Detail
+  </h2>
+  
+    <div class="entry-detail" id="new(title:String,rect:Godot::Rect2=Godot::Rect2.new(20.0_f32,20.0_f32,160.0_f32,50.0_f32),min_val:Float32=0.0_f32,max_val:Float32=100.0_f32,color:Godot::Color=Godot::Color.new(0.2_f32,0.9_f32,0.3_f32,1.0_f32),max_samples:Int32=60)-class-method">
+      <div class="signature">
+        
+        def self.<strong>new</strong>(title : String, rect : Godot::Rect2 = <span class="t">Godot</span><span class="t">::</span><span class="t">Rect2</span>.new(<span class="n">20.0_f32</span>, <span class="n">20.0_f32</span>, <span class="n">160.0_f32</span>, <span class="n">50.0_f32</span>), min_val : Float32 = <span class="n">0.0_f32</span>, max_val : Float32 = <span class="n">100.0_f32</span>, color : Godot::Color = <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">0.2_f32</span>, <span class="n">0.9_f32</span>, <span class="n">0.3_f32</span>, <span class="n">1.0_f32</span>), max_samples : Int32 = <span class="n">60</span>)
+
+        <a class="method-permalink" href="#new%28title%3AString%2Crect%3AGodot%3A%3ARect2%3DGodot%3A%3ARect2.new%2820.0_f32%2C20.0_f32%2C160.0_f32%2C50.0_f32%29%2Cmin_val%3AFloat32%3D0.0_f32%2Cmax_val%3AFloat32%3D100.0_f32%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%280.2_f32%2C0.9_f32%2C0.3_f32%2C1.0_f32%29%2Cmax_samples%3AInt32%3D60%29-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Creates a new <code><a href="../Diorite/TelemetryGraph.html">TelemetryGraph</a></code> with the given configuration parameters.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+
+
+  
+
+  
+
+  
+  <h2>
+    <a id="instance-method-detail" class="anchor" href="#instance-method-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Instance Method Detail
+  </h2>
+  
+    <div class="entry-detail" id="add_sample(value:Number):Void-instance-method">
+      <div class="signature">
+        
+        def <strong>add_sample</strong>(value : Number) : Void
+
+        <a class="method-permalink" href="#add_sample%28value%3ANumber%29%3AVoid-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Appends a new scalar sample <em>value</em> to the history ring buffer.</p>
+<p>Automatically discards the oldest sample if the buffer has reached <code><a href="../Diorite/TelemetryGraph.html#max_samples%3AInt32-instance-method">#max_samples</a></code>.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="build_geometry(lines_out:Array(Godot::Vector2),colors_out:Array(Godot::Color)):Void-instance-method">
+      <div class="signature">
+        
+        def <strong>build_geometry</strong>(lines_out : Array(Godot::Vector2), colors_out : Array(Godot::Color)) : Void
+
+        <a class="method-permalink" href="#build_geometry%28lines_out%3AArray%28Godot%3A%3AVector2%29%2Ccolors_out%3AArray%28Godot%3A%3AColor%29%29%3AVoid-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Builds line segments and background boundary outlines for rendering on the 2D canvas.</p>
+<p>Appends vertices directly to <em>lines_out</em> and corresponding vertex colors to <em>colors_out</em>.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="clear:Void-instance-method">
+      <div class="signature">
+        
+        def <strong>clear</strong> : Void
+
+        <a class="method-permalink" href="#clear%3AVoid-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Clears all collected sample history from the graph.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="color:Godot::Color-instance-method">
+      <div class="signature">
+        
+        def <strong>color</strong> : Godot::Color
+
+        <a class="method-permalink" href="#color%3AGodot%3A%3AColor-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Primary line and border outline color.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="latest_value:Float32-instance-method">
+      <div class="signature">
+        
+        def <strong>latest_value</strong> : Float32
+
+        <a class="method-permalink" href="#latest_value%3AFloat32-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns the most recently appended value, or <code>0.0</code> if empty.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="max_samples:Int32-instance-method">
+      <div class="signature">
+        
+        def <strong>max_samples</strong> : Int32
+
+        <a class="method-permalink" href="#max_samples%3AInt32-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Maximum historical sample capacity before older values are evicted.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="max_val:Float32-instance-method">
+      <div class="signature">
+        
+        def <strong>max_val</strong> : Float32
+
+        <a class="method-permalink" href="#max_val%3AFloat32-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Expected upper value bound for normalization.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="min_val:Float32-instance-method">
+      <div class="signature">
+        
+        def <strong>min_val</strong> : Float32
+
+        <a class="method-permalink" href="#min_val%3AFloat32-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Expected lower value bound for normalization.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="rect:Godot::Rect2-instance-method">
+      <div class="signature">
+        
+        def <strong>rect</strong> : Godot::Rect2
+
+        <a class="method-permalink" href="#rect%3AGodot%3A%3ARect2-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>2D screen coordinate bounding rectangle for the graph box.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="samples:Array(Float32)-instance-method">
+      <div class="signature">
+        
+        def <strong>samples</strong> : Array(Float32)
+
+        <a class="method-permalink" href="#samples%3AArray%28Float32%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Array storing current active history samples in chronological order.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="title:String-instance-method">
+      <div class="signature">
+        
+        def <strong>title</strong> : String
+
+        <a class="method-permalink" href="#title%3AString-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Title or metric name displayed above the graph.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+
+
+
+</div>
+
+</body>
+</html>

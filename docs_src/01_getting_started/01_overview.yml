@@ -1,0 +1,34 @@
+id: OVERVIEW
+title: Diorite Overview & Getting Started
+summary: Diorite is a high-performance 2D and 3D debug drawing plugin and frame DSL for Godot Engine 4.8+ powered by the Lapis Crystal toolchain.
+description: |
+  Diorite provides two workflows:
+  1. A Node-based system for scene placement and editor visualization (DebugBox3D, DebugSphere3D, etc.).
+  2. An immediate-mode frame DSL (DebugDraw.*) for drawing anywhere in game logic with single-frame or timed duration.
+
+topics:
+  - title: Visual Priority
+    description: All debug items render on top of other game effects (3D render priority 127 with depth test disabled; 2D canvas layer 128 at z-index 4096).
+  - title: Dual Workflow
+    description: Choose between scene tree nodes or immediate-mode procedural calls in _process or physics steps.
+
+examples:
+  - title: Basic 3D Line and Sphere
+    code: |
+      DebugDraw.line_3d(Vector3.new(0, 0, 0), Vector3.new(0, 5, 0), Color.new(0, 1, 0))
+      DebugDraw.sphere_3d(center: player.position, radius: 1.5, color: Color.new(1, 0, 0), duration: 2.5)
+  - title: Block Frame DSL
+    code: |
+      DebugDraw.frame do |d|
+        d.line_3d(actor.position, actor.position + actor.velocity)
+        d.circle_2d(Vector2.new(100, 100), 30.0)
+      end
+
+pitfalls:
+  - Do not use raw .new on native Godot objects without pointers; use Godot.create(T) or Diorite helper nodes.
+
+faq:
+  - q: How do I make debug shapes persist for more than one frame?
+    a: "Pass duration in seconds (e.g. duration: 3.0) to any DebugDraw method."
+  - q: Can I configure shapes in the Godot Inspector?
+    a: Yes, add any of the Diorite node types (e.g. DebugBox3D, DebugShape2D) to your scene tree.

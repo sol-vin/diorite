@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Crystal Docs 1.20.3">
+<meta name="crystal_docs.project_version" content="main-dev">
+<meta name="crystal_docs.project_name" content="diorite">
+
+
+
+<link href="../css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../js/doc.js"></script>
+
+  <meta name="repository-name" content="diorite">
+  <title>Diorite::DebugCommandQueue - diorite main-dev</title>
+  <script type="text/javascript">
+    CrystalDocs.base_path = "../";
+  </script>
+</head>
+<body>
+
+<svg class="hidden">
+  <symbol id="octicon-link" viewBox="0 0 16 16">
+    <path fill="currentColor" fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+  </symbol>
+</svg>
+<input type="checkbox" id="sidebar-btn">
+<label for="sidebar-btn" id="sidebar-btn-label">
+  <svg class="open" xmlns="http://www.w3.org/2000/svg" height="2em" width="2em" viewBox="0 0 512 512"><title>Open Sidebar</title><path fill="currentColor" d="M80 96v64h352V96H80zm0 112v64h352v-64H80zm0 112v64h352v-64H80z"></path></svg>
+  <svg class="close" xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 512 512"><title>Close Sidebar</title><path fill="currentColor" d="m118.6 73.4-45.2 45.2L210.7 256 73.4 393.4l45.2 45.2L256 301.3l137.4 137.3 45.2-45.2L301.3 256l137.3-137.4-45.2-45.2L256 210.7Z"></path></svg>
+</label>
+<div class="sidebar">
+  <div class="sidebar-header">
+    <div class="search-box">
+      <input type="search" class="search-input" placeholder="Search..." spellcheck="false" aria-label="Search">
+    </div>
+
+    <div class="project-summary">
+      <h1 class="project-name">
+        <a href="../index.html">
+          diorite
+        </a>
+      </h1>
+
+      <span class="project-version">
+        main-dev
+      </span>
+    </div>
+  </div>
+
+  <div class="search-results hidden">
+    <ul class="search-list"></ul>
+  </div>
+
+  <div class="types-list">
+    <ul>
+  
+  <li class=" " data-id="diorite/toplevel" data-name="top level namespace">
+      <a href="../toplevel.html">Top Level Namespace</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/DemoController" data-name="democontroller">
+      <a href="../DemoController.html">DemoController</a>
+      
+    </li>
+  
+  <li class="parent open current" data-id="diorite/Diorite" data-name="diorite">
+      <a href="../Diorite.html">Diorite</a>
+      
+        <ul>
+  
+  <li class=" " data-id="diorite/Diorite/Command2D" data-name="diorite::command2d">
+      <a href="../Diorite/Command2D.html">Command2D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/Command3D" data-name="diorite::command3d">
+      <a href="../Diorite/Command3D.html">Command3D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugArrow2D" data-name="diorite::debugarrow2d">
+      <a href="../Diorite/DebugArrow2D.html">DebugArrow2D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugArrow3D" data-name="diorite::debugarrow3d">
+      <a href="../Diorite/DebugArrow3D.html">DebugArrow3D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugAxes3D" data-name="diorite::debugaxes3d">
+      <a href="../Diorite/DebugAxes3D.html">DebugAxes3D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugBox3D" data-name="diorite::debugbox3d">
+      <a href="../Diorite/DebugBox3D.html">DebugBox3D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugCapsule3D" data-name="diorite::debugcapsule3d">
+      <a href="../Diorite/DebugCapsule3D.html">DebugCapsule3D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugCircle2D" data-name="diorite::debugcircle2d">
+      <a href="../Diorite/DebugCircle2D.html">DebugCircle2D</a>
+      
+    </li>
+  
+  <li class=" current" data-id="diorite/Diorite/DebugCommandQueue" data-name="diorite::debugcommandqueue">
+      <a href="../Diorite/DebugCommandQueue.html">DebugCommandQueue</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugCylinder3D" data-name="diorite::debugcylinder3d">
+      <a href="../Diorite/DebugCylinder3D.html">DebugCylinder3D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugDraw" data-name="diorite::debugdraw">
+      <a href="../Diorite/DebugDraw.html">DebugDraw</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugDrawManager" data-name="diorite::debugdrawmanager">
+      <a href="../Diorite/DebugDrawManager.html">DebugDrawManager</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugGrid3D" data-name="diorite::debuggrid3d">
+      <a href="../Diorite/DebugGrid3D.html">DebugGrid3D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugLine2D" data-name="diorite::debugline2d">
+      <a href="../Diorite/DebugLine2D.html">DebugLine2D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugLine3D" data-name="diorite::debugline3d">
+      <a href="../Diorite/DebugLine3D.html">DebugLine3D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugMaterialManager" data-name="diorite::debugmaterialmanager">
+      <a href="../Diorite/DebugMaterialManager.html">DebugMaterialManager</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugRect2D" data-name="diorite::debugrect2d">
+      <a href="../Diorite/DebugRect2D.html">DebugRect2D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugRuler3D" data-name="diorite::debugruler3d">
+      <a href="../Diorite/DebugRuler3D.html">DebugRuler3D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugShape2D" data-name="diorite::debugshape2d">
+      <a href="../Diorite/DebugShape2D.html">DebugShape2D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugShape3D" data-name="diorite::debugshape3d">
+      <a href="../Diorite/DebugShape3D.html">DebugShape3D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugSphere3D" data-name="diorite::debugsphere3d">
+      <a href="../Diorite/DebugSphere3D.html">DebugSphere3D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugSpring3D" data-name="diorite::debugspring3d">
+      <a href="../Diorite/DebugSpring3D.html">DebugSpring3D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugVisionCone3D" data-name="diorite::debugvisioncone3d">
+      <a href="../Diorite/DebugVisionCone3D.html">DebugVisionCone3D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/FrameContext" data-name="diorite::framecontext">
+      <a href="../Diorite/FrameContext.html">FrameContext</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/GeometryBuilder" data-name="diorite::geometrybuilder">
+      <a href="../Diorite/GeometryBuilder.html">GeometryBuilder</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/MathHelpers" data-name="diorite::mathhelpers">
+      <a href="../Diorite/MathHelpers.html">MathHelpers</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/Shape2DType" data-name="diorite::shape2dtype">
+      <a href="../Diorite/Shape2DType.html">Shape2DType</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/Shape3DType" data-name="diorite::shape3dtype">
+      <a href="../Diorite/Shape3DType.html">Shape3DType</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/ShapeKind2D" data-name="diorite::shapekind2d">
+      <a href="../Diorite/ShapeKind2D.html">ShapeKind2D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/ShapeKind3D" data-name="diorite::shapekind3d">
+      <a href="../Diorite/ShapeKind3D.html">ShapeKind3D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/TelemetryGraph" data-name="diorite::telemetrygraph">
+      <a href="../Diorite/TelemetryGraph.html">TelemetryGraph</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/TextCommand2D" data-name="diorite::textcommand2d">
+      <a href="../Diorite/TextCommand2D.html">TextCommand2D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/TextCommand3D" data-name="diorite::textcommand3d">
+      <a href="../Diorite/TextCommand3D.html">TextCommand3D</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent " data-id="diorite/Lapis" data-name="lapis">
+      <a href="../Lapis.html">Lapis</a>
+      
+        <ul>
+  
+  <li class="parent " data-id="diorite/Lapis/Docs" data-name="lapis::docs">
+      <a href="../Lapis/Docs.html">Docs</a>
+      
+        <ul>
+  
+  <li class="parent " data-id="diorite/Lapis/Docs/GENERAL" data-name="lapis::docs::general">
+      <a href="../Lapis/Docs/GENERAL.html">GENERAL</a>
+      
+        <ul>
+  
+  <li class=" " data-id="diorite/Lapis/Docs/GENERAL/NODES" data-name="lapis::docs::general::nodes">
+      <a href="../Lapis/Docs/GENERAL/NODES.html">NODES</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Lapis/Docs/GENERAL/OVERVIEW" data-name="lapis::docs::general::overview">
+      <a href="../Lapis/Docs/GENERAL/OVERVIEW.html">OVERVIEW</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Lapis/Docs/GENERAL/PIPELINE" data-name="lapis::docs::general::pipeline">
+      <a href="../Lapis/Docs/GENERAL/PIPELINE.html">PIPELINE</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Lapis/Docs/GENERAL/PRIMITIVES" data-name="lapis::docs::general::primitives">
+      <a href="../Lapis/Docs/GENERAL/PRIMITIVES.html">PRIMITIVES</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="diorite/MainNode" data-name="mainnode">
+      <a href="../MainNode.html">MainNode</a>
+      
+    </li>
+  
+</ul>
+
+  </div>
+</div>
+
+
+<div class="main-content">
+<h1 class="type-name">
+
+  <span class="kind">
+    class
+  </span> Diorite::<wbr>DebugCommandQueue
+
+</h1>
+
+
+  <ul class="superclass-hierarchy"><li class="superclass"><a href="../Diorite/DebugCommandQueue.html">Diorite::DebugCommandQueue</a></li><li class="superclass">Reference</li><li class="superclass">Object</li></ul>
+
+
+
+
+  <h2>
+    <a id="overview" class="anchor" href="#overview">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Overview
+  </h2>
+
+  <p>Centralized, high-throughput command queue managing both single-frame and timed debug primitives.</p>
+<p>Thread-safe and designed to process thousands of queued items per frame with zero GC allocations.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2>
+    <a id="defined-in" class="anchor" href="#defined-in">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Defined in:
+  </h2>
+  
+    
+      src\diorite\core\debug_command.cr
+    
+    <br/>
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  <h2>
+    <a id="instance-method-summary" class="anchor" href="#instance-method-summary">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Instance Method Summary
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#clear%3AVoid-instance-method" class="signature"><strong>#clear</strong> : Void</a>
+        
+          <div class="summary"><p>Alias for <code><a href="../Diorite/DebugCommandQueue.html#clear_all%3AVoid-instance-method">#clear_all</a></code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#clear_all%3AVoid-instance-method" class="signature"><strong>#clear_all</strong> : Void</a>
+        
+          <div class="summary"><p>Clears all active commands, trails, and telemetry graphs.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#commands_2d%3AArray%28Command2D%29-instance-method" class="signature"><strong>#commands_2d</strong> : Array(Command2D)</a>
+        
+          <div class="summary"><p>Active 2D primitives queued for rendering.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#commands_3d%3AArray%28Command3D%29-instance-method" class="signature"><strong>#commands_3d</strong> : Array(Command3D)</a>
+        
+          <div class="summary"><p>Active 3D primitives queued for rendering.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#push_2d%28cmd%3ACommand2D%29%3AVoid-instance-method" class="signature"><strong>#push_2d</strong>(cmd : Command2D) : Void</a>
+        
+          <div class="summary"><p>Pushes a 2D primitive command into the rendering queue.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#push_3d%28cmd%3ACommand3D%29%3AVoid-instance-method" class="signature"><strong>#push_3d</strong>(cmd : Command3D) : Void</a>
+        
+          <div class="summary"><p>Pushes a 3D primitive command into the rendering queue.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#push_text_2d%28cmd%3ATextCommand2D%29%3AVoid-instance-method" class="signature"><strong>#push_text_2d</strong>(cmd : TextCommand2D) : Void</a>
+        
+          <div class="summary"><p>Pushes a 2D canvas text command into the queue.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#push_text_3d%28cmd%3ATextCommand3D%29%3AVoid-instance-method" class="signature"><strong>#push_text_3d</strong>(cmd : TextCommand3D) : Void</a>
+        
+          <div class="summary"><p>Pushes a 3D billboard text command into the queue.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#step_and_clean%28delta%3AFloat64%29%3AVoid-instance-method" class="signature"><strong>#step_and_clean</strong>(delta : Float64) : Void</a>
+        
+          <div class="summary"><p>Advances time on duration commands and purges expired or single-frame items.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#telemetry_graphs%3AHash%28String%2CTelemetryGraph%29-instance-method" class="signature"><strong>#telemetry_graphs</strong> : Hash(String, TelemetryGraph)</a>
+        
+          <div class="summary"><p>Active real-time telemetry graphs indexed by metric title.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#text_2d%3AArray%28TextCommand2D%29-instance-method" class="signature"><strong>#text_2d</strong> : Array(TextCommand2D)</a>
+        
+          <div class="summary"><p>Active 2D canvas text labels.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#text_3d%3AArray%28TextCommand3D%29-instance-method" class="signature"><strong>#text_3d</strong> : Array(TextCommand3D)</a>
+        
+          <div class="summary"><p>Active 3D billboard text labels.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#trails%3AHash%28String%2CArray%28Godot%3A%3AVector3%29%29-instance-method" class="signature"><strong>#trails</strong> : Hash(String, Array(Godot::Vector3))</a>
+        
+          <div class="summary"><p>Entity history trails indexed by unique entity ID.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#update_graph%28title%3AString%2Cval%3AFloat32%2Crect%3AGodot%3A%3ARect2%2Cmin_val%3AFloat32%2Cmax_val%3AFloat32%2Ccolor%3AGodot%3A%3AColor%29%3ATelemetryGraph-instance-method" class="signature"><strong>#update_graph</strong>(title : String, val : Float32, rect : Godot::Rect2, min_val : Float32, max_val : Float32, color : Godot::Color) : TelemetryGraph</a>
+        
+          <div class="summary"><p>Pushes a new data sample <em>val</em> into telemetry graph <em>title</em>, creating the graph if needed.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#update_trail%28id%3AString%2Cpt%3AGodot%3A%3AVector3%2Cmax_pts%3AInt32%29%3AArray%28Godot%3A%3AVector3%29-instance-method" class="signature"><strong>#update_trail</strong>(id : String, pt : Godot::Vector3, max_pts : Int32) : Array(Godot::Vector3)</a>
+        
+          <div class="summary"><p>Appends a coordinate <em>pt</em> to the entity motion trail <em>id</em>, capping length at <em>max_pts</em>.</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+  <div class="methods-inherited">
+    
+      
+
+
+      
+
+
+      
+
+
+      
+
+
+    
+      
+
+
+      
+
+
+      
+
+
+      
+
+
+    
+  </div>
+
+  
+
+  
+
+  
+
+  
+  <h2>
+    <a id="instance-method-detail" class="anchor" href="#instance-method-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Instance Method Detail
+  </h2>
+  
+    <div class="entry-detail" id="clear:Void-instance-method">
+      <div class="signature">
+        
+        def <strong>clear</strong> : Void
+
+        <a class="method-permalink" href="#clear%3AVoid-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Alias for <code><a href="../Diorite/DebugCommandQueue.html#clear_all%3AVoid-instance-method">#clear_all</a></code>.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="clear_all:Void-instance-method">
+      <div class="signature">
+        
+        def <strong>clear_all</strong> : Void
+
+        <a class="method-permalink" href="#clear_all%3AVoid-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Clears all active commands, trails, and telemetry graphs.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="commands_2d:Array(Command2D)-instance-method">
+      <div class="signature">
+        
+        def <strong>commands_2d</strong> : Array(<a href="../Diorite/Command2D.html">Command2D</a>)
+
+        <a class="method-permalink" href="#commands_2d%3AArray%28Command2D%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Active 2D primitives queued for rendering.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="commands_3d:Array(Command3D)-instance-method">
+      <div class="signature">
+        
+        def <strong>commands_3d</strong> : Array(<a href="../Diorite/Command3D.html">Command3D</a>)
+
+        <a class="method-permalink" href="#commands_3d%3AArray%28Command3D%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Active 3D primitives queued for rendering.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="push_2d(cmd:Command2D):Void-instance-method">
+      <div class="signature">
+        
+        def <strong>push_2d</strong>(cmd : <a href="../Diorite/Command2D.html">Command2D</a>) : Void
+
+        <a class="method-permalink" href="#push_2d%28cmd%3ACommand2D%29%3AVoid-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Pushes a 2D primitive command into the rendering queue.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="push_3d(cmd:Command3D):Void-instance-method">
+      <div class="signature">
+        
+        def <strong>push_3d</strong>(cmd : <a href="../Diorite/Command3D.html">Command3D</a>) : Void
+
+        <a class="method-permalink" href="#push_3d%28cmd%3ACommand3D%29%3AVoid-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Pushes a 3D primitive command into the rendering queue.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="push_text_2d(cmd:TextCommand2D):Void-instance-method">
+      <div class="signature">
+        
+        def <strong>push_text_2d</strong>(cmd : <a href="../Diorite/TextCommand2D.html">TextCommand2D</a>) : Void
+
+        <a class="method-permalink" href="#push_text_2d%28cmd%3ATextCommand2D%29%3AVoid-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Pushes a 2D canvas text command into the queue.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="push_text_3d(cmd:TextCommand3D):Void-instance-method">
+      <div class="signature">
+        
+        def <strong>push_text_3d</strong>(cmd : <a href="../Diorite/TextCommand3D.html">TextCommand3D</a>) : Void
+
+        <a class="method-permalink" href="#push_text_3d%28cmd%3ATextCommand3D%29%3AVoid-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Pushes a 3D billboard text command into the queue.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="step_and_clean(delta:Float64):Void-instance-method">
+      <div class="signature">
+        
+        def <strong>step_and_clean</strong>(delta : Float64) : Void
+
+        <a class="method-permalink" href="#step_and_clean%28delta%3AFloat64%29%3AVoid-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Advances time on duration commands and purges expired or single-frame items.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="telemetry_graphs:Hash(String,TelemetryGraph)-instance-method">
+      <div class="signature">
+        
+        def <strong>telemetry_graphs</strong> : Hash(String, <a href="../Diorite/TelemetryGraph.html">TelemetryGraph</a>)
+
+        <a class="method-permalink" href="#telemetry_graphs%3AHash%28String%2CTelemetryGraph%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Active real-time telemetry graphs indexed by metric title.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="text_2d:Array(TextCommand2D)-instance-method">
+      <div class="signature">
+        
+        def <strong>text_2d</strong> : Array(<a href="../Diorite/TextCommand2D.html">TextCommand2D</a>)
+
+        <a class="method-permalink" href="#text_2d%3AArray%28TextCommand2D%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Active 2D canvas text labels.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="text_3d:Array(TextCommand3D)-instance-method">
+      <div class="signature">
+        
+        def <strong>text_3d</strong> : Array(<a href="../Diorite/TextCommand3D.html">TextCommand3D</a>)
+
+        <a class="method-permalink" href="#text_3d%3AArray%28TextCommand3D%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Active 3D billboard text labels.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="trails:Hash(String,Array(Godot::Vector3))-instance-method">
+      <div class="signature">
+        
+        def <strong>trails</strong> : Hash(String, Array(Godot::Vector3))
+
+        <a class="method-permalink" href="#trails%3AHash%28String%2CArray%28Godot%3A%3AVector3%29%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Entity history trails indexed by unique entity ID.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="update_graph(title:String,val:Float32,rect:Godot::Rect2,min_val:Float32,max_val:Float32,color:Godot::Color):TelemetryGraph-instance-method">
+      <div class="signature">
+        
+        def <strong>update_graph</strong>(title : String, val : Float32, rect : Godot::Rect2, min_val : Float32, max_val : Float32, color : Godot::Color) : <a href="../Diorite/TelemetryGraph.html">TelemetryGraph</a>
+
+        <a class="method-permalink" href="#update_graph%28title%3AString%2Cval%3AFloat32%2Crect%3AGodot%3A%3ARect2%2Cmin_val%3AFloat32%2Cmax_val%3AFloat32%2Ccolor%3AGodot%3A%3AColor%29%3ATelemetryGraph-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Pushes a new data sample <em>val</em> into telemetry graph <em>title</em>, creating the graph if needed.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="update_trail(id:String,pt:Godot::Vector3,max_pts:Int32):Array(Godot::Vector3)-instance-method">
+      <div class="signature">
+        
+        def <strong>update_trail</strong>(id : String, pt : Godot::Vector3, max_pts : Int32) : Array(Godot::Vector3)
+
+        <a class="method-permalink" href="#update_trail%28id%3AString%2Cpt%3AGodot%3A%3AVector3%2Cmax_pts%3AInt32%29%3AArray%28Godot%3A%3AVector3%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Appends a coordinate <em>pt</em> to the entity motion trail <em>id</em>, capping length at <em>max_pts</em>.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+
+
+
+</div>
+
+</body>
+</html>

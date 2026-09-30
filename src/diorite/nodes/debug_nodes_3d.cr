@@ -2,6 +2,7 @@ require "lapis"
 require "./debug_shape_3d"
 
 module Diorite
+  # Node representing an inspector-configurable 3D wireframe bounding box.
   @[Tool]
   node DebugBox3D < DebugShape3D do
     def _ready : Void
@@ -10,6 +11,7 @@ module Diorite
     end
   end
 
+  # Node representing an inspector-configurable 3D wireframe sphere.
   @[Tool]
   node DebugSphere3D < DebugShape3D do
     def _ready : Void
@@ -18,6 +20,7 @@ module Diorite
     end
   end
 
+  # Node representing an inspector-configurable 3D wireframe cylinder.
   @[Tool]
   node DebugCylinder3D < DebugShape3D do
     def _ready : Void
@@ -26,6 +29,7 @@ module Diorite
     end
   end
 
+  # Node representing an inspector-configurable 3D wireframe capsule.
   @[Tool]
   node DebugCapsule3D < DebugShape3D do
     def _ready : Void
@@ -34,6 +38,7 @@ module Diorite
     end
   end
 
+  # Node representing an inspector-configurable 3D line vector.
   @[Tool]
   node DebugLine3D < DebugShape3D do
     def _ready : Void
@@ -42,6 +47,7 @@ module Diorite
     end
   end
 
+  # Node representing an inspector-configurable 3D directional arrow with arrowhead.
   @[Tool]
   node DebugArrow3D < DebugShape3D do
     def _ready : Void
@@ -50,6 +56,7 @@ module Diorite
     end
   end
 
+  # Node representing an inspector-configurable 3-axis position crosshair.
   @[Tool]
   node DebugAxes3D < DebugShape3D do
     def _ready : Void
@@ -58,6 +65,7 @@ module Diorite
     end
   end
 
+  # Node representing an inspector-configurable 3D ground reference grid plane.
   @[Tool]
   node DebugGrid3D < DebugShape3D do
     def _ready : Void
@@ -66,6 +74,7 @@ module Diorite
     end
   end
 
+  # Node representing an inspector-configurable 3D sensory vision / detection cone.
   @[Tool]
   node DebugVisionCone3D < DebugShape3D do
     def _ready : Void
@@ -74,6 +83,7 @@ module Diorite
     end
   end
 
+  # Node representing an inspector-configurable 3D helical physics spring.
   @[Tool]
   node DebugSpring3D < DebugShape3D do
     def _ready : Void
@@ -82,6 +92,7 @@ module Diorite
     end
   end
 
+  # Node representing an inspector-configurable calibrated distance measurement ruler.
   @[Tool]
   node DebugRuler3D < DebugShape3D do
     def _ready : Void

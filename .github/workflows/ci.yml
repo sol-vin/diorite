@@ -54,6 +54,10 @@ jobs:
         run: |
           crystal spec
 
+      - name: Run Benchmark Suite
+        run: |
+          crystal run bench/benchmark_suite.cr
+
       - name: Setup Godot Engine
         uses: appsinacup/action_setup_godot@main
         with:

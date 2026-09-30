@@ -143,8 +143,8 @@ describe Diorite::GeometryBuilder do
     color = Godot::Color.new(1, 0.8, 0, 1)
 
     Diorite::GeometryBuilder.build_ray_hit(Godot::Vector3.new(0, 5, 0), Godot::Vector3.new(0, 0, 0), Godot::Vector3.new(0, 1, 0), color, verts, cols)
-    # Incident ray (2) + normal arrow (18) + impact ring (32) = 52 verts
-    verts.size.should eq(52)
+    # Incident ray (2) + normal arrow (18) + impact ring with crosshairs (36) + reflection ray (2) = 58 verts
+    verts.size.should eq(58)
   end
 
   it "builds innovative item: trajectory arc and impact ring" do
@@ -153,8 +153,8 @@ describe Diorite::GeometryBuilder do
     color = Godot::Color.new(0, 1, 0, 1)
 
     Diorite::GeometryBuilder.build_trajectory_arc(Godot::Vector3.new(0, 0, 0), Godot::Vector3.new(5, 5, 0), Godot::Vector3.new(0, -9.8, 0), 1.0_f32, 20, color, verts, cols)
-    # 20 arc steps * 2 (40 verts) + 16-segment impact ring * 2 (32 verts) = 72 verts
-    verts.size.should eq(72)
+    # 20 arc steps * 2 (40 verts) + 16-segment impact ring with crosshairs (36 verts) = 76 verts
+    verts.size.should eq(76)
   end
 
   it "builds innovative item: vision cone" do
@@ -219,5 +219,71 @@ describe Diorite::GeometryBuilder do
     verts.clear; cols.clear
     Diorite::GeometryBuilder.build_circle_2d(Godot::Vector2.new(50, 50), 20.0_f32, 16, col, verts, cols)
     verts.size.should eq(32) # 16 segments * 2 = 32
+  end
+
+  it "gracefully handles degenerate zero-length vectors in 3D and 2D" do
+    verts_3d = [] of Godot::Vector3
+    cols_3d = [] of Godot::Color
+    color = Godot::Color.new(1, 0, 0, 1)
+
+    # Zero-length line 3D
+    Diorite::GeometryBuilder.build_line(Godot::Vector3.new(1, 1, 1), Godot::Vector3.new(1, 1, 1), color, verts_3d, cols_3d)
+    verts_3d.size.should eq(2)
+
+    # Zero-length arrow 3D (direction vector length is 0)
+    verts_3d.clear; cols_3d.clear
+    Diorite::GeometryBuilder.build_arrow(Godot::Vector3.new(2, 2, 2), Godot::Vector3.new(2, 2, 2), color, 0.2_f32, verts_3d, cols_3d)
+    verts_3d.size.should be > 0
+
+    # Zero-length line 2D
+    verts_2d = [] of Godot::Vector2
+    cols_2d = [] of Godot::Color
+    Diorite::GeometryBuilder.build_line_2d(Godot::Vector2.new(5, 5), Godot::Vector2.new(5, 5), color, verts_2d, cols_2d)
+    verts_2d.size.should eq(2)
+
+    # Zero-length arrow 2D
+    verts_2d.clear; cols_2d.clear
+    Diorite::GeometryBuilder.build_arrow_2d(Godot::Vector2.new(5, 5), Godot::Vector2.new(5, 5), 10.0_f32, color, verts_2d, cols_2d)
+    verts_2d.size.should eq(2) # Falls back to single point/line without NaN fins
+  end
+
+  it "clamps subdivision and segment parameters within safe operational bounds" do
+    verts = [] of Godot::Vector3
+    cols = [] of Godot::Color
+    color = Godot::Color.new(0, 1, 0, 1)
+
+    # Sphere with extreme segments requested (e.g. 1 -> clamped to 8; 1000 -> clamped to 64)
+    Diorite::GeometryBuilder.build_sphere(Godot::Vector3.new(0, 0, 0), 1.0_f32, 1, color, verts, cols)
+    # 3 rings * 8 segments * 2 = 48 verts
+    verts.size.should eq(48)
+
+    verts.clear; cols.clear
+    Diorite::GeometryBuilder.build_sphere(Godot::Vector3.new(0, 0, 0), 1.0_f32, 1000, color, verts, cols)
+    # 3 rings * 64 segments * 2 = 384 verts
+    verts.size.should eq(384)
+  end
+
+  it "safely handles empty arrays and single-element paths in 3D and 2D" do
+    verts_3d = [] of Godot::Vector3
+    cols_3d = [] of Godot::Color
+    col = Godot::Color.new(1, 1, 1, 1)
+
+    # Empty 3D points
+    Diorite::GeometryBuilder.build_points([] of Godot::Vector3, 0.1_f32, col, verts_3d, cols_3d)
+    verts_3d.empty?.should be_true
+
+    # Single-point 3D path (cannot form line segment)
+    Diorite::GeometryBuilder.build_line_path([Godot::Vector3.new(1, 2, 3)], col, verts_3d, cols_3d)
+    verts_3d.empty?.should be_true
+
+    # Empty 2D points
+    verts_2d = [] of Godot::Vector2
+    cols_2d = [] of Godot::Color
+    Diorite::GeometryBuilder.build_points_2d([] of Godot::Vector2, 5.0_f32, col, verts_2d, cols_2d)
+    verts_2d.empty?.should be_true
+
+    # Single-point 2D path
+    Diorite::GeometryBuilder.build_path_2d([Godot::Vector2.new(10, 20)], col, verts_2d, cols_2d)
+    verts_2d.empty?.should be_true
   end
 end

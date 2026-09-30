@@ -20,38 +20,53 @@ module Diorite
     BillboardSquare
   end
 
+  # Inspector-configurable 3D debug shape node for placement directly in Godot scenes.
+  #
+  # Supports live-previewing in the Godot Editor (`@[Tool]` mode) and updates wireframe geometry
+  # dynamically whenever properties are modified in the Inspector or script.
   @[Tool]
   node DebugShape3D < Node3D do
+    # Target shape type index corresponding to `Shape3DType`.
     @[Export]
     property shape_type : Int32 = 0 # Shape3DType::Box
 
+    # Primary wireframe line color.
     @[Export]
     property color : Godot::Color = Godot::Color.new(1.0_f32, 0.2_f32, 0.2_f32, 1.0_f32)
 
+    # When true, disables depth testing and renders with priority 127 on top of scene geometry.
     @[Export]
     property draw_on_top : Bool = true
 
+    # Dimensions for Box, Plane, and Grid shapes.
     @[Export]
     property size : Godot::Vector3 = Godot::Vector3.new(1.0_f32, 1.0_f32, 1.0_f32)
 
+    # Radius for Sphere, Cylinder, Capsule, Gizmo, and Spring shapes.
     @[Export]
     property radius : Float32 = 1.0_f32
 
+    # Vertical height for Cylinder and Capsule shapes.
     @[Export]
     property height : Float32 = 2.0_f32
 
+    # Target vector coordinate for Line, Arrow, VisionCone, Spring, and Ruler shapes.
     @[Export]
     property target : Godot::Vector3 = Godot::Vector3.new(0.0_f32, 0.0_f32, 2.0_f32)
 
+    # Field-of-view angle in degrees for VisionCone shapes.
     @[Export]
     property angle_deg : Float32 = 45.0_f32
 
+    # Maximum sensory distance for VisionCone shapes.
     @[Export]
     property range : Float32 = 8.0_f32
 
+    # Number of complete spiral rotations for Spring shapes.
     @[Export]
     property coils : Int32 = 8
 
+    # Grid subdivision count for Grid shapes.
     @[Export]
     property subdivisions : Int32 = 10
 

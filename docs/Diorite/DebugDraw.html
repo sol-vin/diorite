@@ -1,0 +1,1721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Crystal Docs 1.20.3">
+<meta name="crystal_docs.project_version" content="main-dev">
+<meta name="crystal_docs.project_name" content="diorite">
+
+
+
+<link href="../css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../js/doc.js"></script>
+
+  <meta name="repository-name" content="diorite">
+  <title>Diorite::DebugDraw - diorite main-dev</title>
+  <script type="text/javascript">
+    CrystalDocs.base_path = "../";
+  </script>
+</head>
+<body>
+
+<svg class="hidden">
+  <symbol id="octicon-link" viewBox="0 0 16 16">
+    <path fill="currentColor" fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+  </symbol>
+</svg>
+<input type="checkbox" id="sidebar-btn">
+<label for="sidebar-btn" id="sidebar-btn-label">
+  <svg class="open" xmlns="http://www.w3.org/2000/svg" height="2em" width="2em" viewBox="0 0 512 512"><title>Open Sidebar</title><path fill="currentColor" d="M80 96v64h352V96H80zm0 112v64h352v-64H80zm0 112v64h352v-64H80z"></path></svg>
+  <svg class="close" xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 512 512"><title>Close Sidebar</title><path fill="currentColor" d="m118.6 73.4-45.2 45.2L210.7 256 73.4 393.4l45.2 45.2L256 301.3l137.4 137.3 45.2-45.2L301.3 256l137.3-137.4-45.2-45.2L256 210.7Z"></path></svg>
+</label>
+<div class="sidebar">
+  <div class="sidebar-header">
+    <div class="search-box">
+      <input type="search" class="search-input" placeholder="Search..." spellcheck="false" aria-label="Search">
+    </div>
+
+    <div class="project-summary">
+      <h1 class="project-name">
+        <a href="../index.html">
+          diorite
+        </a>
+      </h1>
+
+      <span class="project-version">
+        main-dev
+      </span>
+    </div>
+  </div>
+
+  <div class="search-results hidden">
+    <ul class="search-list"></ul>
+  </div>
+
+  <div class="types-list">
+    <ul>
+  
+  <li class=" " data-id="diorite/toplevel" data-name="top level namespace">
+      <a href="../toplevel.html">Top Level Namespace</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/DemoController" data-name="democontroller">
+      <a href="../DemoController.html">DemoController</a>
+      
+    </li>
+  
+  <li class="parent open current" data-id="diorite/Diorite" data-name="diorite">
+      <a href="../Diorite.html">Diorite</a>
+      
+        <ul>
+  
+  <li class=" " data-id="diorite/Diorite/Command2D" data-name="diorite::command2d">
+      <a href="../Diorite/Command2D.html">Command2D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/Command3D" data-name="diorite::command3d">
+      <a href="../Diorite/Command3D.html">Command3D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugArrow2D" data-name="diorite::debugarrow2d">
+      <a href="../Diorite/DebugArrow2D.html">DebugArrow2D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugArrow3D" data-name="diorite::debugarrow3d">
+      <a href="../Diorite/DebugArrow3D.html">DebugArrow3D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugAxes3D" data-name="diorite::debugaxes3d">
+      <a href="../Diorite/DebugAxes3D.html">DebugAxes3D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugBox3D" data-name="diorite::debugbox3d">
+      <a href="../Diorite/DebugBox3D.html">DebugBox3D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugCapsule3D" data-name="diorite::debugcapsule3d">
+      <a href="../Diorite/DebugCapsule3D.html">DebugCapsule3D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugCircle2D" data-name="diorite::debugcircle2d">
+      <a href="../Diorite/DebugCircle2D.html">DebugCircle2D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugCommandQueue" data-name="diorite::debugcommandqueue">
+      <a href="../Diorite/DebugCommandQueue.html">DebugCommandQueue</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugCylinder3D" data-name="diorite::debugcylinder3d">
+      <a href="../Diorite/DebugCylinder3D.html">DebugCylinder3D</a>
+      
+    </li>
+  
+  <li class=" current" data-id="diorite/Diorite/DebugDraw" data-name="diorite::debugdraw">
+      <a href="../Diorite/DebugDraw.html">DebugDraw</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugDrawManager" data-name="diorite::debugdrawmanager">
+      <a href="../Diorite/DebugDrawManager.html">DebugDrawManager</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugGrid3D" data-name="diorite::debuggrid3d">
+      <a href="../Diorite/DebugGrid3D.html">DebugGrid3D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugLine2D" data-name="diorite::debugline2d">
+      <a href="../Diorite/DebugLine2D.html">DebugLine2D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugLine3D" data-name="diorite::debugline3d">
+      <a href="../Diorite/DebugLine3D.html">DebugLine3D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugMaterialManager" data-name="diorite::debugmaterialmanager">
+      <a href="../Diorite/DebugMaterialManager.html">DebugMaterialManager</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugRect2D" data-name="diorite::debugrect2d">
+      <a href="../Diorite/DebugRect2D.html">DebugRect2D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugRuler3D" data-name="diorite::debugruler3d">
+      <a href="../Diorite/DebugRuler3D.html">DebugRuler3D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugShape2D" data-name="diorite::debugshape2d">
+      <a href="../Diorite/DebugShape2D.html">DebugShape2D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugShape3D" data-name="diorite::debugshape3d">
+      <a href="../Diorite/DebugShape3D.html">DebugShape3D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugSphere3D" data-name="diorite::debugsphere3d">
+      <a href="../Diorite/DebugSphere3D.html">DebugSphere3D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugSpring3D" data-name="diorite::debugspring3d">
+      <a href="../Diorite/DebugSpring3D.html">DebugSpring3D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugVisionCone3D" data-name="diorite::debugvisioncone3d">
+      <a href="../Diorite/DebugVisionCone3D.html">DebugVisionCone3D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/FrameContext" data-name="diorite::framecontext">
+      <a href="../Diorite/FrameContext.html">FrameContext</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/GeometryBuilder" data-name="diorite::geometrybuilder">
+      <a href="../Diorite/GeometryBuilder.html">GeometryBuilder</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/MathHelpers" data-name="diorite::mathhelpers">
+      <a href="../Diorite/MathHelpers.html">MathHelpers</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/Shape2DType" data-name="diorite::shape2dtype">
+      <a href="../Diorite/Shape2DType.html">Shape2DType</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/Shape3DType" data-name="diorite::shape3dtype">
+      <a href="../Diorite/Shape3DType.html">Shape3DType</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/ShapeKind2D" data-name="diorite::shapekind2d">
+      <a href="../Diorite/ShapeKind2D.html">ShapeKind2D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/ShapeKind3D" data-name="diorite::shapekind3d">
+      <a href="../Diorite/ShapeKind3D.html">ShapeKind3D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/TelemetryGraph" data-name="diorite::telemetrygraph">
+      <a href="../Diorite/TelemetryGraph.html">TelemetryGraph</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/TextCommand2D" data-name="diorite::textcommand2d">
+      <a href="../Diorite/TextCommand2D.html">TextCommand2D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/TextCommand3D" data-name="diorite::textcommand3d">
+      <a href="../Diorite/TextCommand3D.html">TextCommand3D</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent " data-id="diorite/Lapis" data-name="lapis">
+      <a href="../Lapis.html">Lapis</a>
+      
+        <ul>
+  
+  <li class="parent " data-id="diorite/Lapis/Docs" data-name="lapis::docs">
+      <a href="../Lapis/Docs.html">Docs</a>
+      
+        <ul>
+  
+  <li class="parent " data-id="diorite/Lapis/Docs/GENERAL" data-name="lapis::docs::general">
+      <a href="../Lapis/Docs/GENERAL.html">GENERAL</a>
+      
+        <ul>
+  
+  <li class=" " data-id="diorite/Lapis/Docs/GENERAL/NODES" data-name="lapis::docs::general::nodes">
+      <a href="../Lapis/Docs/GENERAL/NODES.html">NODES</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Lapis/Docs/GENERAL/OVERVIEW" data-name="lapis::docs::general::overview">
+      <a href="../Lapis/Docs/GENERAL/OVERVIEW.html">OVERVIEW</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Lapis/Docs/GENERAL/PIPELINE" data-name="lapis::docs::general::pipeline">
+      <a href="../Lapis/Docs/GENERAL/PIPELINE.html">PIPELINE</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Lapis/Docs/GENERAL/PRIMITIVES" data-name="lapis::docs::general::primitives">
+      <a href="../Lapis/Docs/GENERAL/PRIMITIVES.html">PRIMITIVES</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="diorite/MainNode" data-name="mainnode">
+      <a href="../MainNode.html">MainNode</a>
+      
+    </li>
+  
+</ul>
+
+  </div>
+</div>
+
+
+<div class="main-content">
+<h1 class="type-name">
+
+  <span class="kind">
+    module
+  </span> Diorite::<wbr>DebugDraw
+
+</h1>
+
+
+
+
+
+  <h2>
+    <a id="overview" class="anchor" href="#overview">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Overview
+  </h2>
+
+  <p>High-level immediate-mode debug drawing API for Godot Engine 4.8+.</p>
+<p><code><a href="../Diorite/DebugDraw.html">DebugDraw</a></code> allows you to render primitives anywhere in game logic (e.g. <code>_process</code>,
+<code>_physics_process</code>, collision signals, AI controllers) without manually managing scene nodes.</p>
+<p>Primitives are submitted to a centralized thread-safe queue and batch rendered by <code><a href="../Diorite/DebugDrawManager.html">DebugDrawManager</a></code>.</p>
+<h3><a id="features" class="anchor" href="#features">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Features:</h3>
+<ul>
+<li><strong>High Render Priority</strong>: 3D items render with <code>render_priority = 127</code> and depth test disabled.</li>
+<li><strong>2D Overlay</strong>: 2D items render to an overlay <code>CanvasLayer</code> (layer 128, <code>z_index = 4096</code>).</li>
+<li><strong>Single-frame vs Timed</strong>: Draw for a single frame (<code>duration: 0.0</code>) or persist for a timed duration (<code>duration: 2.5</code>).</li>
+<li><strong>Zero Garbage Generation</strong>: Uses pre-allocated vertex ring buffers for high performance.</li>
+</ul>
+<pre><code class="language-crystal"><span class="c"># Draw an arrow for 3 seconds</span>
+<span class="t">DebugDraw</span>.arrow_3d(player.position, player.position <span class="o">+</span> player.velocity, <span class="t">Color</span>.new(<span class="n">1</span>, <span class="n">0</span>, <span class="n">0</span>), duration: <span class="n">3.0</span>)
+
+<span class="c"># Draw real-time sparkline telemetry in 2D</span>
+<span class="t">DebugDraw</span>.telemetry_graph_2d(<span class="s">&quot;Velocity&quot;</span>, player.speed, <span class="t">Rect2</span>.new(<span class="n">20</span>, <span class="n">20</span>, <span class="n">160</span>, <span class="n">40</span>))</code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2>
+    <a id="defined-in" class="anchor" href="#defined-in">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Defined in:
+  </h2>
+  
+    
+      src\diorite\core\dsl.cr
+    
+    <br/>
+  
+
+
+
+
+
+  
+
+  
+  <h2>
+    <a id="class-method-summary" class="anchor" href="#class-method-summary">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Class Method Summary
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#arrow_2d%28from%3AGodot%3A%3AVector2%2Cto%3AGodot%3A%3AVector2%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%281.0_f32%2C1.0_f32%2C1.0_f32%2C1.0_f32%29%2Chead_size%3AFloat32%3D10.0_f32%2Cduration%3AFloat64%3D0.0%29%3AVoid-class-method" class="signature"><strong>.arrow_2d</strong>(from : Godot::Vector2, to : Godot::Vector2, color : Godot::Color = <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>), head_size : Float32 = <span class="n">10.0_f32</span>, duration : Float64 = <span class="n">0.0</span>) : Void</a>
+        
+          <div class="summary"><p>Draws a 2D directional arrow with a triangular head on the canvas overlay.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#arrow_3d%28from%3AGodot%3A%3AVector3%2Cto%3AGodot%3A%3AVector3%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%281.0_f32%2C1.0_f32%2C1.0_f32%2C1.0_f32%29%2Chead_size%3AFloat32%3D0.25_f32%2Cduration%3AFloat64%3D0.0%2Con_top%3ABool%3Dtrue%29%3AVoid-class-method" class="signature"><strong>.arrow_3d</strong>(from : Godot::Vector3, to : Godot::Vector3, color : Godot::Color = <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>), head_size : Float32 = <span class="n">0.25_f32</span>, duration : Float64 = <span class="n">0.0</span>, on_top : Bool = <span class="n">true</span>) : Void</a>
+        
+          <div class="summary"><p>Draws a 3D directional arrow from <em>from</em> to <em>to</em> with a conical finned head.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#billboard_square_3d%28position%3AGodot%3A%3AVector3%2Csize%3AFloat32%3D0.5_f32%2Ccamera_pos%3AGodot%3A%3AVector3%3DGodot%3A%3AVector3.new%280%2C0%2C5%29%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%281.0_f32%2C1.0_f32%2C1.0_f32%2C1.0_f32%29%2Cduration%3AFloat64%3D0.0%2Con_top%3ABool%3Dtrue%29%3AVoid-class-method" class="signature"><strong>.billboard_square_3d</strong>(position : Godot::Vector3, size : Float32 = <span class="n">0.5_f32</span>, camera_pos : Godot::Vector3 = <span class="t">Godot</span><span class="t">::</span><span class="t">Vector3</span>.new(<span class="n">0</span>, <span class="n">0</span>, <span class="n">5</span>), color : Godot::Color = <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>), duration : Float64 = <span class="n">0.0</span>, on_top : Bool = <span class="n">true</span>) : Void</a>
+        
+          <div class="summary"><p>Draws a camera-facing billboard square marker in 3D world space.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#box_3d%28center%3AGodot%3A%3AVector3%2Csize%3AGodot%3A%3AVector3%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%281.0_f32%2C1.0_f32%2C1.0_f32%2C1.0_f32%29%2Cwireframe%3ABool%3Dtrue%2Cduration%3AFloat64%3D0.0%2Con_top%3ABool%3Dtrue%29%3AVoid-class-method" class="signature"><strong>.box_3d</strong>(center : Godot::Vector3, size : Godot::Vector3, color : Godot::Color = <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>), wireframe : Bool = <span class="n">true</span>, duration : Float64 = <span class="n">0.0</span>, on_top : Bool = <span class="n">true</span>) : Void</a>
+        
+          <div class="summary"><p>Draws an axis-aligned 3D bounding box (AABB) centered at <em>center</em>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#camera_frustum_3d%28origin%3AGodot%3A%3AVector3%2Cbasis%3AGodot%3A%3ABasis%2Cfov_deg%3AFloat32%3D75.0_f32%2Cnear%3AFloat32%3D0.1_f32%2Cfar%3AFloat32%3D10.0_f32%2Caspect%3AFloat32%3D1.777_f32%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%281.0_f32%2C1.0_f32%2C1.0_f32%2C1.0_f32%29%2Cduration%3AFloat64%3D0.0%2Con_top%3ABool%3Dtrue%29%3AVoid-class-method" class="signature"><strong>.camera_frustum_3d</strong>(origin : Godot::Vector3, basis : Godot::Basis, fov_deg : Float32 = <span class="n">75.0_f32</span>, near : Float32 = <span class="n">0.1_f32</span>, far : Float32 = <span class="n">10.0_f32</span>, aspect : Float32 = <span class="n">1.777_f32</span>, color : Godot::Color = <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>), duration : Float64 = <span class="n">0.0</span>, on_top : Bool = <span class="n">true</span>) : Void</a>
+        
+          <div class="summary"><p>Draws a 3D camera view frustum pyramid with near and far clipping rectangles.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#capsule_3d%28center%3AGodot%3A%3AVector3%2Cradius%3AFloat32%3D0.5_f32%2Cheight%3AFloat32%3D2.0_f32%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%281.0_f32%2C1.0_f32%2C1.0_f32%2C1.0_f32%29%2Csegments%3AInt32%3D16%2Cduration%3AFloat64%3D0.0%2Con_top%3ABool%3Dtrue%29%3AVoid-class-method" class="signature"><strong>.capsule_3d</strong>(center : Godot::Vector3, radius : Float32 = <span class="n">0.5_f32</span>, height : Float32 = <span class="n">2.0_f32</span>, color : Godot::Color = <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>), segments : Int32 = <span class="n">16</span>, duration : Float64 = <span class="n">0.0</span>, on_top : Bool = <span class="n">true</span>) : Void</a>
+        
+          <div class="summary"><p>Draws a 3D wireframe capsule with hemispherical top and bottom caps.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#circle_2d%28center%3AGodot%3A%3AVector2%2Cradius%3AFloat32%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%281.0_f32%2C1.0_f32%2C1.0_f32%2C1.0_f32%29%2Csegments%3AInt32%3D24%2Cduration%3AFloat64%3D0.0%29%3AVoid-class-method" class="signature"><strong>.circle_2d</strong>(center : Godot::Vector2, radius : Float32, color : Godot::Color = <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>), segments : Int32 = <span class="n">24</span>, duration : Float64 = <span class="n">0.0</span>) : Void</a>
+        
+          <div class="summary"><p>Draws a 2D wireframe circle on the canvas overlay.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#clear%3AVoid-class-method" class="signature"><strong>.clear</strong> : Void</a>
+        
+          <div class="summary"><p>Clears all active 2D and 3D commands from the global queue immediately.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#cylinder_3d%28center%3AGodot%3A%3AVector3%2Cradius%3AFloat32%3D1.0_f32%2Cheight%3AFloat32%3D2.0_f32%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%281.0_f32%2C1.0_f32%2C1.0_f32%2C1.0_f32%29%2Csegments%3AInt32%3D16%2Cduration%3AFloat64%3D0.0%2Con_top%3ABool%3Dtrue%29%3AVoid-class-method" class="signature"><strong>.cylinder_3d</strong>(center : Godot::Vector3, radius : Float32 = <span class="n">1.0_f32</span>, height : Float32 = <span class="n">2.0_f32</span>, color : Godot::Color = <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>), segments : Int32 = <span class="n">16</span>, duration : Float64 = <span class="n">0.0</span>, on_top : Bool = <span class="n">true</span>) : Void</a>
+        
+          <div class="summary"><p>Draws a 3D wireframe cylinder with circular top/bottom caps and 4 vertical struts.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#frame%28%26block%3AFrameContext-%3E%29%3AVoid-class-method" class="signature"><strong>.frame</strong>(&block : FrameContext -> ) : Void</a>
+        
+          <div class="summary"><p>Yields a scoped <code><a href="../Diorite/FrameContext.html">FrameContext</a></code> block for batching debug draws within a single frame.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#gizmo_3d%28origin%3AGodot%3A%3AVector3%2Cbasis%3AGodot%3A%3ABasis%3DGodot%3A%3ABasis.new%2Csize%3AFloat32%3D1.0_f32%2Cduration%3AFloat64%3D0.0%2Con_top%3ABool%3Dtrue%29%3AVoid-class-method" class="signature"><strong>.gizmo_3d</strong>(origin : Godot::Vector3, basis : Godot::Basis = <span class="t">Godot</span><span class="t">::</span><span class="t">Basis</span>.new, size : Float32 = <span class="n">1.0_f32</span>, duration : Float64 = <span class="n">0.0</span>, on_top : Bool = <span class="n">true</span>) : Void</a>
+        
+          <div class="summary"><p>Draws a 3D coordinate transform gizmo with Red=X, Green=Y, Blue=Z axis vectors.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#grid_3d%28center%3AGodot%3A%3AVector3%3DGodot%3A%3AVector3.new%2Csize%3AGodot%3A%3AVector2%3DGodot%3A%3AVector2.new%2810.0_f32%2C10.0_f32%29%2Csubdivisions%3AInt32%3D10%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%280.5_f32%2C0.5_f32%2C0.5_f32%2C1.0_f32%29%2Cduration%3AFloat64%3D0.0%2Con_top%3ABool%3Dtrue%29%3AVoid-class-method" class="signature"><strong>.grid_3d</strong>(center : Godot::Vector3 = <span class="t">Godot</span><span class="t">::</span><span class="t">Vector3</span>.new, size : Godot::Vector2 = <span class="t">Godot</span><span class="t">::</span><span class="t">Vector2</span>.new(<span class="n">10.0_f32</span>, <span class="n">10.0_f32</span>), subdivisions : Int32 = <span class="n">10</span>, color : Godot::Color = <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">0.5_f32</span>, <span class="n">0.5_f32</span>, <span class="n">0.5_f32</span>, <span class="n">1.0_f32</span>), duration : Float64 = <span class="n">0.0</span>, on_top : Bool = <span class="n">true</span>) : Void</a>
+        
+          <div class="summary"><p>Draws a 3D ground reference grid plane.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#line_2d%28from%3AGodot%3A%3AVector2%2Cto%3AGodot%3A%3AVector2%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%281.0_f32%2C1.0_f32%2C1.0_f32%2C1.0_f32%29%2Cduration%3AFloat64%3D0.0%29%3AVoid-class-method" class="signature"><strong>.line_2d</strong>(from : Godot::Vector2, to : Godot::Vector2, color : Godot::Color = <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>), duration : Float64 = <span class="n">0.0</span>) : Void</a>
+        
+          <div class="summary"><p>Draws a 2D line segment on the canvas overlay between pixel coordinates <em>from</em> and <em>to</em>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#line_3d%28from%3AGodot%3A%3AVector3%2Cto%3AGodot%3A%3AVector3%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%281.0_f32%2C1.0_f32%2C1.0_f32%2C1.0_f32%29%2Cduration%3AFloat64%3D0.0%2Con_top%3ABool%3Dtrue%29%3AVoid-class-method" class="signature"><strong>.line_3d</strong>(from : Godot::Vector3, to : Godot::Vector3, color : Godot::Color = <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>), duration : Float64 = <span class="n">0.0</span>, on_top : Bool = <span class="n">true</span>) : Void</a>
+        
+          <div class="summary"><p>Draws a 3D line segment between <em>from</em> and <em>to</em>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#line_arrow_3d%28from%3AGodot%3A%3AVector3%2Cto%3AGodot%3A%3AVector3%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%281.0_f32%2C1.0_f32%2C1.0_f32%2C1.0_f32%29%2Chead_size%3AFloat32%3D0.25_f32%2Cduration%3AFloat64%3D0.0%2Con_top%3ABool%3Dtrue%29%3AVoid-class-method" class="signature"><strong>.line_arrow_3d</strong>(from : Godot::Vector3, to : Godot::Vector3, color : Godot::Color = <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>), head_size : Float32 = <span class="n">0.25_f32</span>, duration : Float64 = <span class="n">0.0</span>, on_top : Bool = <span class="n">true</span>) : Void</a>
+        
+          <div class="summary"><p>Alias for <code><a href="../Diorite/DebugDraw.html#arrow_3d%28from%3AGodot%3A%3AVector3%2Cto%3AGodot%3A%3AVector3%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%281.0_f32%2C1.0_f32%2C1.0_f32%2C1.0_f32%29%2Chead_size%3AFloat32%3D0.25_f32%2Cduration%3AFloat64%3D0.0%2Con_top%3ABool%3Dtrue%29%3AVoid-class-method">.arrow_3d</a></code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#line_path_2d%28points%3AArray%28Godot%3A%3AVector2%29%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%281.0_f32%2C1.0_f32%2C1.0_f32%2C1.0_f32%29%2Cduration%3AFloat64%3D0.0%29%3AVoid-class-method" class="signature"><strong>.line_path_2d</strong>(points : Array(Godot::Vector2), color : Godot::Color = <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>), duration : Float64 = <span class="n">0.0</span>) : Void</a>
+        
+          <div class="summary"><p>Alias for <code><a href="../Diorite/DebugDraw.html#path_2d%28points%3AArray%28Godot%3A%3AVector2%29%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%281.0_f32%2C1.0_f32%2C1.0_f32%2C1.0_f32%29%2Cduration%3AFloat64%3D0.0%29%3AVoid-class-method">.path_2d</a></code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#line_path_3d%28points%3AArray%28Godot%3A%3AVector3%29%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%281.0_f32%2C1.0_f32%2C1.0_f32%2C1.0_f32%29%2Cduration%3AFloat64%3D0.0%2Con_top%3ABool%3Dtrue%29%3AVoid-class-method" class="signature"><strong>.line_path_3d</strong>(points : Array(Godot::Vector3), color : Godot::Color = <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>), duration : Float64 = <span class="n">0.0</span>, on_top : Bool = <span class="n">true</span>) : Void</a>
+        
+          <div class="summary"><p>Draws a continuous 3D polyline connecting an ordered list of <em>points</em>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#obb_3d%28center%3AGodot%3A%3AVector3%2Csize%3AGodot%3A%3AVector3%2Cbasis%3AGodot%3A%3ABasis%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%281.0_f32%2C1.0_f32%2C1.0_f32%2C1.0_f32%29%2Cwireframe%3ABool%3Dtrue%2Cduration%3AFloat64%3D0.0%2Con_top%3ABool%3Dtrue%29%3AVoid-class-method" class="signature"><strong>.obb_3d</strong>(center : Godot::Vector3, size : Godot::Vector3, basis : Godot::Basis, color : Godot::Color = <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>), wireframe : Bool = <span class="n">true</span>, duration : Float64 = <span class="n">0.0</span>, on_top : Bool = <span class="n">true</span>) : Void</a>
+        
+          <div class="summary"><p>Draws an arbitrarily oriented bounding box (OBB) defined by a 3x3 rotation <code>Basis</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#path_2d%28points%3AArray%28Godot%3A%3AVector2%29%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%281.0_f32%2C1.0_f32%2C1.0_f32%2C1.0_f32%29%2Cduration%3AFloat64%3D0.0%29%3AVoid-class-method" class="signature"><strong>.path_2d</strong>(points : Array(Godot::Vector2), color : Godot::Color = <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>), duration : Float64 = <span class="n">0.0</span>) : Void</a>
+        
+          <div class="summary"><p>Draws a continuous 2D polyline connecting an ordered list of <em>points</em>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#plane_3d%28center%3AGodot%3A%3AVector3%2Cnormal%3AGodot%3A%3AVector3%3DGodot%3A%3AVector3.new%280.0_f32%2C1.0_f32%2C0.0_f32%29%2Csize%3AGodot%3A%3AVector2%3DGodot%3A%3AVector2.new%285.0_f32%2C5.0_f32%29%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%281.0_f32%2C1.0_f32%2C1.0_f32%2C1.0_f32%29%2Cduration%3AFloat64%3D0.0%2Con_top%3ABool%3Dtrue%29%3AVoid-class-method" class="signature"><strong>.plane_3d</strong>(center : Godot::Vector3, normal : Godot::Vector3 = <span class="t">Godot</span><span class="t">::</span><span class="t">Vector3</span>.new(<span class="n">0.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">0.0_f32</span>), size : Godot::Vector2 = <span class="t">Godot</span><span class="t">::</span><span class="t">Vector2</span>.new(<span class="n">5.0_f32</span>, <span class="n">5.0_f32</span>), color : Godot::Color = <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>), duration : Float64 = <span class="n">0.0</span>, on_top : Bool = <span class="n">true</span>) : Void</a>
+        
+          <div class="summary"><p>Draws an oriented 3D plane quad with a center normal pointer.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#points_2d%28points%3AArray%28Godot%3A%3AVector2%29%2Csize%3AFloat32%3D4.0_f32%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%281.0_f32%2C1.0_f32%2C1.0_f32%2C1.0_f32%29%2Cduration%3AFloat64%3D0.0%29%3AVoid-class-method" class="signature"><strong>.points_2d</strong>(points : Array(Godot::Vector2), size : Float32 = <span class="n">4.0_f32</span>, color : Godot::Color = <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>), duration : Float64 = <span class="n">0.0</span>) : Void</a>
+        
+          <div class="summary"><p>Draws discrete 2D point markers on the canvas overlay.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#points_3d%28points%3AArray%28Godot%3A%3AVector3%29%2Csize%3AFloat32%3D0.1_f32%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%281.0_f32%2C1.0_f32%2C1.0_f32%2C1.0_f32%29%2Cduration%3AFloat64%3D0.0%2Con_top%3ABool%3Dtrue%29%3AVoid-class-method" class="signature"><strong>.points_3d</strong>(points : Array(Godot::Vector3), size : Float32 = <span class="n">0.1_f32</span>, color : Godot::Color = <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>), duration : Float64 = <span class="n">0.0</span>, on_top : Bool = <span class="n">true</span>) : Void</a>
+        
+          <div class="summary"><p>Draws small 3D crosshair markers for an array of world <em>points</em>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#position_3d%28origin%3AGodot%3A%3AVector3%2Csize%3AFloat32%3D1.0_f32%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%281.0_f32%2C1.0_f32%2C1.0_f32%2C1.0_f32%29%2Cduration%3AFloat64%3D0.0%2Con_top%3ABool%3Dtrue%29%3AVoid-class-method" class="signature"><strong>.position_3d</strong>(origin : Godot::Vector3, size : Float32 = <span class="n">1.0_f32</span>, color : Godot::Color = <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>), duration : Float64 = <span class="n">0.0</span>, on_top : Bool = <span class="n">true</span>) : Void</a>
+        
+          <div class="summary"><p>Draws a 3-axis crossing crosshair indicating position and scale.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#queue%3ADebugCommandQueue-class-method" class="signature"><strong>.queue</strong> : DebugCommandQueue</a>
+        
+          <div class="summary"><p>Returns the global underlying command queue.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#ray_hit_3d%28origin%3AGodot%3A%3AVector3%2Chit_point%3AGodot%3A%3AVector3%2Cnormal%3AGodot%3A%3AVector3%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%281.0_f32%2C0.8_f32%2C0.0_f32%2C1.0_f32%29%2Cduration%3AFloat64%3D0.0%2Con_top%3ABool%3Dtrue%29%3AVoid-class-method" class="signature"><strong>.ray_hit_3d</strong>(origin : Godot::Vector3, hit_point : Godot::Vector3, normal : Godot::Vector3, color : Godot::Color = <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">1.0_f32</span>, <span class="n">0.8_f32</span>, <span class="n">0.0_f32</span>, <span class="n">1.0_f32</span>), duration : Float64 = <span class="n">0.0</span>, on_top : Bool = <span class="n">true</span>) : Void</a>
+        
+          <div class="summary"><p>Draws a complete raycast hit visualization: incident ray, surface impact disc, and surface normal reflection vector.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#raycast_hit_3d%28origin%3AGodot%3A%3AVector3%2Chit_point%3AGodot%3A%3AVector3%2Cnormal%3AGodot%3A%3AVector3%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%281.0_f32%2C0.8_f32%2C0.0_f32%2C1.0_f32%29%2Cduration%3AFloat64%3D0.0%2Con_top%3ABool%3Dtrue%29%3AVoid-class-method" class="signature"><strong>.raycast_hit_3d</strong>(origin : Godot::Vector3, hit_point : Godot::Vector3, normal : Godot::Vector3, color : Godot::Color = <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">1.0_f32</span>, <span class="n">0.8_f32</span>, <span class="n">0.0_f32</span>, <span class="n">1.0_f32</span>), duration : Float64 = <span class="n">0.0</span>, on_top : Bool = <span class="n">true</span>) : Void</a>
+        
+          <div class="summary"><p>Alias for <code><a href="../Diorite/DebugDraw.html#ray_hit_3d%28origin%3AGodot%3A%3AVector3%2Chit_point%3AGodot%3A%3AVector3%2Cnormal%3AGodot%3A%3AVector3%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%281.0_f32%2C0.8_f32%2C0.0_f32%2C1.0_f32%29%2Cduration%3AFloat64%3D0.0%2Con_top%3ABool%3Dtrue%29%3AVoid-class-method">.ray_hit_3d</a></code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#rect_2d%28rect%3AGodot%3A%3ARect2%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%281.0_f32%2C1.0_f32%2C1.0_f32%2C1.0_f32%29%2Cduration%3AFloat64%3D0.0%29%3AVoid-class-method" class="signature"><strong>.rect_2d</strong>(rect : Godot::Rect2, color : Godot::Color = <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>), duration : Float64 = <span class="n">0.0</span>) : Void</a>
+        
+          <div class="summary"><p>Draws a 2D wireframe rectangle on the canvas overlay.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#reticle_3d%28position%3AGodot%3A%3AVector3%2Cnormal%3AGodot%3A%3AVector3%3DGodot%3A%3AVector3.new%280%2C0%2C1%29%2Csize%3AFloat32%3D0.5_f32%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%281.0_f32%2C0.2_f32%2C0.2_f32%2C1.0_f32%29%2Cduration%3AFloat64%3D0.0%2Con_top%3ABool%3Dtrue%29%3AVoid-class-method" class="signature"><strong>.reticle_3d</strong>(position : Godot::Vector3, normal : Godot::Vector3 = <span class="t">Godot</span><span class="t">::</span><span class="t">Vector3</span>.new(<span class="n">0</span>, <span class="n">0</span>, <span class="n">1</span>), size : Float32 = <span class="n">0.5_f32</span>, color : Godot::Color = <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">1.0_f32</span>, <span class="n">0.2_f32</span>, <span class="n">0.2_f32</span>, <span class="n">1.0_f32</span>), duration : Float64 = <span class="n">0.0</span>, on_top : Bool = <span class="n">true</span>) : Void</a>
+        
+          <div class="summary"><p>Draws an aim reticle with a center circle and 4 corner target brackets.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#ruler_3d%28from%3AGodot%3A%3AVector3%2Cto%3AGodot%3A%3AVector3%2Ctick_size%3AFloat32%3D0.2_f32%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%281.0_f32%2C1.0_f32%2C1.0_f32%2C1.0_f32%29%2Cduration%3AFloat64%3D0.0%2Con_top%3ABool%3Dtrue%29%3AVoid-class-method" class="signature"><strong>.ruler_3d</strong>(from : Godot::Vector3, to : Godot::Vector3, tick_size : Float32 = <span class="n">0.2_f32</span>, color : Godot::Color = <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>), duration : Float64 = <span class="n">0.0</span>, on_top : Bool = <span class="n">true</span>) : Void</a>
+        
+          <div class="summary"><p>Draws a calibrated distance ruler with tick marks and midpoint distance readout.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#sphere_3d%28center%3AGodot%3A%3AVector3%2Cradius%3AFloat32%3D1.0_f32%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%281.0_f32%2C1.0_f32%2C1.0_f32%2C1.0_f32%29%2Crings%3AInt32%3D16%2Cduration%3AFloat64%3D0.0%2Con_top%3ABool%3Dtrue%29%3AVoid-class-method" class="signature"><strong>.sphere_3d</strong>(center : Godot::Vector3, radius : Float32 = <span class="n">1.0_f32</span>, color : Godot::Color = <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>), rings : Int32 = <span class="n">16</span>, duration : Float64 = <span class="n">0.0</span>, on_top : Bool = <span class="n">true</span>) : Void</a>
+        
+          <div class="summary"><p>Draws a 3D wireframe sphere composed of 3 orthogonal intersecting circular rings.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#spring_3d%28from%3AGodot%3A%3AVector3%2Cto%3AGodot%3A%3AVector3%2Cradius%3AFloat32%3D0.2_f32%2Ccoils%3AInt32%3D8%2Csegments%3AInt32%3D16%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%281.0_f32%2C0.9_f32%2C0.1_f32%2C1.0_f32%29%2Cduration%3AFloat64%3D0.0%2Con_top%3ABool%3Dtrue%29%3AVoid-class-method" class="signature"><strong>.spring_3d</strong>(from : Godot::Vector3, to : Godot::Vector3, radius : Float32 = <span class="n">0.2_f32</span>, coils : Int32 = <span class="n">8</span>, segments : Int32 = <span class="n">16</span>, color : Godot::Color = <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">1.0_f32</span>, <span class="n">0.9_f32</span>, <span class="n">0.1_f32</span>, <span class="n">1.0_f32</span>), duration : Float64 = <span class="n">0.0</span>, on_top : Bool = <span class="n">true</span>) : Void</a>
+        
+          <div class="summary"><p>Draws a 3D helical wire spring between two world endpoints.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#stat_graph_2d%28title%3AString%2Cvalue%3ANumber%2Crect%3AGodot%3A%3ARect2%3DGodot%3A%3ARect2.new%2820.0_f32%2C20.0_f32%2C160.0_f32%2C50.0_f32%29%2Cmin_val%3ANumber%3D0.0%2Cmax_val%3ANumber%3D100.0%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%280.2_f32%2C0.9_f32%2C0.3_f32%2C1.0_f32%29%29%3AVoid-class-method" class="signature"><strong>.stat_graph_2d</strong>(title : String, value : Number, rect : Godot::Rect2 = <span class="t">Godot</span><span class="t">::</span><span class="t">Rect2</span>.new(<span class="n">20.0_f32</span>, <span class="n">20.0_f32</span>, <span class="n">160.0_f32</span>, <span class="n">50.0_f32</span>), min_val : Number = <span class="n">0.0</span>, max_val : Number = <span class="n">100.0</span>, color : Godot::Color = <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">0.2_f32</span>, <span class="n">0.9_f32</span>, <span class="n">0.3_f32</span>, <span class="n">1.0_f32</span>)) : Void</a>
+        
+          <div class="summary"><p>Updates and renders a real-time scrolling telemetry sparkline graph on the 2D canvas overlay.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#surface_contact_3d%28position%3AGodot%3A%3AVector3%2Cnormal%3AGodot%3A%3AVector3%2Cradius%3AFloat32%3D0.5_f32%2Csegments%3AInt32%3D24%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%280.0_f32%2C0.8_f32%2C0.9_f32%2C1.0_f32%29%2Cduration%3AFloat64%3D0.0%2Con_top%3ABool%3Dtrue%29%3AVoid-class-method" class="signature"><strong>.surface_contact_3d</strong>(position : Godot::Vector3, normal : Godot::Vector3, radius : Float32 = <span class="n">0.5_f32</span>, segments : Int32 = <span class="n">24</span>, color : Godot::Color = <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">0.0_f32</span>, <span class="n">0.8_f32</span>, <span class="n">0.9_f32</span>, <span class="n">1.0_f32</span>), duration : Float64 = <span class="n">0.0</span>, on_top : Bool = <span class="n">true</span>) : Void</a>
+        
+          <div class="summary"><p>Alias for <code><a href="../Diorite/DebugDraw.html#surface_disk_3d%28position%3AGodot%3A%3AVector3%2Cnormal%3AGodot%3A%3AVector3%2Cradius%3AFloat32%3D0.5_f32%2Csegments%3AInt32%3D24%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%280.0_f32%2C0.8_f32%2C0.9_f32%2C1.0_f32%29%2Cduration%3AFloat64%3D0.0%2Con_top%3ABool%3Dtrue%29%3AVoid-class-method">.surface_disk_3d</a></code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#surface_disk_3d%28position%3AGodot%3A%3AVector3%2Cnormal%3AGodot%3A%3AVector3%2Cradius%3AFloat32%3D0.5_f32%2Csegments%3AInt32%3D24%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%280.0_f32%2C0.8_f32%2C0.9_f32%2C1.0_f32%29%2Cduration%3AFloat64%3D0.0%2Con_top%3ABool%3Dtrue%29%3AVoid-class-method" class="signature"><strong>.surface_disk_3d</strong>(position : Godot::Vector3, normal : Godot::Vector3, radius : Float32 = <span class="n">0.5_f32</span>, segments : Int32 = <span class="n">24</span>, color : Godot::Color = <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">0.0_f32</span>, <span class="n">0.8_f32</span>, <span class="n">0.9_f32</span>, <span class="n">1.0_f32</span>), duration : Float64 = <span class="n">0.0</span>, on_top : Bool = <span class="n">true</span>) : Void</a>
+        
+          <div class="summary"><p>Draws a normal-aligned circular surface disc indicating a collision or ground contact patch.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#telemetry_graph_2d%28title%3AString%2Cvalue%3ANumber%2Crect%3AGodot%3A%3ARect2%3DGodot%3A%3ARect2.new%2820.0_f32%2C20.0_f32%2C160.0_f32%2C50.0_f32%29%2Cmin_val%3ANumber%3D0.0%2Cmax_val%3ANumber%3D100.0%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%280.2_f32%2C0.9_f32%2C0.3_f32%2C1.0_f32%29%29%3AVoid-class-method" class="signature"><strong>.telemetry_graph_2d</strong>(title : String, value : Number, rect : Godot::Rect2 = <span class="t">Godot</span><span class="t">::</span><span class="t">Rect2</span>.new(<span class="n">20.0_f32</span>, <span class="n">20.0_f32</span>, <span class="n">160.0_f32</span>, <span class="n">50.0_f32</span>), min_val : Number = <span class="n">0.0</span>, max_val : Number = <span class="n">100.0</span>, color : Godot::Color = <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">0.2_f32</span>, <span class="n">0.9_f32</span>, <span class="n">0.3_f32</span>, <span class="n">1.0_f32</span>)) : Void</a>
+        
+          <div class="summary"><p>Alias for <code><a href="../Diorite/DebugDraw.html#stat_graph_2d%28title%3AString%2Cvalue%3ANumber%2Crect%3AGodot%3A%3ARect2%3DGodot%3A%3ARect2.new%2820.0_f32%2C20.0_f32%2C160.0_f32%2C50.0_f32%29%2Cmin_val%3ANumber%3D0.0%2Cmax_val%3ANumber%3D100.0%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%280.2_f32%2C0.9_f32%2C0.3_f32%2C1.0_f32%29%29%3AVoid-class-method">.stat_graph_2d</a></code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#text_2d%28position%3AGodot%3A%3AVector2%2Ctext%3AString%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%281.0_f32%2C1.0_f32%2C1.0_f32%2C1.0_f32%29%2Cduration%3AFloat64%3D0.0%29%3AVoid-class-method" class="signature"><strong>.text_2d</strong>(position : Godot::Vector2, text : String, color : Godot::Color = <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>), duration : Float64 = <span class="n">0.0</span>) : Void</a>
+        
+          <div class="summary"><p>Draws a 2D text label on the canvas overlay at pixel position <em>position</em>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#text_3d%28position%3AGodot%3A%3AVector3%2Ctext%3AString%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%281.0_f32%2C1.0_f32%2C1.0_f32%2C1.0_f32%29%2Cduration%3AFloat64%3D0.0%2Con_top%3ABool%3Dtrue%29%3AVoid-class-method" class="signature"><strong>.text_3d</strong>(position : Godot::Vector3, text : String, color : Godot::Color = <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>), duration : Float64 = <span class="n">0.0</span>, on_top : Bool = <span class="n">true</span>) : Void</a>
+        
+          <div class="summary"><p>Draws a world-positioned 3D billboard text label with depth-test bypass.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#trail_3d%28id%3AString%2Ccurrent_position%3AGodot%3A%3AVector3%2Cmax_points%3AInt32%3D60%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%280.9_f32%2C0.2_f32%2C0.9_f32%2C1.0_f32%29%2Con_top%3ABool%3Dtrue%29%3AVoid-class-method" class="signature"><strong>.trail_3d</strong>(id : String, current_position : Godot::Vector3, max_points : Int32 = <span class="n">60</span>, color : Godot::Color = <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">0.9_f32</span>, <span class="n">0.2_f32</span>, <span class="n">0.9_f32</span>, <span class="n">1.0_f32</span>), on_top : Bool = <span class="n">true</span>) : Void</a>
+        
+          <div class="summary"><p>Appends a moving entity's <em>current_position</em> to an ongoing motion trail identified by <em>id</em>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#trajectory_arc_3d%28origin%3AGodot%3A%3AVector3%2Cvelocity%3AGodot%3A%3AVector3%2Cgravity%3AGodot%3A%3AVector3%3DGodot%3A%3AVector3.new%280.0_f32%2C-9.8_f32%2C0.0_f32%29%2Cmax_time%3AFloat32%3D3.0_f32%2Csteps%3AInt32%3D40%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%280.2_f32%2C1.0_f32%2C0.3_f32%2C1.0_f32%29%2Cduration%3AFloat64%3D0.0%2Con_top%3ABool%3Dtrue%29%3AVoid-class-method" class="signature"><strong>.trajectory_arc_3d</strong>(origin : Godot::Vector3, velocity : Godot::Vector3, gravity : Godot::Vector3 = <span class="t">Godot</span><span class="t">::</span><span class="t">Vector3</span>.new(<span class="n">0.0_f32</span>, <span class="n">-9.8_f32</span>, <span class="n">0.0_f32</span>), max_time : Float32 = <span class="n">3.0_f32</span>, steps : Int32 = <span class="n">40</span>, color : Godot::Color = <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">0.2_f32</span>, <span class="n">1.0_f32</span>, <span class="n">0.3_f32</span>, <span class="n">1.0_f32</span>), duration : Float64 = <span class="n">0.0</span>, on_top : Bool = <span class="n">true</span>) : Void</a>
+        
+          <div class="summary"><p>Draws a ballistic parabolic trajectory arc computed under gravity.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#vision_cone_3d%28origin%3AGodot%3A%3AVector3%2Cdirection%3AGodot%3A%3AVector3%2Cangle_deg%3AFloat32%3D45.0_f32%2Crange%3AFloat32%3D10.0_f32%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%280.0_f32%2C0.9_f32%2C1.0_f32%2C0.8_f32%29%2Csegments%3AInt32%3D24%2Cduration%3AFloat64%3D0.0%2Con_top%3ABool%3Dtrue%29%3AVoid-class-method" class="signature"><strong>.vision_cone_3d</strong>(origin : Godot::Vector3, direction : Godot::Vector3, angle_deg : Float32 = <span class="n">45.0_f32</span>, range : Float32 = <span class="n">10.0_f32</span>, color : Godot::Color = <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">0.0_f32</span>, <span class="n">0.9_f32</span>, <span class="n">1.0_f32</span>, <span class="n">0.8_f32</span>), segments : Int32 = <span class="n">24</span>, duration : Float64 = <span class="n">0.0</span>, on_top : Bool = <span class="n">true</span>) : Void</a>
+        
+          <div class="summary"><p>Draws a spherical sector vision/detection cone for AI sensory perception.</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+  
+
+  
+
+
+  <div class="methods-inherited">
+    
+  </div>
+
+  
+
+  
+  <h2>
+    <a id="class-method-detail" class="anchor" href="#class-method-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Class Method Detail
+  </h2>
+  
+    <div class="entry-detail" id="arrow_2d(from:Godot::Vector2,to:Godot::Vector2,color:Godot::Color=Godot::Color.new(1.0_f32,1.0_f32,1.0_f32,1.0_f32),head_size:Float32=10.0_f32,duration:Float64=0.0):Void-class-method">
+      <div class="signature">
+        
+        def self.<strong>arrow_2d</strong>(from : Godot::Vector2, to : Godot::Vector2, color : Godot::Color = <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>), head_size : Float32 = <span class="n">10.0_f32</span>, duration : Float64 = <span class="n">0.0</span>) : Void
+
+        <a class="method-permalink" href="#arrow_2d%28from%3AGodot%3A%3AVector2%2Cto%3AGodot%3A%3AVector2%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%281.0_f32%2C1.0_f32%2C1.0_f32%2C1.0_f32%29%2Chead_size%3AFloat32%3D10.0_f32%2Cduration%3AFloat64%3D0.0%29%3AVoid-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Draws a 2D directional arrow with a triangular head on the canvas overlay.</p>
+<ul>
+<li><em>from</em>: Start pixel coordinate.</li>
+<li><em>to</em>: End/tip pixel coordinate.</li>
+<li><em>color</em>: Arrow color.</li>
+<li><em>head_size</em>: Length of arrowhead in pixels.</li>
+<li><em>duration</em>: Lifetime in seconds.</li>
+</ul>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="arrow_3d(from:Godot::Vector3,to:Godot::Vector3,color:Godot::Color=Godot::Color.new(1.0_f32,1.0_f32,1.0_f32,1.0_f32),head_size:Float32=0.25_f32,duration:Float64=0.0,on_top:Bool=true):Void-class-method">
+      <div class="signature">
+        
+        def self.<strong>arrow_3d</strong>(from : Godot::Vector3, to : Godot::Vector3, color : Godot::Color = <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>), head_size : Float32 = <span class="n">0.25_f32</span>, duration : Float64 = <span class="n">0.0</span>, on_top : Bool = <span class="n">true</span>) : Void
+
+        <a class="method-permalink" href="#arrow_3d%28from%3AGodot%3A%3AVector3%2Cto%3AGodot%3A%3AVector3%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%281.0_f32%2C1.0_f32%2C1.0_f32%2C1.0_f32%29%2Chead_size%3AFloat32%3D0.25_f32%2Cduration%3AFloat64%3D0.0%2Con_top%3ABool%3Dtrue%29%3AVoid-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Draws a 3D directional arrow from <em>from</em> to <em>to</em> with a conical finned head.</p>
+<ul>
+<li><em>from</em>: Start position.</li>
+<li><em>to</em>: End/tip position.</li>
+<li><em>color</em>: Arrow color.</li>
+<li><em>head_size</em>: Length of the arrow fin head in world units.</li>
+<li><em>duration</em>: Lifetime in seconds.</li>
+<li><em>on_top</em>: Render priority mode.</li>
+</ul>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="billboard_square_3d(position:Godot::Vector3,size:Float32=0.5_f32,camera_pos:Godot::Vector3=Godot::Vector3.new(0,0,5),color:Godot::Color=Godot::Color.new(1.0_f32,1.0_f32,1.0_f32,1.0_f32),duration:Float64=0.0,on_top:Bool=true):Void-class-method">
+      <div class="signature">
+        
+        def self.<strong>billboard_square_3d</strong>(position : Godot::Vector3, size : Float32 = <span class="n">0.5_f32</span>, camera_pos : Godot::Vector3 = <span class="t">Godot</span><span class="t">::</span><span class="t">Vector3</span>.new(<span class="n">0</span>, <span class="n">0</span>, <span class="n">5</span>), color : Godot::Color = <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>), duration : Float64 = <span class="n">0.0</span>, on_top : Bool = <span class="n">true</span>) : Void
+
+        <a class="method-permalink" href="#billboard_square_3d%28position%3AGodot%3A%3AVector3%2Csize%3AFloat32%3D0.5_f32%2Ccamera_pos%3AGodot%3A%3AVector3%3DGodot%3A%3AVector3.new%280%2C0%2C5%29%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%281.0_f32%2C1.0_f32%2C1.0_f32%2C1.0_f32%29%2Cduration%3AFloat64%3D0.0%2Con_top%3ABool%3Dtrue%29%3AVoid-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Draws a camera-facing billboard square marker in 3D world space.</p>
+<ul>
+<li><em>position</em>: Center position of the billboard.</li>
+<li><em>size</em>: Side length of the square.</li>
+<li><em>camera_pos</em>: Camera position used to compute billboard alignment.</li>
+<li><em>color</em>: Marker color.</li>
+<li><em>duration</em>: Lifetime in seconds.</li>
+<li><em>on_top</em>: Render priority mode.</li>
+</ul>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="box_3d(center:Godot::Vector3,size:Godot::Vector3,color:Godot::Color=Godot::Color.new(1.0_f32,1.0_f32,1.0_f32,1.0_f32),wireframe:Bool=true,duration:Float64=0.0,on_top:Bool=true):Void-class-method">
+      <div class="signature">
+        
+        def self.<strong>box_3d</strong>(center : Godot::Vector3, size : Godot::Vector3, color : Godot::Color = <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>), wireframe : Bool = <span class="n">true</span>, duration : Float64 = <span class="n">0.0</span>, on_top : Bool = <span class="n">true</span>) : Void
+
+        <a class="method-permalink" href="#box_3d%28center%3AGodot%3A%3AVector3%2Csize%3AGodot%3A%3AVector3%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%281.0_f32%2C1.0_f32%2C1.0_f32%2C1.0_f32%29%2Cwireframe%3ABool%3Dtrue%2Cduration%3AFloat64%3D0.0%2Con_top%3ABool%3Dtrue%29%3AVoid-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Draws an axis-aligned 3D bounding box (AABB) centered at <em>center</em>.</p>
+<ul>
+<li><em>center</em>: World center of the box.</li>
+<li><em>size</em>: Full width, height, and depth dimensions.</li>
+<li><em>color</em>: Wireframe color.</li>
+<li><em>wireframe</em>: Whether to render wireframe edges.</li>
+<li><em>duration</em>: Lifetime in seconds.</li>
+<li><em>on_top</em>: Render priority mode.</li>
+</ul>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="camera_frustum_3d(origin:Godot::Vector3,basis:Godot::Basis,fov_deg:Float32=75.0_f32,near:Float32=0.1_f32,far:Float32=10.0_f32,aspect:Float32=1.777_f32,color:Godot::Color=Godot::Color.new(1.0_f32,1.0_f32,1.0_f32,1.0_f32),duration:Float64=0.0,on_top:Bool=true):Void-class-method">
+      <div class="signature">
+        
+        def self.<strong>camera_frustum_3d</strong>(origin : Godot::Vector3, basis : Godot::Basis, fov_deg : Float32 = <span class="n">75.0_f32</span>, near : Float32 = <span class="n">0.1_f32</span>, far : Float32 = <span class="n">10.0_f32</span>, aspect : Float32 = <span class="n">1.777_f32</span>, color : Godot::Color = <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>), duration : Float64 = <span class="n">0.0</span>, on_top : Bool = <span class="n">true</span>) : Void
+
+        <a class="method-permalink" href="#camera_frustum_3d%28origin%3AGodot%3A%3AVector3%2Cbasis%3AGodot%3A%3ABasis%2Cfov_deg%3AFloat32%3D75.0_f32%2Cnear%3AFloat32%3D0.1_f32%2Cfar%3AFloat32%3D10.0_f32%2Caspect%3AFloat32%3D1.777_f32%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%281.0_f32%2C1.0_f32%2C1.0_f32%2C1.0_f32%29%2Cduration%3AFloat64%3D0.0%2Con_top%3ABool%3Dtrue%29%3AVoid-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Draws a 3D camera view frustum pyramid with near and far clipping rectangles.</p>
+<ul>
+<li><em>origin</em>: Camera eye position.</li>
+<li><em>basis</em>: Camera orientation transform.</li>
+<li><em>fov_deg</em>: Vertical field of view in degrees.</li>
+<li><em>near</em>: Near clipping distance.</li>
+<li><em>far</em>: Far clipping distance.</li>
+<li><em>aspect</em>: Viewport aspect ratio (e.g. <code>16.0 / 9.0</code>).</li>
+<li><em>color</em>: Frustum boundary wireframe color.</li>
+<li><em>duration</em>: Lifetime in seconds.</li>
+<li><em>on_top</em>: Render priority mode.</li>
+</ul>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="capsule_3d(center:Godot::Vector3,radius:Float32=0.5_f32,height:Float32=2.0_f32,color:Godot::Color=Godot::Color.new(1.0_f32,1.0_f32,1.0_f32,1.0_f32),segments:Int32=16,duration:Float64=0.0,on_top:Bool=true):Void-class-method">
+      <div class="signature">
+        
+        def self.<strong>capsule_3d</strong>(center : Godot::Vector3, radius : Float32 = <span class="n">0.5_f32</span>, height : Float32 = <span class="n">2.0_f32</span>, color : Godot::Color = <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>), segments : Int32 = <span class="n">16</span>, duration : Float64 = <span class="n">0.0</span>, on_top : Bool = <span class="n">true</span>) : Void
+
+        <a class="method-permalink" href="#capsule_3d%28center%3AGodot%3A%3AVector3%2Cradius%3AFloat32%3D0.5_f32%2Cheight%3AFloat32%3D2.0_f32%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%281.0_f32%2C1.0_f32%2C1.0_f32%2C1.0_f32%29%2Csegments%3AInt32%3D16%2Cduration%3AFloat64%3D0.0%2Con_top%3ABool%3Dtrue%29%3AVoid-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Draws a 3D wireframe capsule with hemispherical top and bottom caps.</p>
+<ul>
+<li><em>center</em>: World center position.</li>
+<li><em>radius</em>: Capsule cap radius.</li>
+<li><em>height</em>: Total cylindrical height excluding hemisphere caps.</li>
+<li><em>color</em>: Wireframe color.</li>
+<li><em>segments</em>: Arc resolution.</li>
+<li><em>duration</em>: Lifetime in seconds.</li>
+<li><em>on_top</em>: Render priority mode.</li>
+</ul>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="circle_2d(center:Godot::Vector2,radius:Float32,color:Godot::Color=Godot::Color.new(1.0_f32,1.0_f32,1.0_f32,1.0_f32),segments:Int32=24,duration:Float64=0.0):Void-class-method">
+      <div class="signature">
+        
+        def self.<strong>circle_2d</strong>(center : Godot::Vector2, radius : Float32, color : Godot::Color = <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>), segments : Int32 = <span class="n">24</span>, duration : Float64 = <span class="n">0.0</span>) : Void
+
+        <a class="method-permalink" href="#circle_2d%28center%3AGodot%3A%3AVector2%2Cradius%3AFloat32%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%281.0_f32%2C1.0_f32%2C1.0_f32%2C1.0_f32%29%2Csegments%3AInt32%3D24%2Cduration%3AFloat64%3D0.0%29%3AVoid-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Draws a 2D wireframe circle on the canvas overlay.</p>
+<ul>
+<li><em>center</em>: Pixel coordinate of the circle center.</li>
+<li><em>radius</em>: Circle radius in pixels.</li>
+<li><em>color</em>: Outline color.</li>
+<li><em>segments</em>: Number of perimeter segments.</li>
+<li><em>duration</em>: Lifetime in seconds.</li>
+</ul>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="clear:Void-class-method">
+      <div class="signature">
+        
+        def self.<strong>clear</strong> : Void
+
+        <a class="method-permalink" href="#clear%3AVoid-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Clears all active 2D and 3D commands from the global queue immediately.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="cylinder_3d(center:Godot::Vector3,radius:Float32=1.0_f32,height:Float32=2.0_f32,color:Godot::Color=Godot::Color.new(1.0_f32,1.0_f32,1.0_f32,1.0_f32),segments:Int32=16,duration:Float64=0.0,on_top:Bool=true):Void-class-method">
+      <div class="signature">
+        
+        def self.<strong>cylinder_3d</strong>(center : Godot::Vector3, radius : Float32 = <span class="n">1.0_f32</span>, height : Float32 = <span class="n">2.0_f32</span>, color : Godot::Color = <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>), segments : Int32 = <span class="n">16</span>, duration : Float64 = <span class="n">0.0</span>, on_top : Bool = <span class="n">true</span>) : Void
+
+        <a class="method-permalink" href="#cylinder_3d%28center%3AGodot%3A%3AVector3%2Cradius%3AFloat32%3D1.0_f32%2Cheight%3AFloat32%3D2.0_f32%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%281.0_f32%2C1.0_f32%2C1.0_f32%2C1.0_f32%29%2Csegments%3AInt32%3D16%2Cduration%3AFloat64%3D0.0%2Con_top%3ABool%3Dtrue%29%3AVoid-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Draws a 3D wireframe cylinder with circular top/bottom caps and 4 vertical struts.</p>
+<ul>
+<li><em>center</em>: World center position.</li>
+<li><em>radius</em>: Cylinder radius.</li>
+<li><em>height</em>: Total height along local Y axis.</li>
+<li><em>color</em>: Wireframe color.</li>
+<li><em>segments</em>: Circle perimeter resolution.</li>
+<li><em>duration</em>: Lifetime in seconds.</li>
+<li><em>on_top</em>: Render priority mode.</li>
+</ul>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="frame(&amp;block:FrameContext-&gt;):Void-class-method">
+      <div class="signature">
+        
+        def self.<strong>frame</strong>(&block : <a href="../Diorite/FrameContext.html">FrameContext</a> -> ) : Void
+
+        <a class="method-permalink" href="#frame%28%26block%3AFrameContext-%3E%29%3AVoid-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Yields a scoped <code><a href="../Diorite/FrameContext.html">FrameContext</a></code> block for batching debug draws within a single frame.</p>
+<pre><code class="language-crystal"><span class="t">DebugDraw</span>.frame <span class="k">do</span> <span class="o">|</span>d<span class="o">|</span>
+  d.line_3d(from, to)
+  d.sphere_3d(center, <span class="n">1.0</span>)
+<span class="k">end</span></code></pre>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="gizmo_3d(origin:Godot::Vector3,basis:Godot::Basis=Godot::Basis.new,size:Float32=1.0_f32,duration:Float64=0.0,on_top:Bool=true):Void-class-method">
+      <div class="signature">
+        
+        def self.<strong>gizmo_3d</strong>(origin : Godot::Vector3, basis : Godot::Basis = <span class="t">Godot</span><span class="t">::</span><span class="t">Basis</span>.new, size : Float32 = <span class="n">1.0_f32</span>, duration : Float64 = <span class="n">0.0</span>, on_top : Bool = <span class="n">true</span>) : Void
+
+        <a class="method-permalink" href="#gizmo_3d%28origin%3AGodot%3A%3AVector3%2Cbasis%3AGodot%3A%3ABasis%3DGodot%3A%3ABasis.new%2Csize%3AFloat32%3D1.0_f32%2Cduration%3AFloat64%3D0.0%2Con_top%3ABool%3Dtrue%29%3AVoid-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Draws a 3D coordinate transform gizmo with Red=X, Green=Y, Blue=Z axis vectors.</p>
+<ul>
+<li><em>origin</em>: World origin of the gizmo.</li>
+<li><em>basis</em>: 3x3 rotational orientation matrix.</li>
+<li><em>size</em>: Axis arm length.</li>
+<li><em>duration</em>: Lifetime in seconds.</li>
+<li><em>on_top</em>: Render priority mode.</li>
+</ul>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="grid_3d(center:Godot::Vector3=Godot::Vector3.new,size:Godot::Vector2=Godot::Vector2.new(10.0_f32,10.0_f32),subdivisions:Int32=10,color:Godot::Color=Godot::Color.new(0.5_f32,0.5_f32,0.5_f32,1.0_f32),duration:Float64=0.0,on_top:Bool=true):Void-class-method">
+      <div class="signature">
+        
+        def self.<strong>grid_3d</strong>(center : Godot::Vector3 = <span class="t">Godot</span><span class="t">::</span><span class="t">Vector3</span>.new, size : Godot::Vector2 = <span class="t">Godot</span><span class="t">::</span><span class="t">Vector2</span>.new(<span class="n">10.0_f32</span>, <span class="n">10.0_f32</span>), subdivisions : Int32 = <span class="n">10</span>, color : Godot::Color = <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">0.5_f32</span>, <span class="n">0.5_f32</span>, <span class="n">0.5_f32</span>, <span class="n">1.0_f32</span>), duration : Float64 = <span class="n">0.0</span>, on_top : Bool = <span class="n">true</span>) : Void
+
+        <a class="method-permalink" href="#grid_3d%28center%3AGodot%3A%3AVector3%3DGodot%3A%3AVector3.new%2Csize%3AGodot%3A%3AVector2%3DGodot%3A%3AVector2.new%2810.0_f32%2C10.0_f32%29%2Csubdivisions%3AInt32%3D10%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%280.5_f32%2C0.5_f32%2C0.5_f32%2C1.0_f32%29%2Cduration%3AFloat64%3D0.0%2Con_top%3ABool%3Dtrue%29%3AVoid-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Draws a 3D ground reference grid plane.</p>
+<ul>
+<li><em>center</em>: Grid center coordinate.</li>
+<li><em>size</em>: Full X and Z grid dimensions.</li>
+<li><em>subdivisions</em>: Number of grid line subdivisions per axis.</li>
+<li><em>color</em>: Grid line color.</li>
+<li><em>duration</em>: Lifetime in seconds.</li>
+<li><em>on_top</em>: Render priority mode.</li>
+</ul>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="line_2d(from:Godot::Vector2,to:Godot::Vector2,color:Godot::Color=Godot::Color.new(1.0_f32,1.0_f32,1.0_f32,1.0_f32),duration:Float64=0.0):Void-class-method">
+      <div class="signature">
+        
+        def self.<strong>line_2d</strong>(from : Godot::Vector2, to : Godot::Vector2, color : Godot::Color = <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>), duration : Float64 = <span class="n">0.0</span>) : Void
+
+        <a class="method-permalink" href="#line_2d%28from%3AGodot%3A%3AVector2%2Cto%3AGodot%3A%3AVector2%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%281.0_f32%2C1.0_f32%2C1.0_f32%2C1.0_f32%29%2Cduration%3AFloat64%3D0.0%29%3AVoid-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Draws a 2D line segment on the canvas overlay between pixel coordinates <em>from</em> and <em>to</em>.</p>
+<ul>
+<li><em>from</em>: Start pixel coordinate.</li>
+<li><em>to</em>: End pixel coordinate.</li>
+<li><em>color</em>: Line color.</li>
+<li><em>duration</em>: Lifetime in seconds.</li>
+</ul>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="line_3d(from:Godot::Vector3,to:Godot::Vector3,color:Godot::Color=Godot::Color.new(1.0_f32,1.0_f32,1.0_f32,1.0_f32),duration:Float64=0.0,on_top:Bool=true):Void-class-method">
+      <div class="signature">
+        
+        def self.<strong>line_3d</strong>(from : Godot::Vector3, to : Godot::Vector3, color : Godot::Color = <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>), duration : Float64 = <span class="n">0.0</span>, on_top : Bool = <span class="n">true</span>) : Void
+
+        <a class="method-permalink" href="#line_3d%28from%3AGodot%3A%3AVector3%2Cto%3AGodot%3A%3AVector3%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%281.0_f32%2C1.0_f32%2C1.0_f32%2C1.0_f32%29%2Cduration%3AFloat64%3D0.0%2Con_top%3ABool%3Dtrue%29%3AVoid-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Draws a 3D line segment between <em>from</em> and <em>to</em>.</p>
+<ul>
+<li><em>from</em>: Starting world coordinate.</li>
+<li><em>to</em>: Ending world coordinate.</li>
+<li><em>color</em>: Line color.</li>
+<li><em>duration</em>: Lifetime in seconds (<code>0.0</code> for single-frame).</li>
+<li><em>on_top</em>: When <code>true</code>, renders on top of geometry with depth test disabled.</li>
+</ul>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="line_arrow_3d(from:Godot::Vector3,to:Godot::Vector3,color:Godot::Color=Godot::Color.new(1.0_f32,1.0_f32,1.0_f32,1.0_f32),head_size:Float32=0.25_f32,duration:Float64=0.0,on_top:Bool=true):Void-class-method">
+      <div class="signature">
+        
+        def self.<strong>line_arrow_3d</strong>(from : Godot::Vector3, to : Godot::Vector3, color : Godot::Color = <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>), head_size : Float32 = <span class="n">0.25_f32</span>, duration : Float64 = <span class="n">0.0</span>, on_top : Bool = <span class="n">true</span>) : Void
+
+        <a class="method-permalink" href="#line_arrow_3d%28from%3AGodot%3A%3AVector3%2Cto%3AGodot%3A%3AVector3%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%281.0_f32%2C1.0_f32%2C1.0_f32%2C1.0_f32%29%2Chead_size%3AFloat32%3D0.25_f32%2Cduration%3AFloat64%3D0.0%2Con_top%3ABool%3Dtrue%29%3AVoid-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Alias for <code><a href="../Diorite/DebugDraw.html#arrow_3d%28from%3AGodot%3A%3AVector3%2Cto%3AGodot%3A%3AVector3%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%281.0_f32%2C1.0_f32%2C1.0_f32%2C1.0_f32%29%2Chead_size%3AFloat32%3D0.25_f32%2Cduration%3AFloat64%3D0.0%2Con_top%3ABool%3Dtrue%29%3AVoid-class-method">.arrow_3d</a></code>. Draws a line with a terminal arrow head.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="line_path_2d(points:Array(Godot::Vector2),color:Godot::Color=Godot::Color.new(1.0_f32,1.0_f32,1.0_f32,1.0_f32),duration:Float64=0.0):Void-class-method">
+      <div class="signature">
+        
+        def self.<strong>line_path_2d</strong>(points : Array(Godot::Vector2), color : Godot::Color = <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>), duration : Float64 = <span class="n">0.0</span>) : Void
+
+        <a class="method-permalink" href="#line_path_2d%28points%3AArray%28Godot%3A%3AVector2%29%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%281.0_f32%2C1.0_f32%2C1.0_f32%2C1.0_f32%29%2Cduration%3AFloat64%3D0.0%29%3AVoid-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Alias for <code><a href="../Diorite/DebugDraw.html#path_2d%28points%3AArray%28Godot%3A%3AVector2%29%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%281.0_f32%2C1.0_f32%2C1.0_f32%2C1.0_f32%29%2Cduration%3AFloat64%3D0.0%29%3AVoid-class-method">.path_2d</a></code>.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="line_path_3d(points:Array(Godot::Vector3),color:Godot::Color=Godot::Color.new(1.0_f32,1.0_f32,1.0_f32,1.0_f32),duration:Float64=0.0,on_top:Bool=true):Void-class-method">
+      <div class="signature">
+        
+        def self.<strong>line_path_3d</strong>(points : Array(Godot::Vector3), color : Godot::Color = <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>), duration : Float64 = <span class="n">0.0</span>, on_top : Bool = <span class="n">true</span>) : Void
+
+        <a class="method-permalink" href="#line_path_3d%28points%3AArray%28Godot%3A%3AVector3%29%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%281.0_f32%2C1.0_f32%2C1.0_f32%2C1.0_f32%29%2Cduration%3AFloat64%3D0.0%2Con_top%3ABool%3Dtrue%29%3AVoid-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Draws a continuous 3D polyline connecting an ordered list of <em>points</em>.</p>
+<ul>
+<li><em>points</em>: Array of 3D vertices to connect in sequence.</li>
+<li><em>color</em>: Path color.</li>
+<li><em>duration</em>: Lifetime in seconds.</li>
+<li><em>on_top</em>: Render priority mode.</li>
+</ul>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="obb_3d(center:Godot::Vector3,size:Godot::Vector3,basis:Godot::Basis,color:Godot::Color=Godot::Color.new(1.0_f32,1.0_f32,1.0_f32,1.0_f32),wireframe:Bool=true,duration:Float64=0.0,on_top:Bool=true):Void-class-method">
+      <div class="signature">
+        
+        def self.<strong>obb_3d</strong>(center : Godot::Vector3, size : Godot::Vector3, basis : Godot::Basis, color : Godot::Color = <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>), wireframe : Bool = <span class="n">true</span>, duration : Float64 = <span class="n">0.0</span>, on_top : Bool = <span class="n">true</span>) : Void
+
+        <a class="method-permalink" href="#obb_3d%28center%3AGodot%3A%3AVector3%2Csize%3AGodot%3A%3AVector3%2Cbasis%3AGodot%3A%3ABasis%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%281.0_f32%2C1.0_f32%2C1.0_f32%2C1.0_f32%29%2Cwireframe%3ABool%3Dtrue%2Cduration%3AFloat64%3D0.0%2Con_top%3ABool%3Dtrue%29%3AVoid-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Draws an arbitrarily oriented bounding box (OBB) defined by a 3x3 rotation <code>Basis</code>.</p>
+<ul>
+<li><em>center</em>: World center of the oriented box.</li>
+<li><em>size</em>: Box extents along local basis vectors.</li>
+<li><em>basis</em>: 3x3 rotation orientation matrix.</li>
+<li><em>color</em>: Wireframe color.</li>
+<li><em>wireframe</em>: Render wireframe edges.</li>
+<li><em>duration</em>: Lifetime in seconds.</li>
+<li><em>on_top</em>: Render priority mode.</li>
+</ul>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="path_2d(points:Array(Godot::Vector2),color:Godot::Color=Godot::Color.new(1.0_f32,1.0_f32,1.0_f32,1.0_f32),duration:Float64=0.0):Void-class-method">
+      <div class="signature">
+        
+        def self.<strong>path_2d</strong>(points : Array(Godot::Vector2), color : Godot::Color = <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>), duration : Float64 = <span class="n">0.0</span>) : Void
+
+        <a class="method-permalink" href="#path_2d%28points%3AArray%28Godot%3A%3AVector2%29%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%281.0_f32%2C1.0_f32%2C1.0_f32%2C1.0_f32%29%2Cduration%3AFloat64%3D0.0%29%3AVoid-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Draws a continuous 2D polyline connecting an ordered list of <em>points</em>.</p>
+<ul>
+<li><em>points</em>: Array of 2D canvas pixel coordinates to connect.</li>
+<li><em>color</em>: Path color.</li>
+<li><em>duration</em>: Lifetime in seconds.</li>
+</ul>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="plane_3d(center:Godot::Vector3,normal:Godot::Vector3=Godot::Vector3.new(0.0_f32,1.0_f32,0.0_f32),size:Godot::Vector2=Godot::Vector2.new(5.0_f32,5.0_f32),color:Godot::Color=Godot::Color.new(1.0_f32,1.0_f32,1.0_f32,1.0_f32),duration:Float64=0.0,on_top:Bool=true):Void-class-method">
+      <div class="signature">
+        
+        def self.<strong>plane_3d</strong>(center : Godot::Vector3, normal : Godot::Vector3 = <span class="t">Godot</span><span class="t">::</span><span class="t">Vector3</span>.new(<span class="n">0.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">0.0_f32</span>), size : Godot::Vector2 = <span class="t">Godot</span><span class="t">::</span><span class="t">Vector2</span>.new(<span class="n">5.0_f32</span>, <span class="n">5.0_f32</span>), color : Godot::Color = <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>), duration : Float64 = <span class="n">0.0</span>, on_top : Bool = <span class="n">true</span>) : Void
+
+        <a class="method-permalink" href="#plane_3d%28center%3AGodot%3A%3AVector3%2Cnormal%3AGodot%3A%3AVector3%3DGodot%3A%3AVector3.new%280.0_f32%2C1.0_f32%2C0.0_f32%29%2Csize%3AGodot%3A%3AVector2%3DGodot%3A%3AVector2.new%285.0_f32%2C5.0_f32%29%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%281.0_f32%2C1.0_f32%2C1.0_f32%2C1.0_f32%29%2Cduration%3AFloat64%3D0.0%2Con_top%3ABool%3Dtrue%29%3AVoid-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Draws an oriented 3D plane quad with a center normal pointer.</p>
+<ul>
+<li><em>center</em>: Center position on the plane surface.</li>
+<li><em>normal</em>: Surface normal vector (e.g. <code>Vector3.new(0, 1, 0)</code>).</li>
+<li><em>size</em>: Width and depth extents.</li>
+<li><em>color</em>: Boundary and normal indicator color.</li>
+<li><em>duration</em>: Lifetime in seconds.</li>
+<li><em>on_top</em>: Render priority mode.</li>
+</ul>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="points_2d(points:Array(Godot::Vector2),size:Float32=4.0_f32,color:Godot::Color=Godot::Color.new(1.0_f32,1.0_f32,1.0_f32,1.0_f32),duration:Float64=0.0):Void-class-method">
+      <div class="signature">
+        
+        def self.<strong>points_2d</strong>(points : Array(Godot::Vector2), size : Float32 = <span class="n">4.0_f32</span>, color : Godot::Color = <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>), duration : Float64 = <span class="n">0.0</span>) : Void
+
+        <a class="method-permalink" href="#points_2d%28points%3AArray%28Godot%3A%3AVector2%29%2Csize%3AFloat32%3D4.0_f32%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%281.0_f32%2C1.0_f32%2C1.0_f32%2C1.0_f32%29%2Cduration%3AFloat64%3D0.0%29%3AVoid-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Draws discrete 2D point markers on the canvas overlay.</p>
+<ul>
+<li><em>points</em>: Array of 2D canvas pixel coordinates.</li>
+<li><em>size</em>: Marker crosshair half-size in pixels.</li>
+<li><em>color</em>: Marker color.</li>
+<li><em>duration</em>: Lifetime in seconds.</li>
+</ul>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="points_3d(points:Array(Godot::Vector3),size:Float32=0.1_f32,color:Godot::Color=Godot::Color.new(1.0_f32,1.0_f32,1.0_f32,1.0_f32),duration:Float64=0.0,on_top:Bool=true):Void-class-method">
+      <div class="signature">
+        
+        def self.<strong>points_3d</strong>(points : Array(Godot::Vector3), size : Float32 = <span class="n">0.1_f32</span>, color : Godot::Color = <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>), duration : Float64 = <span class="n">0.0</span>, on_top : Bool = <span class="n">true</span>) : Void
+
+        <a class="method-permalink" href="#points_3d%28points%3AArray%28Godot%3A%3AVector3%29%2Csize%3AFloat32%3D0.1_f32%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%281.0_f32%2C1.0_f32%2C1.0_f32%2C1.0_f32%29%2Cduration%3AFloat64%3D0.0%2Con_top%3ABool%3Dtrue%29%3AVoid-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Draws small 3D crosshair markers for an array of world <em>points</em>.</p>
+<ul>
+<li><em>points</em>: Array of coordinates to mark.</li>
+<li><em>size</em>: Crosshair half-extent.</li>
+<li><em>color</em>: Marker color.</li>
+<li><em>duration</em>: Lifetime in seconds.</li>
+<li><em>on_top</em>: Render priority mode.</li>
+</ul>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="position_3d(origin:Godot::Vector3,size:Float32=1.0_f32,color:Godot::Color=Godot::Color.new(1.0_f32,1.0_f32,1.0_f32,1.0_f32),duration:Float64=0.0,on_top:Bool=true):Void-class-method">
+      <div class="signature">
+        
+        def self.<strong>position_3d</strong>(origin : Godot::Vector3, size : Float32 = <span class="n">1.0_f32</span>, color : Godot::Color = <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>), duration : Float64 = <span class="n">0.0</span>, on_top : Bool = <span class="n">true</span>) : Void
+
+        <a class="method-permalink" href="#position_3d%28origin%3AGodot%3A%3AVector3%2Csize%3AFloat32%3D1.0_f32%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%281.0_f32%2C1.0_f32%2C1.0_f32%2C1.0_f32%29%2Cduration%3AFloat64%3D0.0%2Con_top%3ABool%3Dtrue%29%3AVoid-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Draws a 3-axis crossing crosshair indicating position and scale.</p>
+<ul>
+<li><em>origin</em>: World origin of the crosshair.</li>
+<li><em>size</em>: Half-length of the axis arms.</li>
+<li><em>color</em>: Crosshair color.</li>
+<li><em>duration</em>: Lifetime in seconds.</li>
+<li><em>on_top</em>: Render priority mode.</li>
+</ul>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="queue:DebugCommandQueue-class-method">
+      <div class="signature">
+        
+        def self.<strong>queue</strong> : <a href="../Diorite/DebugCommandQueue.html">DebugCommandQueue</a>
+
+        <a class="method-permalink" href="#queue%3ADebugCommandQueue-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns the global underlying command queue.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="ray_hit_3d(origin:Godot::Vector3,hit_point:Godot::Vector3,normal:Godot::Vector3,color:Godot::Color=Godot::Color.new(1.0_f32,0.8_f32,0.0_f32,1.0_f32),duration:Float64=0.0,on_top:Bool=true):Void-class-method">
+      <div class="signature">
+        
+        def self.<strong>ray_hit_3d</strong>(origin : Godot::Vector3, hit_point : Godot::Vector3, normal : Godot::Vector3, color : Godot::Color = <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">1.0_f32</span>, <span class="n">0.8_f32</span>, <span class="n">0.0_f32</span>, <span class="n">1.0_f32</span>), duration : Float64 = <span class="n">0.0</span>, on_top : Bool = <span class="n">true</span>) : Void
+
+        <a class="method-permalink" href="#ray_hit_3d%28origin%3AGodot%3A%3AVector3%2Chit_point%3AGodot%3A%3AVector3%2Cnormal%3AGodot%3A%3AVector3%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%281.0_f32%2C0.8_f32%2C0.0_f32%2C1.0_f32%29%2Cduration%3AFloat64%3D0.0%2Con_top%3ABool%3Dtrue%29%3AVoid-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Draws a complete raycast hit visualization: incident ray, surface impact disc, and surface normal reflection vector.</p>
+<ul>
+<li><em>origin</em>: Raycasting start origin.</li>
+<li><em>hit_point</em>: Surface collision point.</li>
+<li><em>normal</em>: Surface normal vector at contact point.</li>
+<li><em>color</em>: Visualizer color.</li>
+<li><em>duration</em>: Lifetime in seconds.</li>
+<li><em>on_top</em>: Render priority mode.</li>
+</ul>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="raycast_hit_3d(origin:Godot::Vector3,hit_point:Godot::Vector3,normal:Godot::Vector3,color:Godot::Color=Godot::Color.new(1.0_f32,0.8_f32,0.0_f32,1.0_f32),duration:Float64=0.0,on_top:Bool=true):Void-class-method">
+      <div class="signature">
+        
+        def self.<strong>raycast_hit_3d</strong>(origin : Godot::Vector3, hit_point : Godot::Vector3, normal : Godot::Vector3, color : Godot::Color = <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">1.0_f32</span>, <span class="n">0.8_f32</span>, <span class="n">0.0_f32</span>, <span class="n">1.0_f32</span>), duration : Float64 = <span class="n">0.0</span>, on_top : Bool = <span class="n">true</span>) : Void
+
+        <a class="method-permalink" href="#raycast_hit_3d%28origin%3AGodot%3A%3AVector3%2Chit_point%3AGodot%3A%3AVector3%2Cnormal%3AGodot%3A%3AVector3%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%281.0_f32%2C0.8_f32%2C0.0_f32%2C1.0_f32%29%2Cduration%3AFloat64%3D0.0%2Con_top%3ABool%3Dtrue%29%3AVoid-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Alias for <code><a href="../Diorite/DebugDraw.html#ray_hit_3d%28origin%3AGodot%3A%3AVector3%2Chit_point%3AGodot%3A%3AVector3%2Cnormal%3AGodot%3A%3AVector3%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%281.0_f32%2C0.8_f32%2C0.0_f32%2C1.0_f32%29%2Cduration%3AFloat64%3D0.0%2Con_top%3ABool%3Dtrue%29%3AVoid-class-method">.ray_hit_3d</a></code>.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="rect_2d(rect:Godot::Rect2,color:Godot::Color=Godot::Color.new(1.0_f32,1.0_f32,1.0_f32,1.0_f32),duration:Float64=0.0):Void-class-method">
+      <div class="signature">
+        
+        def self.<strong>rect_2d</strong>(rect : Godot::Rect2, color : Godot::Color = <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>), duration : Float64 = <span class="n">0.0</span>) : Void
+
+        <a class="method-permalink" href="#rect_2d%28rect%3AGodot%3A%3ARect2%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%281.0_f32%2C1.0_f32%2C1.0_f32%2C1.0_f32%29%2Cduration%3AFloat64%3D0.0%29%3AVoid-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Draws a 2D wireframe rectangle on the canvas overlay.</p>
+<ul>
+<li><em>rect</em>: 2D bounding rectangle in pixels.</li>
+<li><em>color</em>: Outline color.</li>
+<li><em>duration</em>: Lifetime in seconds.</li>
+</ul>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="reticle_3d(position:Godot::Vector3,normal:Godot::Vector3=Godot::Vector3.new(0,0,1),size:Float32=0.5_f32,color:Godot::Color=Godot::Color.new(1.0_f32,0.2_f32,0.2_f32,1.0_f32),duration:Float64=0.0,on_top:Bool=true):Void-class-method">
+      <div class="signature">
+        
+        def self.<strong>reticle_3d</strong>(position : Godot::Vector3, normal : Godot::Vector3 = <span class="t">Godot</span><span class="t">::</span><span class="t">Vector3</span>.new(<span class="n">0</span>, <span class="n">0</span>, <span class="n">1</span>), size : Float32 = <span class="n">0.5_f32</span>, color : Godot::Color = <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">1.0_f32</span>, <span class="n">0.2_f32</span>, <span class="n">0.2_f32</span>, <span class="n">1.0_f32</span>), duration : Float64 = <span class="n">0.0</span>, on_top : Bool = <span class="n">true</span>) : Void
+
+        <a class="method-permalink" href="#reticle_3d%28position%3AGodot%3A%3AVector3%2Cnormal%3AGodot%3A%3AVector3%3DGodot%3A%3AVector3.new%280%2C0%2C1%29%2Csize%3AFloat32%3D0.5_f32%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%281.0_f32%2C0.2_f32%2C0.2_f32%2C1.0_f32%29%2Cduration%3AFloat64%3D0.0%2Con_top%3ABool%3Dtrue%29%3AVoid-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Draws an aim reticle with a center circle and 4 corner target brackets.</p>
+<ul>
+<li><em>position</em>: Target center in world space.</li>
+<li><em>normal</em>: Reticle plane normal (facing direction).</li>
+<li><em>size</em>: Reticle bracket radius.</li>
+<li><em>color</em>: Reticle color.</li>
+<li><em>duration</em>: Lifetime in seconds.</li>
+<li><em>on_top</em>: Render priority mode.</li>
+</ul>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="ruler_3d(from:Godot::Vector3,to:Godot::Vector3,tick_size:Float32=0.2_f32,color:Godot::Color=Godot::Color.new(1.0_f32,1.0_f32,1.0_f32,1.0_f32),duration:Float64=0.0,on_top:Bool=true):Void-class-method">
+      <div class="signature">
+        
+        def self.<strong>ruler_3d</strong>(from : Godot::Vector3, to : Godot::Vector3, tick_size : Float32 = <span class="n">0.2_f32</span>, color : Godot::Color = <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>), duration : Float64 = <span class="n">0.0</span>, on_top : Bool = <span class="n">true</span>) : Void
+
+        <a class="method-permalink" href="#ruler_3d%28from%3AGodot%3A%3AVector3%2Cto%3AGodot%3A%3AVector3%2Ctick_size%3AFloat32%3D0.2_f32%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%281.0_f32%2C1.0_f32%2C1.0_f32%2C1.0_f32%29%2Cduration%3AFloat64%3D0.0%2Con_top%3ABool%3Dtrue%29%3AVoid-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Draws a calibrated distance ruler with tick marks and midpoint distance readout.</p>
+<ul>
+<li><em>from</em>: Start measurement position.</li>
+<li><em>to</em>: End measurement position.</li>
+<li><em>tick_size</em>: Length of ruler tick marks.</li>
+<li><em>color</em>: Ruler and text color.</li>
+<li><em>duration</em>: Lifetime in seconds.</li>
+<li><em>on_top</em>: Render priority mode.</li>
+</ul>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="sphere_3d(center:Godot::Vector3,radius:Float32=1.0_f32,color:Godot::Color=Godot::Color.new(1.0_f32,1.0_f32,1.0_f32,1.0_f32),rings:Int32=16,duration:Float64=0.0,on_top:Bool=true):Void-class-method">
+      <div class="signature">
+        
+        def self.<strong>sphere_3d</strong>(center : Godot::Vector3, radius : Float32 = <span class="n">1.0_f32</span>, color : Godot::Color = <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>), rings : Int32 = <span class="n">16</span>, duration : Float64 = <span class="n">0.0</span>, on_top : Bool = <span class="n">true</span>) : Void
+
+        <a class="method-permalink" href="#sphere_3d%28center%3AGodot%3A%3AVector3%2Cradius%3AFloat32%3D1.0_f32%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%281.0_f32%2C1.0_f32%2C1.0_f32%2C1.0_f32%29%2Crings%3AInt32%3D16%2Cduration%3AFloat64%3D0.0%2Con_top%3ABool%3Dtrue%29%3AVoid-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Draws a 3D wireframe sphere composed of 3 orthogonal intersecting circular rings.</p>
+<ul>
+<li><em>center</em>: World center of the sphere.</li>
+<li><em>radius</em>: Sphere radius in units.</li>
+<li><em>color</em>: Ring wireframe color.</li>
+<li><em>rings</em>: Number of angular segments per circle.</li>
+<li><em>duration</em>: Lifetime in seconds.</li>
+<li><em>on_top</em>: Render priority mode.</li>
+</ul>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="spring_3d(from:Godot::Vector3,to:Godot::Vector3,radius:Float32=0.2_f32,coils:Int32=8,segments:Int32=16,color:Godot::Color=Godot::Color.new(1.0_f32,0.9_f32,0.1_f32,1.0_f32),duration:Float64=0.0,on_top:Bool=true):Void-class-method">
+      <div class="signature">
+        
+        def self.<strong>spring_3d</strong>(from : Godot::Vector3, to : Godot::Vector3, radius : Float32 = <span class="n">0.2_f32</span>, coils : Int32 = <span class="n">8</span>, segments : Int32 = <span class="n">16</span>, color : Godot::Color = <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">1.0_f32</span>, <span class="n">0.9_f32</span>, <span class="n">0.1_f32</span>, <span class="n">1.0_f32</span>), duration : Float64 = <span class="n">0.0</span>, on_top : Bool = <span class="n">true</span>) : Void
+
+        <a class="method-permalink" href="#spring_3d%28from%3AGodot%3A%3AVector3%2Cto%3AGodot%3A%3AVector3%2Cradius%3AFloat32%3D0.2_f32%2Ccoils%3AInt32%3D8%2Csegments%3AInt32%3D16%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%281.0_f32%2C0.9_f32%2C0.1_f32%2C1.0_f32%29%2Cduration%3AFloat64%3D0.0%2Con_top%3ABool%3Dtrue%29%3AVoid-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Draws a 3D helical wire spring between two world endpoints.</p>
+<ul>
+<li><em>from</em>: Start attachment point.</li>
+<li><em>to</em>: End attachment point.</li>
+<li><em>radius</em>: Coil radius.</li>
+<li><em>coils</em>: Number of complete helical rotations.</li>
+<li><em>segments</em>: Angular steps per coil.</li>
+<li><em>color</em>: Wire color.</li>
+<li><em>duration</em>: Lifetime in seconds.</li>
+<li><em>on_top</em>: Render priority mode.</li>
+</ul>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="stat_graph_2d(title:String,value:Number,rect:Godot::Rect2=Godot::Rect2.new(20.0_f32,20.0_f32,160.0_f32,50.0_f32),min_val:Number=0.0,max_val:Number=100.0,color:Godot::Color=Godot::Color.new(0.2_f32,0.9_f32,0.3_f32,1.0_f32)):Void-class-method">
+      <div class="signature">
+        
+        def self.<strong>stat_graph_2d</strong>(title : String, value : Number, rect : Godot::Rect2 = <span class="t">Godot</span><span class="t">::</span><span class="t">Rect2</span>.new(<span class="n">20.0_f32</span>, <span class="n">20.0_f32</span>, <span class="n">160.0_f32</span>, <span class="n">50.0_f32</span>), min_val : Number = <span class="n">0.0</span>, max_val : Number = <span class="n">100.0</span>, color : Godot::Color = <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">0.2_f32</span>, <span class="n">0.9_f32</span>, <span class="n">0.3_f32</span>, <span class="n">1.0_f32</span>)) : Void
+
+        <a class="method-permalink" href="#stat_graph_2d%28title%3AString%2Cvalue%3ANumber%2Crect%3AGodot%3A%3ARect2%3DGodot%3A%3ARect2.new%2820.0_f32%2C20.0_f32%2C160.0_f32%2C50.0_f32%29%2Cmin_val%3ANumber%3D0.0%2Cmax_val%3ANumber%3D100.0%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%280.2_f32%2C0.9_f32%2C0.3_f32%2C1.0_f32%29%29%3AVoid-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Updates and renders a real-time scrolling telemetry sparkline graph on the 2D canvas overlay.</p>
+<ul>
+<li><em>title</em>: Unique graph series label (e.g. <code>&quot;FPS&quot;</code> or <code>&quot;Velocity&quot;</code>).</li>
+<li><em>value</em>: Current numerical data sample.</li>
+<li><em>rect</em>: Bounding rectangle on the canvas for the graph box.</li>
+<li><em>min_val</em>: Expected lower value clamp bound.</li>
+<li><em>max_val</em>: Expected upper value clamp bound.</li>
+<li><em>color</em>: Graph line and border color.</li>
+</ul>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="surface_contact_3d(position:Godot::Vector3,normal:Godot::Vector3,radius:Float32=0.5_f32,segments:Int32=24,color:Godot::Color=Godot::Color.new(0.0_f32,0.8_f32,0.9_f32,1.0_f32),duration:Float64=0.0,on_top:Bool=true):Void-class-method">
+      <div class="signature">
+        
+        def self.<strong>surface_contact_3d</strong>(position : Godot::Vector3, normal : Godot::Vector3, radius : Float32 = <span class="n">0.5_f32</span>, segments : Int32 = <span class="n">24</span>, color : Godot::Color = <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">0.0_f32</span>, <span class="n">0.8_f32</span>, <span class="n">0.9_f32</span>, <span class="n">1.0_f32</span>), duration : Float64 = <span class="n">0.0</span>, on_top : Bool = <span class="n">true</span>) : Void
+
+        <a class="method-permalink" href="#surface_contact_3d%28position%3AGodot%3A%3AVector3%2Cnormal%3AGodot%3A%3AVector3%2Cradius%3AFloat32%3D0.5_f32%2Csegments%3AInt32%3D24%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%280.0_f32%2C0.8_f32%2C0.9_f32%2C1.0_f32%29%2Cduration%3AFloat64%3D0.0%2Con_top%3ABool%3Dtrue%29%3AVoid-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Alias for <code><a href="../Diorite/DebugDraw.html#surface_disk_3d%28position%3AGodot%3A%3AVector3%2Cnormal%3AGodot%3A%3AVector3%2Cradius%3AFloat32%3D0.5_f32%2Csegments%3AInt32%3D24%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%280.0_f32%2C0.8_f32%2C0.9_f32%2C1.0_f32%29%2Cduration%3AFloat64%3D0.0%2Con_top%3ABool%3Dtrue%29%3AVoid-class-method">.surface_disk_3d</a></code>.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="surface_disk_3d(position:Godot::Vector3,normal:Godot::Vector3,radius:Float32=0.5_f32,segments:Int32=24,color:Godot::Color=Godot::Color.new(0.0_f32,0.8_f32,0.9_f32,1.0_f32),duration:Float64=0.0,on_top:Bool=true):Void-class-method">
+      <div class="signature">
+        
+        def self.<strong>surface_disk_3d</strong>(position : Godot::Vector3, normal : Godot::Vector3, radius : Float32 = <span class="n">0.5_f32</span>, segments : Int32 = <span class="n">24</span>, color : Godot::Color = <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">0.0_f32</span>, <span class="n">0.8_f32</span>, <span class="n">0.9_f32</span>, <span class="n">1.0_f32</span>), duration : Float64 = <span class="n">0.0</span>, on_top : Bool = <span class="n">true</span>) : Void
+
+        <a class="method-permalink" href="#surface_disk_3d%28position%3AGodot%3A%3AVector3%2Cnormal%3AGodot%3A%3AVector3%2Cradius%3AFloat32%3D0.5_f32%2Csegments%3AInt32%3D24%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%280.0_f32%2C0.8_f32%2C0.9_f32%2C1.0_f32%29%2Cduration%3AFloat64%3D0.0%2Con_top%3ABool%3Dtrue%29%3AVoid-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Draws a normal-aligned circular surface disc indicating a collision or ground contact patch.</p>
+<ul>
+<li><em>position</em>: Center contact point.</li>
+<li><em>normal</em>: Surface normal vector at contact point.</li>
+<li><em>radius</em>: Disc radius.</li>
+<li><em>segments</em>: Circle perimeter resolution.</li>
+<li><em>color</em>: Disc outline color.</li>
+<li><em>duration</em>: Lifetime in seconds.</li>
+<li><em>on_top</em>: Render priority mode.</li>
+</ul>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="telemetry_graph_2d(title:String,value:Number,rect:Godot::Rect2=Godot::Rect2.new(20.0_f32,20.0_f32,160.0_f32,50.0_f32),min_val:Number=0.0,max_val:Number=100.0,color:Godot::Color=Godot::Color.new(0.2_f32,0.9_f32,0.3_f32,1.0_f32)):Void-class-method">
+      <div class="signature">
+        
+        def self.<strong>telemetry_graph_2d</strong>(title : String, value : Number, rect : Godot::Rect2 = <span class="t">Godot</span><span class="t">::</span><span class="t">Rect2</span>.new(<span class="n">20.0_f32</span>, <span class="n">20.0_f32</span>, <span class="n">160.0_f32</span>, <span class="n">50.0_f32</span>), min_val : Number = <span class="n">0.0</span>, max_val : Number = <span class="n">100.0</span>, color : Godot::Color = <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">0.2_f32</span>, <span class="n">0.9_f32</span>, <span class="n">0.3_f32</span>, <span class="n">1.0_f32</span>)) : Void
+
+        <a class="method-permalink" href="#telemetry_graph_2d%28title%3AString%2Cvalue%3ANumber%2Crect%3AGodot%3A%3ARect2%3DGodot%3A%3ARect2.new%2820.0_f32%2C20.0_f32%2C160.0_f32%2C50.0_f32%29%2Cmin_val%3ANumber%3D0.0%2Cmax_val%3ANumber%3D100.0%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%280.2_f32%2C0.9_f32%2C0.3_f32%2C1.0_f32%29%29%3AVoid-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Alias for <code><a href="../Diorite/DebugDraw.html#stat_graph_2d%28title%3AString%2Cvalue%3ANumber%2Crect%3AGodot%3A%3ARect2%3DGodot%3A%3ARect2.new%2820.0_f32%2C20.0_f32%2C160.0_f32%2C50.0_f32%29%2Cmin_val%3ANumber%3D0.0%2Cmax_val%3ANumber%3D100.0%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%280.2_f32%2C0.9_f32%2C0.3_f32%2C1.0_f32%29%29%3AVoid-class-method">.stat_graph_2d</a></code>.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="text_2d(position:Godot::Vector2,text:String,color:Godot::Color=Godot::Color.new(1.0_f32,1.0_f32,1.0_f32,1.0_f32),duration:Float64=0.0):Void-class-method">
+      <div class="signature">
+        
+        def self.<strong>text_2d</strong>(position : Godot::Vector2, text : String, color : Godot::Color = <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>), duration : Float64 = <span class="n">0.0</span>) : Void
+
+        <a class="method-permalink" href="#text_2d%28position%3AGodot%3A%3AVector2%2Ctext%3AString%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%281.0_f32%2C1.0_f32%2C1.0_f32%2C1.0_f32%29%2Cduration%3AFloat64%3D0.0%29%3AVoid-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Draws a 2D text label on the canvas overlay at pixel position <em>position</em>.</p>
+<ul>
+<li><em>position</em>: Canvas coordinate for label.</li>
+<li><em>text</em>: String content to render.</li>
+<li><em>color</em>: Text color modulate.</li>
+<li><em>duration</em>: Lifetime in seconds.</li>
+</ul>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="text_3d(position:Godot::Vector3,text:String,color:Godot::Color=Godot::Color.new(1.0_f32,1.0_f32,1.0_f32,1.0_f32),duration:Float64=0.0,on_top:Bool=true):Void-class-method">
+      <div class="signature">
+        
+        def self.<strong>text_3d</strong>(position : Godot::Vector3, text : String, color : Godot::Color = <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>), duration : Float64 = <span class="n">0.0</span>, on_top : Bool = <span class="n">true</span>) : Void
+
+        <a class="method-permalink" href="#text_3d%28position%3AGodot%3A%3AVector3%2Ctext%3AString%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%281.0_f32%2C1.0_f32%2C1.0_f32%2C1.0_f32%29%2Cduration%3AFloat64%3D0.0%2Con_top%3ABool%3Dtrue%29%3AVoid-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Draws a world-positioned 3D billboard text label with depth-test bypass.</p>
+<ul>
+<li><em>position</em>: World position for the text label.</li>
+<li><em>text</em>: String content to display.</li>
+<li><em>color</em>: Modulate text color.</li>
+<li><em>duration</em>: Lifetime in seconds (<code>0.0</code> for single-frame).</li>
+<li><em>on_top</em>: Render priority mode.</li>
+</ul>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="trail_3d(id:String,current_position:Godot::Vector3,max_points:Int32=60,color:Godot::Color=Godot::Color.new(0.9_f32,0.2_f32,0.9_f32,1.0_f32),on_top:Bool=true):Void-class-method">
+      <div class="signature">
+        
+        def self.<strong>trail_3d</strong>(id : String, current_position : Godot::Vector3, max_points : Int32 = <span class="n">60</span>, color : Godot::Color = <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">0.9_f32</span>, <span class="n">0.2_f32</span>, <span class="n">0.9_f32</span>, <span class="n">1.0_f32</span>), on_top : Bool = <span class="n">true</span>) : Void
+
+        <a class="method-permalink" href="#trail_3d%28id%3AString%2Ccurrent_position%3AGodot%3A%3AVector3%2Cmax_points%3AInt32%3D60%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%280.9_f32%2C0.2_f32%2C0.9_f32%2C1.0_f32%29%2Con_top%3ABool%3Dtrue%29%3AVoid-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Appends a moving entity's <em>current_position</em> to an ongoing motion trail identified by <em>id</em>.</p>
+<ul>
+<li><em>id</em>: Unique identifier for the tracked entity.</li>
+<li><em>current_position</em>: Current world coordinate of the entity.</li>
+<li><em>max_points</em>: Maximum historical points retained in the trail.</li>
+<li><em>color</em>: Trail line color.</li>
+<li><em>on_top</em>: Render priority mode.</li>
+</ul>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="trajectory_arc_3d(origin:Godot::Vector3,velocity:Godot::Vector3,gravity:Godot::Vector3=Godot::Vector3.new(0.0_f32,-9.8_f32,0.0_f32),max_time:Float32=3.0_f32,steps:Int32=40,color:Godot::Color=Godot::Color.new(0.2_f32,1.0_f32,0.3_f32,1.0_f32),duration:Float64=0.0,on_top:Bool=true):Void-class-method">
+      <div class="signature">
+        
+        def self.<strong>trajectory_arc_3d</strong>(origin : Godot::Vector3, velocity : Godot::Vector3, gravity : Godot::Vector3 = <span class="t">Godot</span><span class="t">::</span><span class="t">Vector3</span>.new(<span class="n">0.0_f32</span>, <span class="n">-9.8_f32</span>, <span class="n">0.0_f32</span>), max_time : Float32 = <span class="n">3.0_f32</span>, steps : Int32 = <span class="n">40</span>, color : Godot::Color = <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">0.2_f32</span>, <span class="n">1.0_f32</span>, <span class="n">0.3_f32</span>, <span class="n">1.0_f32</span>), duration : Float64 = <span class="n">0.0</span>, on_top : Bool = <span class="n">true</span>) : Void
+
+        <a class="method-permalink" href="#trajectory_arc_3d%28origin%3AGodot%3A%3AVector3%2Cvelocity%3AGodot%3A%3AVector3%2Cgravity%3AGodot%3A%3AVector3%3DGodot%3A%3AVector3.new%280.0_f32%2C-9.8_f32%2C0.0_f32%29%2Cmax_time%3AFloat32%3D3.0_f32%2Csteps%3AInt32%3D40%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%280.2_f32%2C1.0_f32%2C0.3_f32%2C1.0_f32%29%2Cduration%3AFloat64%3D0.0%2Con_top%3ABool%3Dtrue%29%3AVoid-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Draws a ballistic parabolic trajectory arc computed under gravity.</p>
+<ul>
+<li><em>origin</em>: Projectile launch position.</li>
+<li><em>velocity</em>: Initial muzzle/launch velocity vector.</li>
+<li><em>gravity</em>: Acceleration due to gravity (default <code>-9.8</code> m/s² on Y).</li>
+<li><em>max_time</em>: Total flight duration simulated.</li>
+<li><em>steps</em>: Polyline resolution.</li>
+<li><em>color</em>: Arc line color.</li>
+<li><em>duration</em>: Lifetime in seconds.</li>
+<li><em>on_top</em>: Render priority mode.</li>
+</ul>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="vision_cone_3d(origin:Godot::Vector3,direction:Godot::Vector3,angle_deg:Float32=45.0_f32,range:Float32=10.0_f32,color:Godot::Color=Godot::Color.new(0.0_f32,0.9_f32,1.0_f32,0.8_f32),segments:Int32=24,duration:Float64=0.0,on_top:Bool=true):Void-class-method">
+      <div class="signature">
+        
+        def self.<strong>vision_cone_3d</strong>(origin : Godot::Vector3, direction : Godot::Vector3, angle_deg : Float32 = <span class="n">45.0_f32</span>, range : Float32 = <span class="n">10.0_f32</span>, color : Godot::Color = <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">0.0_f32</span>, <span class="n">0.9_f32</span>, <span class="n">1.0_f32</span>, <span class="n">0.8_f32</span>), segments : Int32 = <span class="n">24</span>, duration : Float64 = <span class="n">0.0</span>, on_top : Bool = <span class="n">true</span>) : Void
+
+        <a class="method-permalink" href="#vision_cone_3d%28origin%3AGodot%3A%3AVector3%2Cdirection%3AGodot%3A%3AVector3%2Cangle_deg%3AFloat32%3D45.0_f32%2Crange%3AFloat32%3D10.0_f32%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%280.0_f32%2C0.9_f32%2C1.0_f32%2C0.8_f32%29%2Csegments%3AInt32%3D24%2Cduration%3AFloat64%3D0.0%2Con_top%3ABool%3Dtrue%29%3AVoid-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Draws a spherical sector vision/detection cone for AI sensory perception.</p>
+<ul>
+<li><em>origin</em>: Sensor/eye origin.</li>
+<li><em>direction</em>: Forward look direction vector.</li>
+<li><em>angle_deg</em>: Total field-of-view angle in degrees.</li>
+<li><em>range</em>: Sight/detection radius.</li>
+<li><em>color</em>: Cone boundary color.</li>
+<li><em>segments</em>: Arc resolution.</li>
+<li><em>duration</em>: Lifetime in seconds.</li>
+<li><em>on_top</em>: Render priority mode.</li>
+</ul>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+
+
+  
+
+  
+
+
+</div>
+
+</body>
+</html>

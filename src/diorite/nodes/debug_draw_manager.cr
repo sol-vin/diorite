@@ -3,8 +3,15 @@ require "../core/dsl"
 require "../core/debug_material"
 
 module Diorite
+  # Central coordinator node managing batch immediate-mode rendering for 2D and 3D debug primitives.
+  #
+  # Maintains high-priority `ImmediateMesh` instances for 3D on-top and depth-tested passes,
+  # a dedicated `CanvasLayer` for 2D geometry, and object pools for 2D/3D billboard labels.
+  #
+  # Add this node to your scene or let `MainNode` spawn it automatically.
   @[Tool]
   node DebugDrawManager < Node do
+    # Toggles whether all debug primitives and labels are processed and drawn.
     @[Export]
     property enabled : Bool = true
 
@@ -187,6 +194,14 @@ module Diorite
           GeometryBuilder.build_rect_2d(cmd.rect, cmd.color, @verts_2d, @cols_2d)
         when ShapeKind2D::Circle
           GeometryBuilder.build_circle_2d(cmd.p0, cmd.f0, cmd.i0, cmd.color, @verts_2d, @cols_2d)
+        when ShapeKind2D::Points
+          if pts = cmd.points
+            GeometryBuilder.build_points_2d(pts, cmd.f0, cmd.color, @verts_2d, @cols_2d)
+          end
+        when ShapeKind2D::Path
+          if pts = cmd.points
+            GeometryBuilder.build_path_2d(pts, cmd.color, @verts_2d, @cols_2d)
+          end
         end
       end
 

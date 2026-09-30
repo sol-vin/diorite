@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Crystal Docs 1.20.3">
+<meta name="crystal_docs.project_version" content="main-dev">
+<meta name="crystal_docs.project_name" content="diorite">
+
+
+
+<link href="../css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../js/doc.js"></script>
+
+  <meta name="repository-name" content="diorite">
+  <title>Diorite::Command2D - diorite main-dev</title>
+  <script type="text/javascript">
+    CrystalDocs.base_path = "../";
+  </script>
+</head>
+<body>
+
+<svg class="hidden">
+  <symbol id="octicon-link" viewBox="0 0 16 16">
+    <path fill="currentColor" fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+  </symbol>
+</svg>
+<input type="checkbox" id="sidebar-btn">
+<label for="sidebar-btn" id="sidebar-btn-label">
+  <svg class="open" xmlns="http://www.w3.org/2000/svg" height="2em" width="2em" viewBox="0 0 512 512"><title>Open Sidebar</title><path fill="currentColor" d="M80 96v64h352V96H80zm0 112v64h352v-64H80zm0 112v64h352v-64H80z"></path></svg>
+  <svg class="close" xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 512 512"><title>Close Sidebar</title><path fill="currentColor" d="m118.6 73.4-45.2 45.2L210.7 256 73.4 393.4l45.2 45.2L256 301.3l137.4 137.3 45.2-45.2L301.3 256l137.3-137.4-45.2-45.2L256 210.7Z"></path></svg>
+</label>
+<div class="sidebar">
+  <div class="sidebar-header">
+    <div class="search-box">
+      <input type="search" class="search-input" placeholder="Search..." spellcheck="false" aria-label="Search">
+    </div>
+
+    <div class="project-summary">
+      <h1 class="project-name">
+        <a href="../index.html">
+          diorite
+        </a>
+      </h1>
+
+      <span class="project-version">
+        main-dev
+      </span>
+    </div>
+  </div>
+
+  <div class="search-results hidden">
+    <ul class="search-list"></ul>
+  </div>
+
+  <div class="types-list">
+    <ul>
+  
+  <li class=" " data-id="diorite/toplevel" data-name="top level namespace">
+      <a href="../toplevel.html">Top Level Namespace</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/DemoController" data-name="democontroller">
+      <a href="../DemoController.html">DemoController</a>
+      
+    </li>
+  
+  <li class="parent open current" data-id="diorite/Diorite" data-name="diorite">
+      <a href="../Diorite.html">Diorite</a>
+      
+        <ul>
+  
+  <li class=" current" data-id="diorite/Diorite/Command2D" data-name="diorite::command2d">
+      <a href="../Diorite/Command2D.html">Command2D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/Command3D" data-name="diorite::command3d">
+      <a href="../Diorite/Command3D.html">Command3D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugArrow2D" data-name="diorite::debugarrow2d">
+      <a href="../Diorite/DebugArrow2D.html">DebugArrow2D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugArrow3D" data-name="diorite::debugarrow3d">
+      <a href="../Diorite/DebugArrow3D.html">DebugArrow3D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugAxes3D" data-name="diorite::debugaxes3d">
+      <a href="../Diorite/DebugAxes3D.html">DebugAxes3D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugBox3D" data-name="diorite::debugbox3d">
+      <a href="../Diorite/DebugBox3D.html">DebugBox3D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugCapsule3D" data-name="diorite::debugcapsule3d">
+      <a href="../Diorite/DebugCapsule3D.html">DebugCapsule3D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugCircle2D" data-name="diorite::debugcircle2d">
+      <a href="../Diorite/DebugCircle2D.html">DebugCircle2D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugCommandQueue" data-name="diorite::debugcommandqueue">
+      <a href="../Diorite/DebugCommandQueue.html">DebugCommandQueue</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugCylinder3D" data-name="diorite::debugcylinder3d">
+      <a href="../Diorite/DebugCylinder3D.html">DebugCylinder3D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugDraw" data-name="diorite::debugdraw">
+      <a href="../Diorite/DebugDraw.html">DebugDraw</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugDrawManager" data-name="diorite::debugdrawmanager">
+      <a href="../Diorite/DebugDrawManager.html">DebugDrawManager</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugGrid3D" data-name="diorite::debuggrid3d">
+      <a href="../Diorite/DebugGrid3D.html">DebugGrid3D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugLine2D" data-name="diorite::debugline2d">
+      <a href="../Diorite/DebugLine2D.html">DebugLine2D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugLine3D" data-name="diorite::debugline3d">
+      <a href="../Diorite/DebugLine3D.html">DebugLine3D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugMaterialManager" data-name="diorite::debugmaterialmanager">
+      <a href="../Diorite/DebugMaterialManager.html">DebugMaterialManager</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugRect2D" data-name="diorite::debugrect2d">
+      <a href="../Diorite/DebugRect2D.html">DebugRect2D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugRuler3D" data-name="diorite::debugruler3d">
+      <a href="../Diorite/DebugRuler3D.html">DebugRuler3D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugShape2D" data-name="diorite::debugshape2d">
+      <a href="../Diorite/DebugShape2D.html">DebugShape2D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugShape3D" data-name="diorite::debugshape3d">
+      <a href="../Diorite/DebugShape3D.html">DebugShape3D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugSphere3D" data-name="diorite::debugsphere3d">
+      <a href="../Diorite/DebugSphere3D.html">DebugSphere3D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugSpring3D" data-name="diorite::debugspring3d">
+      <a href="../Diorite/DebugSpring3D.html">DebugSpring3D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugVisionCone3D" data-name="diorite::debugvisioncone3d">
+      <a href="../Diorite/DebugVisionCone3D.html">DebugVisionCone3D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/FrameContext" data-name="diorite::framecontext">
+      <a href="../Diorite/FrameContext.html">FrameContext</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/GeometryBuilder" data-name="diorite::geometrybuilder">
+      <a href="../Diorite/GeometryBuilder.html">GeometryBuilder</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/MathHelpers" data-name="diorite::mathhelpers">
+      <a href="../Diorite/MathHelpers.html">MathHelpers</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/Shape2DType" data-name="diorite::shape2dtype">
+      <a href="../Diorite/Shape2DType.html">Shape2DType</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/Shape3DType" data-name="diorite::shape3dtype">
+      <a href="../Diorite/Shape3DType.html">Shape3DType</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/ShapeKind2D" data-name="diorite::shapekind2d">
+      <a href="../Diorite/ShapeKind2D.html">ShapeKind2D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/ShapeKind3D" data-name="diorite::shapekind3d">
+      <a href="../Diorite/ShapeKind3D.html">ShapeKind3D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/TelemetryGraph" data-name="diorite::telemetrygraph">
+      <a href="../Diorite/TelemetryGraph.html">TelemetryGraph</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/TextCommand2D" data-name="diorite::textcommand2d">
+      <a href="../Diorite/TextCommand2D.html">TextCommand2D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/TextCommand3D" data-name="diorite::textcommand3d">
+      <a href="../Diorite/TextCommand3D.html">TextCommand3D</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent " data-id="diorite/Lapis" data-name="lapis">
+      <a href="../Lapis.html">Lapis</a>
+      
+        <ul>
+  
+  <li class="parent " data-id="diorite/Lapis/Docs" data-name="lapis::docs">
+      <a href="../Lapis/Docs.html">Docs</a>
+      
+        <ul>
+  
+  <li class="parent " data-id="diorite/Lapis/Docs/GENERAL" data-name="lapis::docs::general">
+      <a href="../Lapis/Docs/GENERAL.html">GENERAL</a>
+      
+        <ul>
+  
+  <li class=" " data-id="diorite/Lapis/Docs/GENERAL/NODES" data-name="lapis::docs::general::nodes">
+      <a href="../Lapis/Docs/GENERAL/NODES.html">NODES</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Lapis/Docs/GENERAL/OVERVIEW" data-name="lapis::docs::general::overview">
+      <a href="../Lapis/Docs/GENERAL/OVERVIEW.html">OVERVIEW</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Lapis/Docs/GENERAL/PIPELINE" data-name="lapis::docs::general::pipeline">
+      <a href="../Lapis/Docs/GENERAL/PIPELINE.html">PIPELINE</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Lapis/Docs/GENERAL/PRIMITIVES" data-name="lapis::docs::general::primitives">
+      <a href="../Lapis/Docs/GENERAL/PRIMITIVES.html">PRIMITIVES</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="diorite/MainNode" data-name="mainnode">
+      <a href="../MainNode.html">MainNode</a>
+      
+    </li>
+  
+</ul>
+
+  </div>
+</div>
+
+
+<div class="main-content">
+<h1 class="type-name">
+
+  <span class="kind">
+    class
+  </span> Diorite::<wbr>Command2D
+
+</h1>
+
+
+  <ul class="superclass-hierarchy"><li class="superclass"><a href="../Diorite/Command2D.html">Diorite::Command2D</a></li><li class="superclass">Reference</li><li class="superclass">Object</li></ul>
+
+
+
+
+  <h2>
+    <a id="overview" class="anchor" href="#overview">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Overview
+  </h2>
+
+  <p>Internal command payload representing an immediate-mode 2D draw request.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2>
+    <a id="defined-in" class="anchor" href="#defined-in">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Defined in:
+  </h2>
+  
+    
+      src\diorite\core\debug_command.cr
+    
+    <br/>
+  
+
+
+
+
+
+  
+  <h2>
+    <a id="constructors" class="anchor" href="#constructors">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Constructors
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#new%28kind%3AShapeKind2D%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%281.0_f32%2C1.0_f32%2C1.0_f32%2C1.0_f32%29%2Cduration%3AFloat64%3D0.0%29-class-method" class="signature"><strong>.new</strong>(kind : ShapeKind2D, color : Godot::Color = <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>), duration : Float64 = <span class="n">0.0</span>)</a>
+        
+          <div class="summary"><p>Creates a new 2D command with default parameters.</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+  
+
+  
+
+  
+  <h2>
+    <a id="instance-method-summary" class="anchor" href="#instance-method-summary">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Instance Method Summary
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#color%3AGodot%3A%3AColor-instance-method" class="signature"><strong>#color</strong> : Godot::Color</a>
+        
+          <div class="summary"><p>Modulate vertex color for this shape.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#color%3D%28color%3AGodot%3A%3AColor%29-instance-method" class="signature"><strong>#color=</strong>(color : Godot::Color)</a>
+        
+          <div class="summary"><p>Modulate vertex color for this shape.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#duration%3AFloat64-instance-method" class="signature"><strong>#duration</strong> : Float64</a>
+        
+          <div class="summary"><p>Total lifetime duration in seconds (<code>0.0</code> for single-frame).</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#duration%3D%28duration%3AFloat64%29-instance-method" class="signature"><strong>#duration=</strong>(duration : Float64)</a>
+        
+          <div class="summary"><p>Total lifetime duration in seconds (<code>0.0</code> for single-frame).</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#expired%3F%3ABool-instance-method" class="signature"><strong>#expired?</strong> : Bool</a>
+        
+          <div class="summary"><p>Returns true if the command has exceeded its duration lifetime.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#f0%3AFloat32-instance-method" class="signature"><strong>#f0</strong> : Float32</a>
+        
+          <div class="summary"><p>Float parameter 0 (radius or arrowhead size).</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#f0%3D%28f0%3AFloat32%29-instance-method" class="signature"><strong>#f0=</strong>(f0 : Float32)</a>
+        
+          <div class="summary"><p>Float parameter 0 (radius or arrowhead size).</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#filled%3ABool-instance-method" class="signature"><strong>#filled</strong> : Bool</a>
+        
+          <div class="summary"><p>Whether the 2D primitive is filled or wireframe.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#filled%3D%28filled%3ABool%29-instance-method" class="signature"><strong>#filled=</strong>(filled : Bool)</a>
+        
+          <div class="summary"><p>Whether the 2D primitive is filled or wireframe.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#i0%3AInt32-instance-method" class="signature"><strong>#i0</strong> : Int32</a>
+        
+          <div class="summary"><p>Integer parameter 0 (circle segment resolution).</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#i0%3D%28i0%3AInt32%29-instance-method" class="signature"><strong>#i0=</strong>(i0 : Int32)</a>
+        
+          <div class="summary"><p>Integer parameter 0 (circle segment resolution).</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#kind%3AShapeKind2D-instance-method" class="signature"><strong>#kind</strong> : ShapeKind2D</a>
+        
+          <div class="summary"><p>The kind of 2D primitive to render.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#kind%3D%28kind%3AShapeKind2D%29-instance-method" class="signature"><strong>#kind=</strong>(kind : ShapeKind2D)</a>
+        
+          <div class="summary"><p>The kind of 2D primitive to render.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#p0%3AGodot%3A%3AVector2-instance-method" class="signature"><strong>#p0</strong> : Godot::Vector2</a>
+        
+          <div class="summary"><p>2D point 0 (start point or center coordinate).</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#p0%3D%28p0%3AGodot%3A%3AVector2%29-instance-method" class="signature"><strong>#p0=</strong>(p0 : Godot::Vector2)</a>
+        
+          <div class="summary"><p>2D point 0 (start point or center coordinate).</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#p1%3AGodot%3A%3AVector2-instance-method" class="signature"><strong>#p1</strong> : Godot::Vector2</a>
+        
+          <div class="summary"><p>2D point 1 (end coordinate).</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#p1%3D%28p1%3AGodot%3A%3AVector2%29-instance-method" class="signature"><strong>#p1=</strong>(p1 : Godot::Vector2)</a>
+        
+          <div class="summary"><p>2D point 1 (end coordinate).</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#points%3AArray%28Godot%3A%3AVector2%29%7CNil-instance-method" class="signature"><strong>#points</strong> : Array(Godot::Vector2) | Nil</a>
+        
+          <div class="summary"><p>Polyline vertex array.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#points%3D%28points%3AArray%28Godot%3A%3AVector2%29%7CNil%29-instance-method" class="signature"><strong>#points=</strong>(points : Array(Godot::Vector2) | Nil)</a>
+        
+          <div class="summary"><p>Polyline vertex array.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#rect%3AGodot%3A%3ARect2-instance-method" class="signature"><strong>#rect</strong> : Godot::Rect2</a>
+        
+          <div class="summary"><p>Bounding rectangle for 2D box or telemetry graph viewport.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#rect%3D%28rect%3AGodot%3A%3ARect2%29-instance-method" class="signature"><strong>#rect=</strong>(rect : Godot::Rect2)</a>
+        
+          <div class="summary"><p>Bounding rectangle for 2D box or telemetry graph viewport.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#remaining_time%3AFloat64-instance-method" class="signature"><strong>#remaining_time</strong> : Float64</a>
+        
+          <div class="summary"><p>Remaining lifetime in seconds before this command expires.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#remaining_time%3D%28remaining_time%3AFloat64%29-instance-method" class="signature"><strong>#remaining_time=</strong>(remaining_time : Float64)</a>
+        
+          <div class="summary"><p>Remaining lifetime in seconds before this command expires.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#step%28delta%3AFloat64%29%3AVoid-instance-method" class="signature"><strong>#step</strong>(delta : Float64) : Void</a>
+        
+          <div class="summary"><p>Advances time by <em>delta</em> seconds, decaying remaining duration.</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+  <div class="methods-inherited">
+    
+      
+
+
+      
+
+
+      
+
+
+      
+
+
+    
+      
+
+
+      
+
+
+      
+
+
+      
+
+
+    
+  </div>
+
+  
+  <h2>
+    <a id="constructor-detail" class="anchor" href="#constructor-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Constructor Detail
+  </h2>
+  
+    <div class="entry-detail" id="new(kind:ShapeKind2D,color:Godot::Color=Godot::Color.new(1.0_f32,1.0_f32,1.0_f32,1.0_f32),duration:Float64=0.0)-class-method">
+      <div class="signature">
+        
+        def self.<strong>new</strong>(kind : <a href="../Diorite/ShapeKind2D.html">ShapeKind2D</a>, color : Godot::Color = <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>, <span class="n">1.0_f32</span>), duration : Float64 = <span class="n">0.0</span>)
+
+        <a class="method-permalink" href="#new%28kind%3AShapeKind2D%2Ccolor%3AGodot%3A%3AColor%3DGodot%3A%3AColor.new%281.0_f32%2C1.0_f32%2C1.0_f32%2C1.0_f32%29%2Cduration%3AFloat64%3D0.0%29-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Creates a new 2D command with default parameters.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+
+
+  
+
+  
+
+  
+  <h2>
+    <a id="instance-method-detail" class="anchor" href="#instance-method-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Instance Method Detail
+  </h2>
+  
+    <div class="entry-detail" id="color:Godot::Color-instance-method">
+      <div class="signature">
+        
+        def <strong>color</strong> : Godot::Color
+
+        <a class="method-permalink" href="#color%3AGodot%3A%3AColor-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Modulate vertex color for this shape.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="color=(color:Godot::Color)-instance-method">
+      <div class="signature">
+        
+        def <strong>color=</strong>(color : Godot::Color)
+
+        <a class="method-permalink" href="#color%3D%28color%3AGodot%3A%3AColor%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Modulate vertex color for this shape.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="duration:Float64-instance-method">
+      <div class="signature">
+        
+        def <strong>duration</strong> : Float64
+
+        <a class="method-permalink" href="#duration%3AFloat64-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Total lifetime duration in seconds (<code>0.0</code> for single-frame).</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="duration=(duration:Float64)-instance-method">
+      <div class="signature">
+        
+        def <strong>duration=</strong>(duration : Float64)
+
+        <a class="method-permalink" href="#duration%3D%28duration%3AFloat64%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Total lifetime duration in seconds (<code>0.0</code> for single-frame).</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="expired?:Bool-instance-method">
+      <div class="signature">
+        
+        def <strong>expired?</strong> : Bool
+
+        <a class="method-permalink" href="#expired%3F%3ABool-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns true if the command has exceeded its duration lifetime.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="f0:Float32-instance-method">
+      <div class="signature">
+        
+        def <strong>f0</strong> : Float32
+
+        <a class="method-permalink" href="#f0%3AFloat32-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Float parameter 0 (radius or arrowhead size).</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="f0=(f0:Float32)-instance-method">
+      <div class="signature">
+        
+        def <strong>f0=</strong>(f0 : Float32)
+
+        <a class="method-permalink" href="#f0%3D%28f0%3AFloat32%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Float parameter 0 (radius or arrowhead size).</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="filled:Bool-instance-method">
+      <div class="signature">
+        
+        def <strong>filled</strong> : Bool
+
+        <a class="method-permalink" href="#filled%3ABool-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Whether the 2D primitive is filled or wireframe.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="filled=(filled:Bool)-instance-method">
+      <div class="signature">
+        
+        def <strong>filled=</strong>(filled : Bool)
+
+        <a class="method-permalink" href="#filled%3D%28filled%3ABool%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Whether the 2D primitive is filled or wireframe.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="i0:Int32-instance-method">
+      <div class="signature">
+        
+        def <strong>i0</strong> : Int32
+
+        <a class="method-permalink" href="#i0%3AInt32-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Integer parameter 0 (circle segment resolution).</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="i0=(i0:Int32)-instance-method">
+      <div class="signature">
+        
+        def <strong>i0=</strong>(i0 : Int32)
+
+        <a class="method-permalink" href="#i0%3D%28i0%3AInt32%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Integer parameter 0 (circle segment resolution).</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="kind:ShapeKind2D-instance-method">
+      <div class="signature">
+        
+        def <strong>kind</strong> : <a href="../Diorite/ShapeKind2D.html">ShapeKind2D</a>
+
+        <a class="method-permalink" href="#kind%3AShapeKind2D-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>The kind of 2D primitive to render.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="kind=(kind:ShapeKind2D)-instance-method">
+      <div class="signature">
+        
+        def <strong>kind=</strong>(kind : <a href="../Diorite/ShapeKind2D.html">ShapeKind2D</a>)
+
+        <a class="method-permalink" href="#kind%3D%28kind%3AShapeKind2D%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>The kind of 2D primitive to render.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="p0:Godot::Vector2-instance-method">
+      <div class="signature">
+        
+        def <strong>p0</strong> : Godot::Vector2
+
+        <a class="method-permalink" href="#p0%3AGodot%3A%3AVector2-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>2D point 0 (start point or center coordinate).</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="p0=(p0:Godot::Vector2)-instance-method">
+      <div class="signature">
+        
+        def <strong>p0=</strong>(p0 : Godot::Vector2)
+
+        <a class="method-permalink" href="#p0%3D%28p0%3AGodot%3A%3AVector2%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>2D point 0 (start point or center coordinate).</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="p1:Godot::Vector2-instance-method">
+      <div class="signature">
+        
+        def <strong>p1</strong> : Godot::Vector2
+
+        <a class="method-permalink" href="#p1%3AGodot%3A%3AVector2-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>2D point 1 (end coordinate).</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="p1=(p1:Godot::Vector2)-instance-method">
+      <div class="signature">
+        
+        def <strong>p1=</strong>(p1 : Godot::Vector2)
+
+        <a class="method-permalink" href="#p1%3D%28p1%3AGodot%3A%3AVector2%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>2D point 1 (end coordinate).</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="points:Array(Godot::Vector2)|Nil-instance-method">
+      <div class="signature">
+        
+        def <strong>points</strong> : Array(Godot::Vector2) | Nil
+
+        <a class="method-permalink" href="#points%3AArray%28Godot%3A%3AVector2%29%7CNil-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Polyline vertex array.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="points=(points:Array(Godot::Vector2)|Nil)-instance-method">
+      <div class="signature">
+        
+        def <strong>points=</strong>(points : Array(Godot::Vector2) | Nil)
+
+        <a class="method-permalink" href="#points%3D%28points%3AArray%28Godot%3A%3AVector2%29%7CNil%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Polyline vertex array.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="rect:Godot::Rect2-instance-method">
+      <div class="signature">
+        
+        def <strong>rect</strong> : Godot::Rect2
+
+        <a class="method-permalink" href="#rect%3AGodot%3A%3ARect2-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Bounding rectangle for 2D box or telemetry graph viewport.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="rect=(rect:Godot::Rect2)-instance-method">
+      <div class="signature">
+        
+        def <strong>rect=</strong>(rect : Godot::Rect2)
+
+        <a class="method-permalink" href="#rect%3D%28rect%3AGodot%3A%3ARect2%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Bounding rectangle for 2D box or telemetry graph viewport.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="remaining_time:Float64-instance-method">
+      <div class="signature">
+        
+        def <strong>remaining_time</strong> : Float64
+
+        <a class="method-permalink" href="#remaining_time%3AFloat64-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Remaining lifetime in seconds before this command expires.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="remaining_time=(remaining_time:Float64)-instance-method">
+      <div class="signature">
+        
+        def <strong>remaining_time=</strong>(remaining_time : Float64)
+
+        <a class="method-permalink" href="#remaining_time%3D%28remaining_time%3AFloat64%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Remaining lifetime in seconds before this command expires.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="step(delta:Float64):Void-instance-method">
+      <div class="signature">
+        
+        def <strong>step</strong>(delta : Float64) : Void
+
+        <a class="method-permalink" href="#step%28delta%3AFloat64%29%3AVoid-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Advances time by <em>delta</em> seconds, decaying remaining duration.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+
+
+
+</div>
+
+</body>
+</html>

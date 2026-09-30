@@ -12,3 +12,5 @@ dependencies:
 targets:
   game:
     main: src/main.cr
+  benchmark:
+    main: bench/benchmark_suite.cr

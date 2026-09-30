@@ -13,3 +13,12 @@ require "../demo/demo_controller"
 
 # Top-level namespace alias for ergonomics
 DebugDraw = Diorite::DebugDraw
+
+# The **Diorite** debug drawing library for Godot Engine 4.8+.
+#
+# Provides both a node-based scene system and an immediate-mode DSL for
+# rendering 2D and 3D debug visualizations with maximum visual priority.
+module Diorite
+  # Current version of the Diorite debug library.
+  VERSION = "0.1.0"
+end

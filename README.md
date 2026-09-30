@@ -2,15 +2,49 @@
 ### High-Performance 2D & 3D Debug Drawing Plugin & Frame DSL for Godot Engine 4.8+
 
 [![CI](https://github.com/sol-vin/diorite/actions/workflows/ci.yml/badge.svg)](https://github.com/sol-vin/diorite/actions/workflows/ci.yml)
+[![Docs](https://github.com/sol-vin/diorite/actions/workflows/docs.yml/badge.svg)](https://sol-vin.github.io/diorite/)
 [![Crystal](https://img.shields.io/badge/Crystal-1.21.0-blue.svg)](https://crystal-lang.org)
 [![Godot](https://img.shields.io/badge/Godot-4.8--dev6-478cbf.svg)](https://godotengine.org)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 **Diorite** is a debug drawing plugin and immediate-mode DSL for **Godot 4.8+** powered by the **Lapis** Crystal toolchain. Inspired by tools like Godot's DebugDraw3D and Raylib's immediate drawing functions, Diorite provides **both** a node-based scene workflow and a zero-allocation frame-based DSL for real-time visualization.
 
+📖 **Full API & Architecture Documentation**: [https://sol-vin.github.io/diorite/](https://sol-vin.github.io/diorite/)
+
 All debug primitives render with **highest visual priority**:
 - **3D**: Unshaded `StandardMaterial3D` with depth testing disabled (`FlagDisableDepthTest = true`) and `render_priority = 127`.
 - **2D**: Rendered onto an overlay `CanvasLayer` at `layer = 128` with `z_index = 4096` (`z_as_relative = false`).
+
+---
+
+## ⚡ Performance Benchmarks
+
+Diorite was engineered from the ground up for extreme throughput and zero-allocation runtime performance. Benchmarks measured on Crystal 1.21.0:
+
+| Category | Benchmark Routine | Throughput | Latency | Allocation |
+|---|---|---|---|---|
+| **Vector Transforms** | `MathHelpers.find_perpendicular` | **15.02 M ops/sec** | 66.56 ns | **0.0 B/op** |
+| **Vector Transforms** | `MathHelpers.orthonormal_plane` | **7.15 M ops/sec** | 139.85 ns | **0.0 B/op** |
+| **Vector Transforms** | `MathHelpers.rotate_around_axis` | **8.76 M ops/sec** | 114.21 ns | **0.0 B/op** |
+| **3D Primitives** | `3D Line` | **7.90 M ops/sec** | 126.63 ns | **0.0 B/op** |
+| **3D Primitives** | `3D Arrow` | **669.85 k ops/sec** | 1.49 µs | 96.0 B/op |
+| **3D Primitives** | `3D Box (12 edges)` | **769.05 k ops/sec** | 1.30 µs | **0.0 B/op** |
+| **3D Primitives** | `3D Camera Frustum` | **628.66 k ops/sec** | 1.59 µs | **0.0 B/op** |
+| **3D Primitives** | `3D Sphere (16 rings)` | **146.31 k ops/sec** | 6.83 µs | **0.0 B/op** |
+| **3D Primitives** | `3D Grid (10x10 subs)` | **288.30 k ops/sec** | 3.47 µs | **0.0 B/op** |
+| **3D Primitives** | `3D Trajectory Arc (20 steps)` | **138.04 k ops/sec** | 7.24 µs | **0.0 B/op** |
+| **2D Primitives** | `2D Line` | **9.26 M ops/sec** | 108.04 ns | **0.0 B/op** |
+| **2D Primitives** | `2D Arrow` | **2.76 M ops/sec** | 361.94 ns | **0.0 B/op** |
+| **2D Primitives** | `2D Rect` | **2.81 M ops/sec** | 356.13 ns | **0.0 B/op** |
+| **2D Primitives** | `2D Circle (24 segs)` | **210.34 k ops/sec** | 4.75 µs | **0.0 B/op** |
+| **Queue Operations** | Batch Enqueue 10,000 Commands | **2.01 M cmds/sec** | 4.95 ms / 10k | Fast Push |
+| **Queue Operations** | Step & Decay 10,000 Commands | **20.04 M cmds/sec** | 0.49 ms / 10k | Fast Reject |
+| **Queue Operations** | Clear Queue | **250.0 M ops/sec** | 4.0 µs / 10k | Instant |
+| **Telemetry Ingestion** | `TelemetryGraph#add_sample` | **24.20 M ops/sec** | 41.33 ns | **0.0 B/op** |
+| **Telemetry Render** | `TelemetryGraph#build_geometry` | **63.84 k fps** | 15.66 µs | **0.0 B/op** |
+| **Heavy Simulation** | **700 Mixed Shapes per Frame** | **4,590 frames/sec** | **0.21 ms / frame** | 108 kB / frame |
+
+> In a 60 FPS frame budget (16.6 milliseconds), drawing 700 mixed 2D and 3D shapes takes only **0.21 ms (~1.3% of the frame budget)**.
 
 ---
 
@@ -44,7 +78,7 @@ Diorite ships with **26 debug visualization items** (16 standard + 10 innovative
 21. **Motion Trail** (`trail_3d`): Smooth history trail following any moving entity over time.
 22. **Helical Spring** (`spring_3d`): 3D wire spiral for physics constraints, suspension, and raycast springs.
 23. **Surface Contact Disk** (`surface_contact_3d`): Normal-aligned circular disc indicating collision contacts.
-24. **Distance Measurement Ruler** (`ruler_3d`): Calibrated measurement bar with tick marks between two points.
+24. **Distance Measurement Ruler** (`ruler_3d`): Calibrated measurement bar with tick marks and automatic midpoint readout.
 25. **3D Reticle** (`reticle_3d`): Circular weapon aim target or lock-on circle with corner brackets.
 26. **2D Telemetry Sparkline Graph** (`telemetry_graph_2d`): Real-time scrolling performance and variable graph overlay.
 
@@ -80,8 +114,8 @@ DebugDraw.trajectory_arc_3d(
   origin: cannon.position,
   velocity: Vector3.new(10, 15, 0),
   gravity: Vector3.new(0, -9.8, 0),
-  time_step: 0.05,
-  subdivisions: 30
+  max_time: 2.0,
+  steps: 25
 )
 
 # 2D Telemetry sparkline
@@ -126,17 +160,24 @@ Add Diorite nodes directly into your Godot scene tree. Fully configurable in the
 ```
 diorite/
 ├── .github/workflows/
-│   └── ci.yml               # Multi-platform CI (Crystal specs + Godot headless test)
+│   ├── ci.yml               # Multi-platform CI (Specs, Benchmarks, Godot Headless Smoke Test)
+│   └── docs.yml             # Automatic Lapis documentation generation & GitHub Pages deployment
 ├── addons/
 │   ├── crystal_integration/ # Lapis Crystal GDExtension integration
 │   └── diorite/             # Diorite Godot addon manifest & plugin
 │       ├── plugin.cfg
 │       ├── diorite.gd
 │       └── diorite.gdextension
+├── bench/
+│   └── benchmark_suite.cr   # Comprehensive benchmark suite (IPS & Benchmark.bm)
+├── docs_src/                # Source documentation in YAML for lapis docs compiler
+├── docs/                    # Compiled static documentation site
 ├── scenes/
 │   └── main.tscn            # Showcase test scene demonstrating all 26 items
-├── spec/                    # Pure Crystal unit test suite (24 specs)
+├── spec/                    # Pure Crystal unit test suite (37 specs across 5 suites)
 │   ├── geometry_builder_spec.cr
+│   ├── math_helpers_spec.cr
+│   ├── dsl_spec.cr
 │   ├── dsl_queue_spec.cr
 │   ├── telemetry_graph_spec.cr
 │   └── spec_helper.cr
@@ -155,13 +196,23 @@ diorite/
 
 ---
 
-## 🧪 Testing
+## 🧪 Testing & Benchmarking
 
-### Running Unit Specs
-Diorite contains comprehensive unit specs covering all 26 geometric builders, vertex counts, color assignments, telemetry ring buffers, and command queue duration decay:
+### Running Unit Specs (37 specs)
+Diorite contains comprehensive unit specs covering all 26 geometric builders, vertex counts, color assignments, telemetry ring buffers, math helpers, edge cases, and command queue duration decay:
 
 ```bash
 crystal spec
+```
+
+### Running Benchmark Suite
+```bash
+crystal run bench/benchmark_suite.cr
+```
+
+### Building Documentation via `lapis docs`
+```bash
+lapis docs --github=sol-vin/diorite
 ```
 
 ### Running Headless Godot Smoke Test

@@ -2,6 +2,12 @@ require "lapis"
 require "./diorite/diorite"
 require "./demo/**"
 
+{% if read_file?("src/docs/general/overview.cr") %}
+require "./docs/**"
+{% end %}
+
+
+
 # Main root node for the Diorite project
 @[Tool]
 node MainNode < Node3D do

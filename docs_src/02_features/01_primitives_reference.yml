@@ -1,0 +1,38 @@
+id: PRIMITIVES
+title: Diorite Primitives Reference
+summary: Complete guide to all 26 procedural 2D and 3D debug drawing primitives supported by Diorite.
+description: |
+  Diorite provides 26 high-performance debug primitives spanning standard geometric shapes,
+  camera helpers, physics telemetry indicators, motion trails, and canvas UI overlays.
+
+topics:
+  - title: 3D Primitives
+    description: "Line, Arrow, Box, Sphere, Cylinder, Capsule, Vision Cone, Plane, Grid, Gizmo, Position 3D, Frustum, Points, Path, Spring, Ruler, Reticle, Surface Disk, Ray Hit, Trajectory Arc, Text 3D, and Motion Trails."
+  - title: 2D Primitives
+    description: "Line 2D, Arrow 2D, Rect 2D, Circle 2D, Points 2D, Path 2D, Text 2D, and Real-time Telemetry Graphs."
+
+examples:
+  - title: Drawing 3D Primitives
+    code: |
+      DebugDraw.line_3d(v0, v1, Color.new(1, 0, 0))
+      DebugDraw.arrow_3d(from, to, Color.new(0, 1, 0), head_size: 0.3)
+      DebugDraw.sphere_3d(center, radius: 1.5, rings: 16)
+      DebugDraw.camera_frustum_3d(pos, basis, fov: 60.0, near: 0.1, far: 50.0, aspect: 1.777)
+      DebugDraw.trajectory_arc_3d(origin, velocity, gravity, max_time: 2.0, steps: 25)
+      DebugDraw.ruler_3d(ptA, ptB, tick_size: 0.2)
+  - title: Drawing 2D Primitives and Telemetry
+    code: |
+      DebugDraw.line_2d(Vector2.new(0, 0), Vector2.new(100, 100))
+      DebugDraw.circle_2d(Vector2.new(200, 200), radius: 30.0)
+      DebugDraw.rect_2d(Rect2.new(10, 10, 100, 50))
+      DebugDraw.stat_graph_2d("Player Speed", player.velocity.length)
+
+pitfalls:
+  - "When rendering many continuous line segments, prefer line_path_3d over multiple line_3d calls for better cache locality."
+  - "Ruler 3D automatically creates an associated 3D midpoint distance text readout; you do not need to call text_3d separately."
+
+faq:
+  - q: What is the coordinate orientation for camera frustums?
+    a: "Frustums look along the negative Z axis of the camera Basis, matching Godot camera conventions."
+  - q: Can I draw multiple telemetry graphs at the same time?
+    a: "Yes, each graph is keyed by its unique title and renders into its specified screen Rect2 bounding box."

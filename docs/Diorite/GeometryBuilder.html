@@ -1,0 +1,1198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Crystal Docs 1.20.3">
+<meta name="crystal_docs.project_version" content="main-dev">
+<meta name="crystal_docs.project_name" content="diorite">
+
+
+
+<link href="../css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../js/doc.js"></script>
+
+  <meta name="repository-name" content="diorite">
+  <title>Diorite::GeometryBuilder - diorite main-dev</title>
+  <script type="text/javascript">
+    CrystalDocs.base_path = "../";
+  </script>
+</head>
+<body>
+
+<svg class="hidden">
+  <symbol id="octicon-link" viewBox="0 0 16 16">
+    <path fill="currentColor" fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+  </symbol>
+</svg>
+<input type="checkbox" id="sidebar-btn">
+<label for="sidebar-btn" id="sidebar-btn-label">
+  <svg class="open" xmlns="http://www.w3.org/2000/svg" height="2em" width="2em" viewBox="0 0 512 512"><title>Open Sidebar</title><path fill="currentColor" d="M80 96v64h352V96H80zm0 112v64h352v-64H80zm0 112v64h352v-64H80z"></path></svg>
+  <svg class="close" xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 512 512"><title>Close Sidebar</title><path fill="currentColor" d="m118.6 73.4-45.2 45.2L210.7 256 73.4 393.4l45.2 45.2L256 301.3l137.4 137.3 45.2-45.2L301.3 256l137.3-137.4-45.2-45.2L256 210.7Z"></path></svg>
+</label>
+<div class="sidebar">
+  <div class="sidebar-header">
+    <div class="search-box">
+      <input type="search" class="search-input" placeholder="Search..." spellcheck="false" aria-label="Search">
+    </div>
+
+    <div class="project-summary">
+      <h1 class="project-name">
+        <a href="../index.html">
+          diorite
+        </a>
+      </h1>
+
+      <span class="project-version">
+        main-dev
+      </span>
+    </div>
+  </div>
+
+  <div class="search-results hidden">
+    <ul class="search-list"></ul>
+  </div>
+
+  <div class="types-list">
+    <ul>
+  
+  <li class=" " data-id="diorite/toplevel" data-name="top level namespace">
+      <a href="../toplevel.html">Top Level Namespace</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/DemoController" data-name="democontroller">
+      <a href="../DemoController.html">DemoController</a>
+      
+    </li>
+  
+  <li class="parent open current" data-id="diorite/Diorite" data-name="diorite">
+      <a href="../Diorite.html">Diorite</a>
+      
+        <ul>
+  
+  <li class=" " data-id="diorite/Diorite/Command2D" data-name="diorite::command2d">
+      <a href="../Diorite/Command2D.html">Command2D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/Command3D" data-name="diorite::command3d">
+      <a href="../Diorite/Command3D.html">Command3D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugArrow2D" data-name="diorite::debugarrow2d">
+      <a href="../Diorite/DebugArrow2D.html">DebugArrow2D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugArrow3D" data-name="diorite::debugarrow3d">
+      <a href="../Diorite/DebugArrow3D.html">DebugArrow3D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugAxes3D" data-name="diorite::debugaxes3d">
+      <a href="../Diorite/DebugAxes3D.html">DebugAxes3D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugBox3D" data-name="diorite::debugbox3d">
+      <a href="../Diorite/DebugBox3D.html">DebugBox3D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugCapsule3D" data-name="diorite::debugcapsule3d">
+      <a href="../Diorite/DebugCapsule3D.html">DebugCapsule3D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugCircle2D" data-name="diorite::debugcircle2d">
+      <a href="../Diorite/DebugCircle2D.html">DebugCircle2D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugCommandQueue" data-name="diorite::debugcommandqueue">
+      <a href="../Diorite/DebugCommandQueue.html">DebugCommandQueue</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugCylinder3D" data-name="diorite::debugcylinder3d">
+      <a href="../Diorite/DebugCylinder3D.html">DebugCylinder3D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugDraw" data-name="diorite::debugdraw">
+      <a href="../Diorite/DebugDraw.html">DebugDraw</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugDrawManager" data-name="diorite::debugdrawmanager">
+      <a href="../Diorite/DebugDrawManager.html">DebugDrawManager</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugGrid3D" data-name="diorite::debuggrid3d">
+      <a href="../Diorite/DebugGrid3D.html">DebugGrid3D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugLine2D" data-name="diorite::debugline2d">
+      <a href="../Diorite/DebugLine2D.html">DebugLine2D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugLine3D" data-name="diorite::debugline3d">
+      <a href="../Diorite/DebugLine3D.html">DebugLine3D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugMaterialManager" data-name="diorite::debugmaterialmanager">
+      <a href="../Diorite/DebugMaterialManager.html">DebugMaterialManager</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugRect2D" data-name="diorite::debugrect2d">
+      <a href="../Diorite/DebugRect2D.html">DebugRect2D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugRuler3D" data-name="diorite::debugruler3d">
+      <a href="../Diorite/DebugRuler3D.html">DebugRuler3D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugShape2D" data-name="diorite::debugshape2d">
+      <a href="../Diorite/DebugShape2D.html">DebugShape2D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugShape3D" data-name="diorite::debugshape3d">
+      <a href="../Diorite/DebugShape3D.html">DebugShape3D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugSphere3D" data-name="diorite::debugsphere3d">
+      <a href="../Diorite/DebugSphere3D.html">DebugSphere3D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugSpring3D" data-name="diorite::debugspring3d">
+      <a href="../Diorite/DebugSpring3D.html">DebugSpring3D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/DebugVisionCone3D" data-name="diorite::debugvisioncone3d">
+      <a href="../Diorite/DebugVisionCone3D.html">DebugVisionCone3D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/FrameContext" data-name="diorite::framecontext">
+      <a href="../Diorite/FrameContext.html">FrameContext</a>
+      
+    </li>
+  
+  <li class=" current" data-id="diorite/Diorite/GeometryBuilder" data-name="diorite::geometrybuilder">
+      <a href="../Diorite/GeometryBuilder.html">GeometryBuilder</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/MathHelpers" data-name="diorite::mathhelpers">
+      <a href="../Diorite/MathHelpers.html">MathHelpers</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/Shape2DType" data-name="diorite::shape2dtype">
+      <a href="../Diorite/Shape2DType.html">Shape2DType</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/Shape3DType" data-name="diorite::shape3dtype">
+      <a href="../Diorite/Shape3DType.html">Shape3DType</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/ShapeKind2D" data-name="diorite::shapekind2d">
+      <a href="../Diorite/ShapeKind2D.html">ShapeKind2D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/ShapeKind3D" data-name="diorite::shapekind3d">
+      <a href="../Diorite/ShapeKind3D.html">ShapeKind3D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/TelemetryGraph" data-name="diorite::telemetrygraph">
+      <a href="../Diorite/TelemetryGraph.html">TelemetryGraph</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/TextCommand2D" data-name="diorite::textcommand2d">
+      <a href="../Diorite/TextCommand2D.html">TextCommand2D</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Diorite/TextCommand3D" data-name="diorite::textcommand3d">
+      <a href="../Diorite/TextCommand3D.html">TextCommand3D</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent " data-id="diorite/Lapis" data-name="lapis">
+      <a href="../Lapis.html">Lapis</a>
+      
+        <ul>
+  
+  <li class="parent " data-id="diorite/Lapis/Docs" data-name="lapis::docs">
+      <a href="../Lapis/Docs.html">Docs</a>
+      
+        <ul>
+  
+  <li class="parent " data-id="diorite/Lapis/Docs/GENERAL" data-name="lapis::docs::general">
+      <a href="../Lapis/Docs/GENERAL.html">GENERAL</a>
+      
+        <ul>
+  
+  <li class=" " data-id="diorite/Lapis/Docs/GENERAL/NODES" data-name="lapis::docs::general::nodes">
+      <a href="../Lapis/Docs/GENERAL/NODES.html">NODES</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Lapis/Docs/GENERAL/OVERVIEW" data-name="lapis::docs::general::overview">
+      <a href="../Lapis/Docs/GENERAL/OVERVIEW.html">OVERVIEW</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Lapis/Docs/GENERAL/PIPELINE" data-name="lapis::docs::general::pipeline">
+      <a href="../Lapis/Docs/GENERAL/PIPELINE.html">PIPELINE</a>
+      
+    </li>
+  
+  <li class=" " data-id="diorite/Lapis/Docs/GENERAL/PRIMITIVES" data-name="lapis::docs::general::primitives">
+      <a href="../Lapis/Docs/GENERAL/PRIMITIVES.html">PRIMITIVES</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="diorite/MainNode" data-name="mainnode">
+      <a href="../MainNode.html">MainNode</a>
+      
+    </li>
+  
+</ul>
+
+  </div>
+</div>
+
+
+<div class="main-content">
+<h1 class="type-name">
+
+  <span class="kind">
+    module
+  </span> Diorite::<wbr>GeometryBuilder
+
+</h1>
+
+
+
+
+
+  <h2>
+    <a id="overview" class="anchor" href="#overview">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Overview
+  </h2>
+
+  <p>High-performance algorithmic generator for 2D and 3D debug geometry.</p>
+<p>Emits line-list vertices (<code>Vector3</code> or <code>Vector2</code>) and vertex color arrays suitable for direct
+ingestion by Godot's <code>ImmediateMesh</code> surface buffers (<code>surface_add_vertex</code> and <code>surface_set_color</code>).</p>
+<p>Designed for zero heap reallocation during frame loops when passed pre-sized arrays.</p>
+
+
+
+
+
+
+
+  <h2>
+    <a id="included-modules" class="anchor" href="#included-modules">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Included Modules
+  </h2>
+  <ul class="other-types-list">
+    
+      <li class="other-type"><a href="../Diorite/MathHelpers.html">Diorite::MathHelpers</a></li>
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+  <h2>
+    <a id="defined-in" class="anchor" href="#defined-in">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Defined in:
+  </h2>
+  
+    
+      src\diorite\core\geometry_builder.cr
+    
+    <br/>
+  
+
+
+
+
+
+  
+
+  
+  <h2>
+    <a id="class-method-summary" class="anchor" href="#class-method-summary">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Class Method Summary
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#build_arrow%28from%3AGodot%3A%3AVector3%2Cto%3AGodot%3A%3AVector3%2Ccolor%3AGodot%3A%3AColor%2Chead_size%3AFloat32%2Cverts%3AArray%28Godot%3A%3AVector3%29%2Ccols%3AArray%28Godot%3A%3AColor%29%29%3AVoid-class-method" class="signature"><strong>.build_arrow</strong>(from : Godot::Vector3, to : Godot::Vector3, color : Godot::Color, head_size : Float32, verts : Array(Godot::Vector3), cols : Array(Godot::Color)) : Void</a>
+        
+          <div class="summary"><p>Generates a 3D directional arrow with a 4-fin conical arrowhead.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#build_arrow_2d%28from%3AGodot%3A%3AVector2%2Cto%3AGodot%3A%3AVector2%2Chead_size%3AFloat32%2Ccolor%3AGodot%3A%3AColor%2Cverts%3AArray%28Godot%3A%3AVector2%29%2Ccols%3AArray%28Godot%3A%3AColor%29%29%3AVoid-class-method" class="signature"><strong>.build_arrow_2d</strong>(from : Godot::Vector2, to : Godot::Vector2, head_size : Float32, color : Godot::Color, verts : Array(Godot::Vector2), cols : Array(Godot::Color)) : Void</a>
+        
+          <div class="summary"><p>Generates a 2D directional arrow with a triangular head on the canvas overlay.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#build_billboard_square%28position%3AGodot%3A%3AVector3%2Csize%3AFloat32%2Ccamera_pos%3AGodot%3A%3AVector3%2Ccolor%3AGodot%3A%3AColor%2Cverts%3AArray%28Godot%3A%3AVector3%29%2Ccols%3AArray%28Godot%3A%3AColor%29%29%3AVoid-class-method" class="signature"><strong>.build_billboard_square</strong>(position : Godot::Vector3, size : Float32, camera_pos : Godot::Vector3, color : Godot::Color, verts : Array(Godot::Vector3), cols : Array(Godot::Color)) : Void</a>
+        
+          <div class="summary"><p>Generates a camera-facing billboard square marker in 3D world space.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#build_box%28center%3AGodot%3A%3AVector3%2Csize%3AGodot%3A%3AVector3%2Ccolor%3AGodot%3A%3AColor%2Cverts%3AArray%28Godot%3A%3AVector3%29%2Ccols%3AArray%28Godot%3A%3AColor%29%29%3AVoid-class-method" class="signature"><strong>.build_box</strong>(center : Godot::Vector3, size : Godot::Vector3, color : Godot::Color, verts : Array(Godot::Vector3), cols : Array(Godot::Color)) : Void</a>
+        
+          <div class="summary"><p>Generates an axis-aligned 3D bounding box (AABB) wireframe with 12 edges.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#build_camera_frustum%28origin%3AGodot%3A%3AVector3%2Cbasis%3AGodot%3A%3ABasis%2Cfov_deg%3AFloat32%2Cnear%3AFloat32%2Cfar%3AFloat32%2Caspect%3AFloat32%2Ccolor%3AGodot%3A%3AColor%2Cverts%3AArray%28Godot%3A%3AVector3%29%2Ccols%3AArray%28Godot%3A%3AColor%29%29%3AVoid-class-method" class="signature"><strong>.build_camera_frustum</strong>(origin : Godot::Vector3, basis : Godot::Basis, fov_deg : Float32, near : Float32, far : Float32, aspect : Float32, color : Godot::Color, verts : Array(Godot::Vector3), cols : Array(Godot::Color)) : Void</a>
+        
+          <div class="summary"><p>Generates a 3D camera view frustum pyramid with near and far clipping rectangles.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#build_capsule%28center%3AGodot%3A%3AVector3%2Cradius%3AFloat32%2Cheight%3AFloat32%2Csegments%3AInt32%2Ccolor%3AGodot%3A%3AColor%2Cverts%3AArray%28Godot%3A%3AVector3%29%2Ccols%3AArray%28Godot%3A%3AColor%29%29%3AVoid-class-method" class="signature"><strong>.build_capsule</strong>(center : Godot::Vector3, radius : Float32, height : Float32, segments : Int32, color : Godot::Color, verts : Array(Godot::Vector3), cols : Array(Godot::Color)) : Void</a>
+        
+          <div class="summary"><p>Generates a 3D wireframe capsule with hemispherical domes and side struts.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#build_circle_2d%28center%3AGodot%3A%3AVector2%2Cradius%3AFloat32%2Csegments%3AInt32%2Ccolor%3AGodot%3A%3AColor%2Cverts%3AArray%28Godot%3A%3AVector2%29%2Ccols%3AArray%28Godot%3A%3AColor%29%29%3AVoid-class-method" class="signature"><strong>.build_circle_2d</strong>(center : Godot::Vector2, radius : Float32, segments : Int32, color : Godot::Color, verts : Array(Godot::Vector2), cols : Array(Godot::Color)) : Void</a>
+        
+          <div class="summary"><p>Generates a 2D wireframe circle on the canvas overlay.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#build_cylinder%28center%3AGodot%3A%3AVector3%2Cradius%3AFloat32%2Cheight%3AFloat32%2Csegments%3AInt32%2Ccolor%3AGodot%3A%3AColor%2Cverts%3AArray%28Godot%3A%3AVector3%29%2Ccols%3AArray%28Godot%3A%3AColor%29%29%3AVoid-class-method" class="signature"><strong>.build_cylinder</strong>(center : Godot::Vector3, radius : Float32, height : Float32, segments : Int32, color : Godot::Color, verts : Array(Godot::Vector3), cols : Array(Godot::Color)) : Void</a>
+        
+          <div class="summary"><p>Generates a 3D wireframe cylinder with circular caps and longitudinal ribs.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#build_gizmo%28origin%3AGodot%3A%3AVector3%2Cbasis%3AGodot%3A%3ABasis%2Csize%3AFloat32%2Cverts%3AArray%28Godot%3A%3AVector3%29%2Ccols%3AArray%28Godot%3A%3AColor%29%29%3AVoid-class-method" class="signature"><strong>.build_gizmo</strong>(origin : Godot::Vector3, basis : Godot::Basis, size : Float32, verts : Array(Godot::Vector3), cols : Array(Godot::Color)) : Void</a>
+        
+          <div class="summary"><p>Generates a 3D coordinate transform gizmo with Red=X, Green=Y, Blue=Z axis vectors.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#build_grid%28center%3AGodot%3A%3AVector3%2Csize%3AGodot%3A%3AVector2%2Csubdivisions%3AInt32%2Ccolor%3AGodot%3A%3AColor%2Cverts%3AArray%28Godot%3A%3AVector3%29%2Ccols%3AArray%28Godot%3A%3AColor%29%29%3AVoid-class-method" class="signature"><strong>.build_grid</strong>(center : Godot::Vector3, size : Godot::Vector2, subdivisions : Int32, color : Godot::Color, verts : Array(Godot::Vector3), cols : Array(Godot::Color)) : Void</a>
+        
+          <div class="summary"><p>Generates a 3D ground reference grid plane.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#build_line%28from%3AGodot%3A%3AVector3%2Cto%3AGodot%3A%3AVector3%2Ccolor%3AGodot%3A%3AColor%2Cverts%3AArray%28Godot%3A%3AVector3%29%2Ccols%3AArray%28Godot%3A%3AColor%29%29%3AVoid-class-method" class="signature"><strong>.build_line</strong>(from : Godot::Vector3, to : Godot::Vector3, color : Godot::Color, verts : Array(Godot::Vector3), cols : Array(Godot::Color)) : Void</a>
+        
+          <div class="summary"><p>Generates a single 3D line segment between <em>from</em> and <em>to</em>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#build_line_2d%28from%3AGodot%3A%3AVector2%2Cto%3AGodot%3A%3AVector2%2Ccolor%3AGodot%3A%3AColor%2Cverts%3AArray%28Godot%3A%3AVector2%29%2Ccols%3AArray%28Godot%3A%3AColor%29%29%3AVoid-class-method" class="signature"><strong>.build_line_2d</strong>(from : Godot::Vector2, to : Godot::Vector2, color : Godot::Color, verts : Array(Godot::Vector2), cols : Array(Godot::Color)) : Void</a>
+        
+          <div class="summary"><p>Generates a 2D line segment between two canvas pixel coordinates.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#build_line_path%28points%3AArray%28Godot%3A%3AVector3%29%2Ccolor%3AGodot%3A%3AColor%2Cverts%3AArray%28Godot%3A%3AVector3%29%2Ccols%3AArray%28Godot%3A%3AColor%29%29%3AVoid-class-method" class="signature"><strong>.build_line_path</strong>(points : Array(Godot::Vector3), color : Godot::Color, verts : Array(Godot::Vector3), cols : Array(Godot::Color)) : Void</a>
+        
+          <div class="summary"><p>Generates a continuous 3D polyline connecting an ordered list of <em>points</em>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#build_obb%28center%3AGodot%3A%3AVector3%2Csize%3AGodot%3A%3AVector3%2Cbasis%3AGodot%3A%3ABasis%2Ccolor%3AGodot%3A%3AColor%2Cverts%3AArray%28Godot%3A%3AVector3%29%2Ccols%3AArray%28Godot%3A%3AColor%29%29%3AVoid-class-method" class="signature"><strong>.build_obb</strong>(center : Godot::Vector3, size : Godot::Vector3, basis : Godot::Basis, color : Godot::Color, verts : Array(Godot::Vector3), cols : Array(Godot::Color)) : Void</a>
+        
+          <div class="summary"><p>Generates an arbitrarily oriented bounding box (OBB) defined by a 3x3 rotation <code>Basis</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#build_path_2d%28points%3AArray%28Godot%3A%3AVector2%29%2Ccolor%3AGodot%3A%3AColor%2Cverts%3AArray%28Godot%3A%3AVector2%29%2Ccols%3AArray%28Godot%3A%3AColor%29%29%3AVoid-class-method" class="signature"><strong>.build_path_2d</strong>(points : Array(Godot::Vector2), color : Godot::Color, verts : Array(Godot::Vector2), cols : Array(Godot::Color)) : Void</a>
+        
+          <div class="summary"><p>Generates a continuous 2D polyline connecting an ordered list of canvas points.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#build_plane%28center%3AGodot%3A%3AVector3%2Cnormal%3AGodot%3A%3AVector3%2Csize%3AGodot%3A%3AVector2%2Ccolor%3AGodot%3A%3AColor%2Cverts%3AArray%28Godot%3A%3AVector3%29%2Ccols%3AArray%28Godot%3A%3AColor%29%29%3AVoid-class-method" class="signature"><strong>.build_plane</strong>(center : Godot::Vector3, normal : Godot::Vector3, size : Godot::Vector2, color : Godot::Color, verts : Array(Godot::Vector3), cols : Array(Godot::Color)) : Void</a>
+        
+          <div class="summary"><p>Generates an oriented 3D plane quad with a center normal pointer.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#build_points%28points%3AArray%28Godot%3A%3AVector3%29%2Csize%3AFloat32%2Ccolor%3AGodot%3A%3AColor%2Cverts%3AArray%28Godot%3A%3AVector3%29%2Ccols%3AArray%28Godot%3A%3AColor%29%29%3AVoid-class-method" class="signature"><strong>.build_points</strong>(points : Array(Godot::Vector3), size : Float32, color : Godot::Color, verts : Array(Godot::Vector3), cols : Array(Godot::Color)) : Void</a>
+        
+          <div class="summary"><p>Generates small 3D crosshair markers for an array of world <em>points</em>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#build_points_2d%28points%3AArray%28Godot%3A%3AVector2%29%2Csize%3AFloat32%2Ccolor%3AGodot%3A%3AColor%2Cverts%3AArray%28Godot%3A%3AVector2%29%2Ccols%3AArray%28Godot%3A%3AColor%29%29%3AVoid-class-method" class="signature"><strong>.build_points_2d</strong>(points : Array(Godot::Vector2), size : Float32, color : Godot::Color, verts : Array(Godot::Vector2), cols : Array(Godot::Color)) : Void</a>
+        
+          <div class="summary"><p>Generates crosshair markers for a collection of 2D points on the canvas.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#build_position_3d%28origin%3AGodot%3A%3AVector3%2Csize%3AFloat32%2Ccolor%3AGodot%3A%3AColor%2Cverts%3AArray%28Godot%3A%3AVector3%29%2Ccols%3AArray%28Godot%3A%3AColor%29%29%3AVoid-class-method" class="signature"><strong>.build_position_3d</strong>(origin : Godot::Vector3, size : Float32, color : Godot::Color, verts : Array(Godot::Vector3), cols : Array(Godot::Color)) : Void</a>
+        
+          <div class="summary"><p>Generates a 3-axis crossing crosshair indicating position and scale.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#build_ray_hit%28origin%3AGodot%3A%3AVector3%2Chit_point%3AGodot%3A%3AVector3%2Cnormal%3AGodot%3A%3AVector3%2Ccolor%3AGodot%3A%3AColor%2Cverts%3AArray%28Godot%3A%3AVector3%29%2Ccols%3AArray%28Godot%3A%3AColor%29%29%3AVoid-class-method" class="signature"><strong>.build_ray_hit</strong>(origin : Godot::Vector3, hit_point : Godot::Vector3, normal : Godot::Vector3, color : Godot::Color, verts : Array(Godot::Vector3), cols : Array(Godot::Color)) : Void</a>
+        
+          <div class="summary"><p>Generates a raycast hit visualization: incident ray, surface impact disc, and surface normal reflection vector.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#build_rect_2d%28rect%3AGodot%3A%3ARect2%2Ccolor%3AGodot%3A%3AColor%2Cverts%3AArray%28Godot%3A%3AVector2%29%2Ccols%3AArray%28Godot%3A%3AColor%29%29%3AVoid-class-method" class="signature"><strong>.build_rect_2d</strong>(rect : Godot::Rect2, color : Godot::Color, verts : Array(Godot::Vector2), cols : Array(Godot::Color)) : Void</a>
+        
+          <div class="summary"><p>Generates a 2D wireframe rectangle on the canvas overlay.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#build_reticle%28position%3AGodot%3A%3AVector3%2Cnormal%3AGodot%3A%3AVector3%2Csize%3AFloat32%2Ccolor%3AGodot%3A%3AColor%2Cverts%3AArray%28Godot%3A%3AVector3%29%2Ccols%3AArray%28Godot%3A%3AColor%29%29%3AVoid-class-method" class="signature"><strong>.build_reticle</strong>(position : Godot::Vector3, normal : Godot::Vector3, size : Float32, color : Godot::Color, verts : Array(Godot::Vector3), cols : Array(Godot::Color)) : Void</a>
+        
+          <div class="summary"><p>Generates an aim reticle with a center circle and 4 corner target brackets.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#build_ruler%28from%3AGodot%3A%3AVector3%2Cto%3AGodot%3A%3AVector3%2Ctick_size%3AFloat32%2Ccolor%3AGodot%3A%3AColor%2Cverts%3AArray%28Godot%3A%3AVector3%29%2Ccols%3AArray%28Godot%3A%3AColor%29%29%3AVoid-class-method" class="signature"><strong>.build_ruler</strong>(from : Godot::Vector3, to : Godot::Vector3, tick_size : Float32, color : Godot::Color, verts : Array(Godot::Vector3), cols : Array(Godot::Color)) : Void</a>
+        
+          <div class="summary"><p>Generates a calibrated distance measurement ruler bar with tick marks between two points.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#build_sphere%28center%3AGodot%3A%3AVector3%2Cradius%3AFloat32%2Crings%3AInt32%2Ccolor%3AGodot%3A%3AColor%2Cverts%3AArray%28Godot%3A%3AVector3%29%2Ccols%3AArray%28Godot%3A%3AColor%29%29%3AVoid-class-method" class="signature"><strong>.build_sphere</strong>(center : Godot::Vector3, radius : Float32, rings : Int32, color : Godot::Color, verts : Array(Godot::Vector3), cols : Array(Godot::Color)) : Void</a>
+        
+          <div class="summary"><p>Generates a 3D wireframe sphere composed of 3 orthogonal intersecting rings.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#build_spring%28from%3AGodot%3A%3AVector3%2Cto%3AGodot%3A%3AVector3%2Cradius%3AFloat32%2Ccoils%3AInt32%2Csegments%3AInt32%2Ccolor%3AGodot%3A%3AColor%2Cverts%3AArray%28Godot%3A%3AVector3%29%2Ccols%3AArray%28Godot%3A%3AColor%29%29%3AVoid-class-method" class="signature"><strong>.build_spring</strong>(from : Godot::Vector3, to : Godot::Vector3, radius : Float32, coils : Int32, segments : Int32, color : Godot::Color, verts : Array(Godot::Vector3), cols : Array(Godot::Color)) : Void</a>
+        
+          <div class="summary"><p>Generates a 3D helical wire spring between two world endpoints.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#build_surface_disk%28position%3AGodot%3A%3AVector3%2Cnormal%3AGodot%3A%3AVector3%2Cradius%3AFloat32%2Csegments%3AInt32%2Ccolor%3AGodot%3A%3AColor%2Cverts%3AArray%28Godot%3A%3AVector3%29%2Ccols%3AArray%28Godot%3A%3AColor%29%29%3AVoid-class-method" class="signature"><strong>.build_surface_disk</strong>(position : Godot::Vector3, normal : Godot::Vector3, radius : Float32, segments : Int32, color : Godot::Color, verts : Array(Godot::Vector3), cols : Array(Godot::Color)) : Void</a>
+        
+          <div class="summary"><p>Generates a normal-aligned circular surface disc indicating a collision or ground contact patch.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#build_trajectory_arc%28origin%3AGodot%3A%3AVector3%2Cvelocity%3AGodot%3A%3AVector3%2Cgravity%3AGodot%3A%3AVector3%2Cmax_time%3AFloat32%2Csteps%3AInt32%2Ccolor%3AGodot%3A%3AColor%2Cverts%3AArray%28Godot%3A%3AVector3%29%2Ccols%3AArray%28Godot%3A%3AColor%29%29%3AVoid-class-method" class="signature"><strong>.build_trajectory_arc</strong>(origin : Godot::Vector3, velocity : Godot::Vector3, gravity : Godot::Vector3, max_time : Float32, steps : Int32, color : Godot::Color, verts : Array(Godot::Vector3), cols : Array(Godot::Color)) : Void</a>
+        
+          <div class="summary"><p>Generates a ballistic parabolic trajectory arc computed under gravity.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#build_vision_cone%28origin%3AGodot%3A%3AVector3%2Cdirection%3AGodot%3A%3AVector3%2Cangle_deg%3AFloat32%2Crange%3AFloat32%2Csegments%3AInt32%2Ccolor%3AGodot%3A%3AColor%2Cverts%3AArray%28Godot%3A%3AVector3%29%2Ccols%3AArray%28Godot%3A%3AColor%29%29%3AVoid-class-method" class="signature"><strong>.build_vision_cone</strong>(origin : Godot::Vector3, direction : Godot::Vector3, angle_deg : Float32, range : Float32, segments : Int32, color : Godot::Color, verts : Array(Godot::Vector3), cols : Array(Godot::Color)) : Void</a>
+        
+          <div class="summary"><p>Generates a spherical sector vision/detection cone for AI sensory perception.</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+  
+
+  
+
+
+  <div class="methods-inherited">
+    
+      
+
+
+      
+
+
+      
+
+  <h3>Class methods inherited from module <code><a href="../Diorite/MathHelpers.html">Diorite::MathHelpers</a></code></h3>
+  
+  
+    <a href="../Diorite/MathHelpers.html#deg_to_rad%28degrees%3ANumber%29%3AFloat32-class-method" class="tooltip">
+      <span>deg_to_rad(degrees : Number) : Float32</span>
+    deg_to_rad</a>, 
+    
+  
+    <a href="../Diorite/MathHelpers.html#find_perpendicular%28normal%3AGodot%3A%3AVector3%29%3AGodot%3A%3AVector3-class-method" class="tooltip">
+      <span>find_perpendicular(normal : Godot::Vector3) : Godot::Vector3</span>
+    find_perpendicular</a>, 
+    
+  
+    <a href="../Diorite/MathHelpers.html#orthonormal_plane%28normal%3AGodot%3A%3AVector3%29%3ATuple%28Godot%3A%3AVector3%2CGodot%3A%3AVector3%29-class-method" class="tooltip">
+      <span>orthonormal_plane(normal : Godot::Vector3) : Tuple(Godot::Vector3, Godot::Vector3)</span>
+    orthonormal_plane</a>, 
+    
+  
+    <a href="../Diorite/MathHelpers.html#rad_to_deg%28radians%3ANumber%29%3AFloat32-class-method" class="tooltip">
+      <span>rad_to_deg(radians : Number) : Float32</span>
+    rad_to_deg</a>, 
+    
+  
+    <a href="../Diorite/MathHelpers.html#rotate_around_axis%28point%3AGodot%3A%3AVector3%2Caxis%3AGodot%3A%3AVector3%2Ctheta%3AFloat32%29%3AGodot%3A%3AVector3-class-method" class="tooltip">
+      <span>rotate_around_axis(point : Godot::Vector3, axis : Godot::Vector3, theta : Float32) : Godot::Vector3</span>
+    rotate_around_axis</a>
+    
+  
+
+
+      
+
+
+    
+  </div>
+
+  
+
+  
+  <h2>
+    <a id="class-method-detail" class="anchor" href="#class-method-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Class Method Detail
+  </h2>
+  
+    <div class="entry-detail" id="build_arrow(from:Godot::Vector3,to:Godot::Vector3,color:Godot::Color,head_size:Float32,verts:Array(Godot::Vector3),cols:Array(Godot::Color)):Void-class-method">
+      <div class="signature">
+        
+        def self.<strong>build_arrow</strong>(from : Godot::Vector3, to : Godot::Vector3, color : Godot::Color, head_size : Float32, verts : Array(Godot::Vector3), cols : Array(Godot::Color)) : Void
+
+        <a class="method-permalink" href="#build_arrow%28from%3AGodot%3A%3AVector3%2Cto%3AGodot%3A%3AVector3%2Ccolor%3AGodot%3A%3AColor%2Chead_size%3AFloat32%2Cverts%3AArray%28Godot%3A%3AVector3%29%2Ccols%3AArray%28Godot%3A%3AColor%29%29%3AVoid-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Generates a 3D directional arrow with a 4-fin conical arrowhead.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="build_arrow_2d(from:Godot::Vector2,to:Godot::Vector2,head_size:Float32,color:Godot::Color,verts:Array(Godot::Vector2),cols:Array(Godot::Color)):Void-class-method">
+      <div class="signature">
+        
+        def self.<strong>build_arrow_2d</strong>(from : Godot::Vector2, to : Godot::Vector2, head_size : Float32, color : Godot::Color, verts : Array(Godot::Vector2), cols : Array(Godot::Color)) : Void
+
+        <a class="method-permalink" href="#build_arrow_2d%28from%3AGodot%3A%3AVector2%2Cto%3AGodot%3A%3AVector2%2Chead_size%3AFloat32%2Ccolor%3AGodot%3A%3AColor%2Cverts%3AArray%28Godot%3A%3AVector2%29%2Ccols%3AArray%28Godot%3A%3AColor%29%29%3AVoid-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Generates a 2D directional arrow with a triangular head on the canvas overlay.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="build_billboard_square(position:Godot::Vector3,size:Float32,camera_pos:Godot::Vector3,color:Godot::Color,verts:Array(Godot::Vector3),cols:Array(Godot::Color)):Void-class-method">
+      <div class="signature">
+        
+        def self.<strong>build_billboard_square</strong>(position : Godot::Vector3, size : Float32, camera_pos : Godot::Vector3, color : Godot::Color, verts : Array(Godot::Vector3), cols : Array(Godot::Color)) : Void
+
+        <a class="method-permalink" href="#build_billboard_square%28position%3AGodot%3A%3AVector3%2Csize%3AFloat32%2Ccamera_pos%3AGodot%3A%3AVector3%2Ccolor%3AGodot%3A%3AColor%2Cverts%3AArray%28Godot%3A%3AVector3%29%2Ccols%3AArray%28Godot%3A%3AColor%29%29%3AVoid-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Generates a camera-facing billboard square marker in 3D world space.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="build_box(center:Godot::Vector3,size:Godot::Vector3,color:Godot::Color,verts:Array(Godot::Vector3),cols:Array(Godot::Color)):Void-class-method">
+      <div class="signature">
+        
+        def self.<strong>build_box</strong>(center : Godot::Vector3, size : Godot::Vector3, color : Godot::Color, verts : Array(Godot::Vector3), cols : Array(Godot::Color)) : Void
+
+        <a class="method-permalink" href="#build_box%28center%3AGodot%3A%3AVector3%2Csize%3AGodot%3A%3AVector3%2Ccolor%3AGodot%3A%3AColor%2Cverts%3AArray%28Godot%3A%3AVector3%29%2Ccols%3AArray%28Godot%3A%3AColor%29%29%3AVoid-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Generates an axis-aligned 3D bounding box (AABB) wireframe with 12 edges.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="build_camera_frustum(origin:Godot::Vector3,basis:Godot::Basis,fov_deg:Float32,near:Float32,far:Float32,aspect:Float32,color:Godot::Color,verts:Array(Godot::Vector3),cols:Array(Godot::Color)):Void-class-method">
+      <div class="signature">
+        
+        def self.<strong>build_camera_frustum</strong>(origin : Godot::Vector3, basis : Godot::Basis, fov_deg : Float32, near : Float32, far : Float32, aspect : Float32, color : Godot::Color, verts : Array(Godot::Vector3), cols : Array(Godot::Color)) : Void
+
+        <a class="method-permalink" href="#build_camera_frustum%28origin%3AGodot%3A%3AVector3%2Cbasis%3AGodot%3A%3ABasis%2Cfov_deg%3AFloat32%2Cnear%3AFloat32%2Cfar%3AFloat32%2Caspect%3AFloat32%2Ccolor%3AGodot%3A%3AColor%2Cverts%3AArray%28Godot%3A%3AVector3%29%2Ccols%3AArray%28Godot%3A%3AColor%29%29%3AVoid-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Generates a 3D camera view frustum pyramid with near and far clipping rectangles.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="build_capsule(center:Godot::Vector3,radius:Float32,height:Float32,segments:Int32,color:Godot::Color,verts:Array(Godot::Vector3),cols:Array(Godot::Color)):Void-class-method">
+      <div class="signature">
+        
+        def self.<strong>build_capsule</strong>(center : Godot::Vector3, radius : Float32, height : Float32, segments : Int32, color : Godot::Color, verts : Array(Godot::Vector3), cols : Array(Godot::Color)) : Void
+
+        <a class="method-permalink" href="#build_capsule%28center%3AGodot%3A%3AVector3%2Cradius%3AFloat32%2Cheight%3AFloat32%2Csegments%3AInt32%2Ccolor%3AGodot%3A%3AColor%2Cverts%3AArray%28Godot%3A%3AVector3%29%2Ccols%3AArray%28Godot%3A%3AColor%29%29%3AVoid-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Generates a 3D wireframe capsule with hemispherical domes and side struts.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="build_circle_2d(center:Godot::Vector2,radius:Float32,segments:Int32,color:Godot::Color,verts:Array(Godot::Vector2),cols:Array(Godot::Color)):Void-class-method">
+      <div class="signature">
+        
+        def self.<strong>build_circle_2d</strong>(center : Godot::Vector2, radius : Float32, segments : Int32, color : Godot::Color, verts : Array(Godot::Vector2), cols : Array(Godot::Color)) : Void
+
+        <a class="method-permalink" href="#build_circle_2d%28center%3AGodot%3A%3AVector2%2Cradius%3AFloat32%2Csegments%3AInt32%2Ccolor%3AGodot%3A%3AColor%2Cverts%3AArray%28Godot%3A%3AVector2%29%2Ccols%3AArray%28Godot%3A%3AColor%29%29%3AVoid-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Generates a 2D wireframe circle on the canvas overlay.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="build_cylinder(center:Godot::Vector3,radius:Float32,height:Float32,segments:Int32,color:Godot::Color,verts:Array(Godot::Vector3),cols:Array(Godot::Color)):Void-class-method">
+      <div class="signature">
+        
+        def self.<strong>build_cylinder</strong>(center : Godot::Vector3, radius : Float32, height : Float32, segments : Int32, color : Godot::Color, verts : Array(Godot::Vector3), cols : Array(Godot::Color)) : Void
+
+        <a class="method-permalink" href="#build_cylinder%28center%3AGodot%3A%3AVector3%2Cradius%3AFloat32%2Cheight%3AFloat32%2Csegments%3AInt32%2Ccolor%3AGodot%3A%3AColor%2Cverts%3AArray%28Godot%3A%3AVector3%29%2Ccols%3AArray%28Godot%3A%3AColor%29%29%3AVoid-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Generates a 3D wireframe cylinder with circular caps and longitudinal ribs.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="build_gizmo(origin:Godot::Vector3,basis:Godot::Basis,size:Float32,verts:Array(Godot::Vector3),cols:Array(Godot::Color)):Void-class-method">
+      <div class="signature">
+        
+        def self.<strong>build_gizmo</strong>(origin : Godot::Vector3, basis : Godot::Basis, size : Float32, verts : Array(Godot::Vector3), cols : Array(Godot::Color)) : Void
+
+        <a class="method-permalink" href="#build_gizmo%28origin%3AGodot%3A%3AVector3%2Cbasis%3AGodot%3A%3ABasis%2Csize%3AFloat32%2Cverts%3AArray%28Godot%3A%3AVector3%29%2Ccols%3AArray%28Godot%3A%3AColor%29%29%3AVoid-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Generates a 3D coordinate transform gizmo with Red=X, Green=Y, Blue=Z axis vectors.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="build_grid(center:Godot::Vector3,size:Godot::Vector2,subdivisions:Int32,color:Godot::Color,verts:Array(Godot::Vector3),cols:Array(Godot::Color)):Void-class-method">
+      <div class="signature">
+        
+        def self.<strong>build_grid</strong>(center : Godot::Vector3, size : Godot::Vector2, subdivisions : Int32, color : Godot::Color, verts : Array(Godot::Vector3), cols : Array(Godot::Color)) : Void
+
+        <a class="method-permalink" href="#build_grid%28center%3AGodot%3A%3AVector3%2Csize%3AGodot%3A%3AVector2%2Csubdivisions%3AInt32%2Ccolor%3AGodot%3A%3AColor%2Cverts%3AArray%28Godot%3A%3AVector3%29%2Ccols%3AArray%28Godot%3A%3AColor%29%29%3AVoid-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Generates a 3D ground reference grid plane.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="build_line(from:Godot::Vector3,to:Godot::Vector3,color:Godot::Color,verts:Array(Godot::Vector3),cols:Array(Godot::Color)):Void-class-method">
+      <div class="signature">
+        
+        def self.<strong>build_line</strong>(from : Godot::Vector3, to : Godot::Vector3, color : Godot::Color, verts : Array(Godot::Vector3), cols : Array(Godot::Color)) : Void
+
+        <a class="method-permalink" href="#build_line%28from%3AGodot%3A%3AVector3%2Cto%3AGodot%3A%3AVector3%2Ccolor%3AGodot%3A%3AColor%2Cverts%3AArray%28Godot%3A%3AVector3%29%2Ccols%3AArray%28Godot%3A%3AColor%29%29%3AVoid-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Generates a single 3D line segment between <em>from</em> and <em>to</em>.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="build_line_2d(from:Godot::Vector2,to:Godot::Vector2,color:Godot::Color,verts:Array(Godot::Vector2),cols:Array(Godot::Color)):Void-class-method">
+      <div class="signature">
+        
+        def self.<strong>build_line_2d</strong>(from : Godot::Vector2, to : Godot::Vector2, color : Godot::Color, verts : Array(Godot::Vector2), cols : Array(Godot::Color)) : Void
+
+        <a class="method-permalink" href="#build_line_2d%28from%3AGodot%3A%3AVector2%2Cto%3AGodot%3A%3AVector2%2Ccolor%3AGodot%3A%3AColor%2Cverts%3AArray%28Godot%3A%3AVector2%29%2Ccols%3AArray%28Godot%3A%3AColor%29%29%3AVoid-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Generates a 2D line segment between two canvas pixel coordinates.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="build_line_path(points:Array(Godot::Vector3),color:Godot::Color,verts:Array(Godot::Vector3),cols:Array(Godot::Color)):Void-class-method">
+      <div class="signature">
+        
+        def self.<strong>build_line_path</strong>(points : Array(Godot::Vector3), color : Godot::Color, verts : Array(Godot::Vector3), cols : Array(Godot::Color)) : Void
+
+        <a class="method-permalink" href="#build_line_path%28points%3AArray%28Godot%3A%3AVector3%29%2Ccolor%3AGodot%3A%3AColor%2Cverts%3AArray%28Godot%3A%3AVector3%29%2Ccols%3AArray%28Godot%3A%3AColor%29%29%3AVoid-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Generates a continuous 3D polyline connecting an ordered list of <em>points</em>.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="build_obb(center:Godot::Vector3,size:Godot::Vector3,basis:Godot::Basis,color:Godot::Color,verts:Array(Godot::Vector3),cols:Array(Godot::Color)):Void-class-method">
+      <div class="signature">
+        
+        def self.<strong>build_obb</strong>(center : Godot::Vector3, size : Godot::Vector3, basis : Godot::Basis, color : Godot::Color, verts : Array(Godot::Vector3), cols : Array(Godot::Color)) : Void
+
+        <a class="method-permalink" href="#build_obb%28center%3AGodot%3A%3AVector3%2Csize%3AGodot%3A%3AVector3%2Cbasis%3AGodot%3A%3ABasis%2Ccolor%3AGodot%3A%3AColor%2Cverts%3AArray%28Godot%3A%3AVector3%29%2Ccols%3AArray%28Godot%3A%3AColor%29%29%3AVoid-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Generates an arbitrarily oriented bounding box (OBB) defined by a 3x3 rotation <code>Basis</code>.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="build_path_2d(points:Array(Godot::Vector2),color:Godot::Color,verts:Array(Godot::Vector2),cols:Array(Godot::Color)):Void-class-method">
+      <div class="signature">
+        
+        def self.<strong>build_path_2d</strong>(points : Array(Godot::Vector2), color : Godot::Color, verts : Array(Godot::Vector2), cols : Array(Godot::Color)) : Void
+
+        <a class="method-permalink" href="#build_path_2d%28points%3AArray%28Godot%3A%3AVector2%29%2Ccolor%3AGodot%3A%3AColor%2Cverts%3AArray%28Godot%3A%3AVector2%29%2Ccols%3AArray%28Godot%3A%3AColor%29%29%3AVoid-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Generates a continuous 2D polyline connecting an ordered list of canvas points.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="build_plane(center:Godot::Vector3,normal:Godot::Vector3,size:Godot::Vector2,color:Godot::Color,verts:Array(Godot::Vector3),cols:Array(Godot::Color)):Void-class-method">
+      <div class="signature">
+        
+        def self.<strong>build_plane</strong>(center : Godot::Vector3, normal : Godot::Vector3, size : Godot::Vector2, color : Godot::Color, verts : Array(Godot::Vector3), cols : Array(Godot::Color)) : Void
+
+        <a class="method-permalink" href="#build_plane%28center%3AGodot%3A%3AVector3%2Cnormal%3AGodot%3A%3AVector3%2Csize%3AGodot%3A%3AVector2%2Ccolor%3AGodot%3A%3AColor%2Cverts%3AArray%28Godot%3A%3AVector3%29%2Ccols%3AArray%28Godot%3A%3AColor%29%29%3AVoid-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Generates an oriented 3D plane quad with a center normal pointer.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="build_points(points:Array(Godot::Vector3),size:Float32,color:Godot::Color,verts:Array(Godot::Vector3),cols:Array(Godot::Color)):Void-class-method">
+      <div class="signature">
+        
+        def self.<strong>build_points</strong>(points : Array(Godot::Vector3), size : Float32, color : Godot::Color, verts : Array(Godot::Vector3), cols : Array(Godot::Color)) : Void
+
+        <a class="method-permalink" href="#build_points%28points%3AArray%28Godot%3A%3AVector3%29%2Csize%3AFloat32%2Ccolor%3AGodot%3A%3AColor%2Cverts%3AArray%28Godot%3A%3AVector3%29%2Ccols%3AArray%28Godot%3A%3AColor%29%29%3AVoid-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Generates small 3D crosshair markers for an array of world <em>points</em>.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="build_points_2d(points:Array(Godot::Vector2),size:Float32,color:Godot::Color,verts:Array(Godot::Vector2),cols:Array(Godot::Color)):Void-class-method">
+      <div class="signature">
+        
+        def self.<strong>build_points_2d</strong>(points : Array(Godot::Vector2), size : Float32, color : Godot::Color, verts : Array(Godot::Vector2), cols : Array(Godot::Color)) : Void
+
+        <a class="method-permalink" href="#build_points_2d%28points%3AArray%28Godot%3A%3AVector2%29%2Csize%3AFloat32%2Ccolor%3AGodot%3A%3AColor%2Cverts%3AArray%28Godot%3A%3AVector2%29%2Ccols%3AArray%28Godot%3A%3AColor%29%29%3AVoid-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Generates crosshair markers for a collection of 2D points on the canvas.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="build_position_3d(origin:Godot::Vector3,size:Float32,color:Godot::Color,verts:Array(Godot::Vector3),cols:Array(Godot::Color)):Void-class-method">
+      <div class="signature">
+        
+        def self.<strong>build_position_3d</strong>(origin : Godot::Vector3, size : Float32, color : Godot::Color, verts : Array(Godot::Vector3), cols : Array(Godot::Color)) : Void
+
+        <a class="method-permalink" href="#build_position_3d%28origin%3AGodot%3A%3AVector3%2Csize%3AFloat32%2Ccolor%3AGodot%3A%3AColor%2Cverts%3AArray%28Godot%3A%3AVector3%29%2Ccols%3AArray%28Godot%3A%3AColor%29%29%3AVoid-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Generates a 3-axis crossing crosshair indicating position and scale.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="build_ray_hit(origin:Godot::Vector3,hit_point:Godot::Vector3,normal:Godot::Vector3,color:Godot::Color,verts:Array(Godot::Vector3),cols:Array(Godot::Color)):Void-class-method">
+      <div class="signature">
+        
+        def self.<strong>build_ray_hit</strong>(origin : Godot::Vector3, hit_point : Godot::Vector3, normal : Godot::Vector3, color : Godot::Color, verts : Array(Godot::Vector3), cols : Array(Godot::Color)) : Void
+
+        <a class="method-permalink" href="#build_ray_hit%28origin%3AGodot%3A%3AVector3%2Chit_point%3AGodot%3A%3AVector3%2Cnormal%3AGodot%3A%3AVector3%2Ccolor%3AGodot%3A%3AColor%2Cverts%3AArray%28Godot%3A%3AVector3%29%2Ccols%3AArray%28Godot%3A%3AColor%29%29%3AVoid-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Generates a raycast hit visualization: incident ray, surface impact disc, and surface normal reflection vector.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="build_rect_2d(rect:Godot::Rect2,color:Godot::Color,verts:Array(Godot::Vector2),cols:Array(Godot::Color)):Void-class-method">
+      <div class="signature">
+        
+        def self.<strong>build_rect_2d</strong>(rect : Godot::Rect2, color : Godot::Color, verts : Array(Godot::Vector2), cols : Array(Godot::Color)) : Void
+
+        <a class="method-permalink" href="#build_rect_2d%28rect%3AGodot%3A%3ARect2%2Ccolor%3AGodot%3A%3AColor%2Cverts%3AArray%28Godot%3A%3AVector2%29%2Ccols%3AArray%28Godot%3A%3AColor%29%29%3AVoid-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Generates a 2D wireframe rectangle on the canvas overlay.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="build_reticle(position:Godot::Vector3,normal:Godot::Vector3,size:Float32,color:Godot::Color,verts:Array(Godot::Vector3),cols:Array(Godot::Color)):Void-class-method">
+      <div class="signature">
+        
+        def self.<strong>build_reticle</strong>(position : Godot::Vector3, normal : Godot::Vector3, size : Float32, color : Godot::Color, verts : Array(Godot::Vector3), cols : Array(Godot::Color)) : Void
+
+        <a class="method-permalink" href="#build_reticle%28position%3AGodot%3A%3AVector3%2Cnormal%3AGodot%3A%3AVector3%2Csize%3AFloat32%2Ccolor%3AGodot%3A%3AColor%2Cverts%3AArray%28Godot%3A%3AVector3%29%2Ccols%3AArray%28Godot%3A%3AColor%29%29%3AVoid-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Generates an aim reticle with a center circle and 4 corner target brackets.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="build_ruler(from:Godot::Vector3,to:Godot::Vector3,tick_size:Float32,color:Godot::Color,verts:Array(Godot::Vector3),cols:Array(Godot::Color)):Void-class-method">
+      <div class="signature">
+        
+        def self.<strong>build_ruler</strong>(from : Godot::Vector3, to : Godot::Vector3, tick_size : Float32, color : Godot::Color, verts : Array(Godot::Vector3), cols : Array(Godot::Color)) : Void
+
+        <a class="method-permalink" href="#build_ruler%28from%3AGodot%3A%3AVector3%2Cto%3AGodot%3A%3AVector3%2Ctick_size%3AFloat32%2Ccolor%3AGodot%3A%3AColor%2Cverts%3AArray%28Godot%3A%3AVector3%29%2Ccols%3AArray%28Godot%3A%3AColor%29%29%3AVoid-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Generates a calibrated distance measurement ruler bar with tick marks between two points.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="build_sphere(center:Godot::Vector3,radius:Float32,rings:Int32,color:Godot::Color,verts:Array(Godot::Vector3),cols:Array(Godot::Color)):Void-class-method">
+      <div class="signature">
+        
+        def self.<strong>build_sphere</strong>(center : Godot::Vector3, radius : Float32, rings : Int32, color : Godot::Color, verts : Array(Godot::Vector3), cols : Array(Godot::Color)) : Void
+
+        <a class="method-permalink" href="#build_sphere%28center%3AGodot%3A%3AVector3%2Cradius%3AFloat32%2Crings%3AInt32%2Ccolor%3AGodot%3A%3AColor%2Cverts%3AArray%28Godot%3A%3AVector3%29%2Ccols%3AArray%28Godot%3A%3AColor%29%29%3AVoid-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Generates a 3D wireframe sphere composed of 3 orthogonal intersecting rings.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="build_spring(from:Godot::Vector3,to:Godot::Vector3,radius:Float32,coils:Int32,segments:Int32,color:Godot::Color,verts:Array(Godot::Vector3),cols:Array(Godot::Color)):Void-class-method">
+      <div class="signature">
+        
+        def self.<strong>build_spring</strong>(from : Godot::Vector3, to : Godot::Vector3, radius : Float32, coils : Int32, segments : Int32, color : Godot::Color, verts : Array(Godot::Vector3), cols : Array(Godot::Color)) : Void
+
+        <a class="method-permalink" href="#build_spring%28from%3AGodot%3A%3AVector3%2Cto%3AGodot%3A%3AVector3%2Cradius%3AFloat32%2Ccoils%3AInt32%2Csegments%3AInt32%2Ccolor%3AGodot%3A%3AColor%2Cverts%3AArray%28Godot%3A%3AVector3%29%2Ccols%3AArray%28Godot%3A%3AColor%29%29%3AVoid-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Generates a 3D helical wire spring between two world endpoints.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="build_surface_disk(position:Godot::Vector3,normal:Godot::Vector3,radius:Float32,segments:Int32,color:Godot::Color,verts:Array(Godot::Vector3),cols:Array(Godot::Color)):Void-class-method">
+      <div class="signature">
+        
+        def self.<strong>build_surface_disk</strong>(position : Godot::Vector3, normal : Godot::Vector3, radius : Float32, segments : Int32, color : Godot::Color, verts : Array(Godot::Vector3), cols : Array(Godot::Color)) : Void
+
+        <a class="method-permalink" href="#build_surface_disk%28position%3AGodot%3A%3AVector3%2Cnormal%3AGodot%3A%3AVector3%2Cradius%3AFloat32%2Csegments%3AInt32%2Ccolor%3AGodot%3A%3AColor%2Cverts%3AArray%28Godot%3A%3AVector3%29%2Ccols%3AArray%28Godot%3A%3AColor%29%29%3AVoid-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Generates a normal-aligned circular surface disc indicating a collision or ground contact patch.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="build_trajectory_arc(origin:Godot::Vector3,velocity:Godot::Vector3,gravity:Godot::Vector3,max_time:Float32,steps:Int32,color:Godot::Color,verts:Array(Godot::Vector3),cols:Array(Godot::Color)):Void-class-method">
+      <div class="signature">
+        
+        def self.<strong>build_trajectory_arc</strong>(origin : Godot::Vector3, velocity : Godot::Vector3, gravity : Godot::Vector3, max_time : Float32, steps : Int32, color : Godot::Color, verts : Array(Godot::Vector3), cols : Array(Godot::Color)) : Void
+
+        <a class="method-permalink" href="#build_trajectory_arc%28origin%3AGodot%3A%3AVector3%2Cvelocity%3AGodot%3A%3AVector3%2Cgravity%3AGodot%3A%3AVector3%2Cmax_time%3AFloat32%2Csteps%3AInt32%2Ccolor%3AGodot%3A%3AColor%2Cverts%3AArray%28Godot%3A%3AVector3%29%2Ccols%3AArray%28Godot%3A%3AColor%29%29%3AVoid-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Generates a ballistic parabolic trajectory arc computed under gravity.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="build_vision_cone(origin:Godot::Vector3,direction:Godot::Vector3,angle_deg:Float32,range:Float32,segments:Int32,color:Godot::Color,verts:Array(Godot::Vector3),cols:Array(Godot::Color)):Void-class-method">
+      <div class="signature">
+        
+        def self.<strong>build_vision_cone</strong>(origin : Godot::Vector3, direction : Godot::Vector3, angle_deg : Float32, range : Float32, segments : Int32, color : Godot::Color, verts : Array(Godot::Vector3), cols : Array(Godot::Color)) : Void
+
+        <a class="method-permalink" href="#build_vision_cone%28origin%3AGodot%3A%3AVector3%2Cdirection%3AGodot%3A%3AVector3%2Cangle_deg%3AFloat32%2Crange%3AFloat32%2Csegments%3AInt32%2Ccolor%3AGodot%3A%3AColor%2Cverts%3AArray%28Godot%3A%3AVector3%29%2Ccols%3AArray%28Godot%3A%3AColor%29%29%3AVoid-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Generates a spherical sector vision/detection cone for AI sensory perception.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+
+
+  
+
+  
+
+
+</div>
+
+</body>
+</html>
