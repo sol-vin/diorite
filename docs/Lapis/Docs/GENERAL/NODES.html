@@ -364,22 +364,84 @@
     <use href="#octicon-link"/>
   </svg>
 </a>Diorite Scene Node System</h1>
-<h3><a id="executive-summary-key-topics" class="anchor" href="#executive-summary-key-topics">
+<p>Using Diorite's exported Node3D and Node2D classes for in-editor placement and persistent hierarchy visualization.</p>
+<h2><a id="overview" class="anchor" href="#overview">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
   </svg>
-</a>Executive Summary &amp; Key Topics</h3>
+</a>Overview</h2>
+<p>In addition to the immediate-mode Frame DSL, Diorite provides concrete Node classes
+that integrate directly with Godot's Scene Tree, Inspector, and in-editor gizmo system.
+Nodes can be added in the Godot Editor or instantiated via code, providing persistent visual indicators
+that follow spatial parent transformations.</p>
+<h3><a id="key-topics" class="anchor" href="#key-topics">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Key Topics</h3>
 <table>
   <thead>
     <tr>
       <th>Topic</th>
-      <th>Method / Anchor</th>
       <th>Description</th>
     </tr>
   </thead>
   <tbody>
+    <tr>
+      <td><a href="#topic_01_3d_shape_nodes%3ANil-class-method"><strong>3D Shape Nodes</strong></a></td>
+      <td>DebugLine3D, DebugArrow3D, DebugBox3D, DebugSphere3D, DebugCylinder3D, DebugCapsule3D, DebugVisionCone3D, DebugAxes3D, DebugGrid3D, DebugSpring3D, DebugRuler3D.</td>
+    </tr>
+    <tr>
+      <td><a href="#topic_02_2d_shape_nodes%3ANil-class-method"><strong>2D Shape Nodes</strong></a></td>
+      <td>DebugLine2D, DebugArrow2D, DebugRect2D, DebugCircle2D.</td>
+    </tr>
   </tbody>
 </table>
+<h2><a id="code-examples" class="anchor" href="#code-examples">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Code Examples</h2>
+<h3><a id="adding-a-debug-box-to-a-scene" class="anchor" href="#adding-a-debug-box-to-a-scene">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Adding a Debug Box to a Scene</h3>
+<pre><code class="language-crystal">box <span class="o">=</span> <span class="t">Diorite</span><span class="t">::</span><span class="t">DebugBox3D</span>.new
+box.box_size <span class="o">=</span> <span class="t">Godot</span><span class="t">::</span><span class="t">Vector3</span>.new(<span class="n">2</span>, <span class="n">2</span>, <span class="n">2</span>)
+box.color <span class="o">=</span> <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">0</span>, <span class="n">1</span>, <span class="n">0</span>, <span class="n">1</span>)
+box.wireframe <span class="o">=</span> <span class="n">true</span>
+add_child(box)</code></pre>
+<h3><a id="adding-a-debug-vision-cone-to-an-ai-actor" class="anchor" href="#adding-a-debug-vision-cone-to-an-ai-actor">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Adding a Debug Vision Cone to an AI Actor</h3>
+<pre><code class="language-crystal">cone <span class="o">=</span> <span class="t">Diorite</span><span class="t">::</span><span class="t">DebugVisionCone3D</span>.new
+cone.cone_angle <span class="o">=</span> <span class="n">75.0_f32</span>
+cone.cone_range <span class="o">=</span> <span class="n">15.0_f32</span>
+cone.color <span class="o">=</span> <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">1</span>, <span class="n">0.2</span>, <span class="n">0.2</span>, <span class="n">0.8</span>)
+npc.add_child(cone)</code></pre>
+<h2><a id="pitfalls-best-practices" class="anchor" href="#pitfalls-best-practices">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Pitfalls &amp; Best Practices</h2>
+<ul>
+<li>Always add nodes to the scene tree (<code>add_child</code>) so that <code>_ready</code> initializes their internal MeshInstance and materials.</li>
+<li>Toggling <code>wireframe</code> alters the underlying primitive topology; prefer configuring wireframe mode at spawn time.</li>
+</ul>
+<h2><a id="frequently-asked-questions" class="anchor" href="#frequently-asked-questions">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Frequently Asked Questions</h2>
+<ul>
+<li><strong>Q: Can I inspect and tweak debug node properties in the Godot Editor Inspector?</strong><br/>
+<em>A:</em> Yes, all properties (<code>@box_size</code>, <code>@color</code>, <code>@cone_angle</code>, etc.) are exported with <code>@[Export]</code> annotations.</li>
+<li><strong>Q: Do node-based shapes persist between frames?</strong><br/>
+<em>A:</em> Yes, nodes exist in the scene tree until explicitly removed with <code>queue_free</code>.</li>
+</ul>
 
 
 
@@ -418,6 +480,46 @@
   
 
   
+  <h2>
+    <a id="class-method-summary" class="anchor" href="#class-method-summary">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Class Method Summary
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#example_01_adding_debug_box%3ANil-class-method" class="signature"><strong>.example_01_adding_debug_box</strong> : Nil</a>
+        
+          <div class="summary"><p><strong>Example: Adding a Debug Box to a Scene</strong></p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#example_02_adding_debug_vision_cone%3ANil-class-method" class="signature"><strong>.example_02_adding_debug_vision_cone</strong> : Nil</a>
+        
+          <div class="summary"><p><strong>Example: Adding a Debug Vision Cone to an AI Actor</strong></p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#topic_01_3d_shape_nodes%3ANil-class-method" class="signature"><strong>.topic_01_3d_shape_nodes</strong> : Nil</a>
+        
+          <div class="summary"><p><strong>3D Shape Nodes</strong>: DebugLine3D, DebugArrow3D, DebugBox3D, DebugSphere3D, DebugCylinder3D, DebugCapsule3D, DebugVisionCone3D, DebugAxes3D, DebugGrid3D, DebugSpring3D, DebugRuler3D.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#topic_02_2d_shape_nodes%3ANil-class-method" class="signature"><strong>.topic_02_2d_shape_nodes</strong> : Nil</a>
+        
+          <div class="summary"><p><strong>2D Shape Nodes</strong>: DebugLine2D, DebugArrow2D, DebugRect2D, DebugCircle2D.</p></div>
+        
+      </li>
+    
+  </ul>
+
 
   
 
@@ -431,6 +533,102 @@
   
 
   
+  <h2>
+    <a id="class-method-detail" class="anchor" href="#class-method-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Class Method Detail
+  </h2>
+  
+    <div class="entry-detail" id="example_01_adding_debug_box:Nil-class-method">
+      <div class="signature">
+        
+        def self.<strong>example_01_adding_debug_box</strong> : Nil
+
+        <a class="method-permalink" href="#example_01_adding_debug_box%3ANil-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p><strong>Example: Adding a Debug Box to a Scene</strong></p>
+<pre><code class="language-crystal">box <span class="o">=</span> <span class="t">Diorite</span><span class="t">::</span><span class="t">DebugBox3D</span>.new
+box.box_size <span class="o">=</span> <span class="t">Godot</span><span class="t">::</span><span class="t">Vector3</span>.new(<span class="n">2</span>, <span class="n">2</span>, <span class="n">2</span>)
+box.color <span class="o">=</span> <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">0</span>, <span class="n">1</span>, <span class="n">0</span>, <span class="n">1</span>)
+box.wireframe <span class="o">=</span> <span class="n">true</span>
+add_child(box)</code></pre>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="example_02_adding_debug_vision_cone:Nil-class-method">
+      <div class="signature">
+        
+        def self.<strong>example_02_adding_debug_vision_cone</strong> : Nil
+
+        <a class="method-permalink" href="#example_02_adding_debug_vision_cone%3ANil-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p><strong>Example: Adding a Debug Vision Cone to an AI Actor</strong></p>
+<pre><code class="language-crystal">cone <span class="o">=</span> <span class="t">Diorite</span><span class="t">::</span><span class="t">DebugVisionCone3D</span>.new
+cone.cone_angle <span class="o">=</span> <span class="n">75.0_f32</span>
+cone.cone_range <span class="o">=</span> <span class="n">15.0_f32</span>
+cone.color <span class="o">=</span> <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">1</span>, <span class="n">0.2</span>, <span class="n">0.2</span>, <span class="n">0.8</span>)
+npc.add_child(cone)</code></pre>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="topic_01_3d_shape_nodes:Nil-class-method">
+      <div class="signature">
+        
+        def self.<strong>topic_01_3d_shape_nodes</strong> : Nil
+
+        <a class="method-permalink" href="#topic_01_3d_shape_nodes%3ANil-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p><strong>3D Shape Nodes</strong>: DebugLine3D, DebugArrow3D, DebugBox3D, DebugSphere3D, DebugCylinder3D, DebugCapsule3D, DebugVisionCone3D, DebugAxes3D, DebugGrid3D, DebugSpring3D, DebugRuler3D.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="topic_02_2d_shape_nodes:Nil-class-method">
+      <div class="signature">
+        
+        def self.<strong>topic_02_2d_shape_nodes</strong> : Nil
+
+        <a class="method-permalink" href="#topic_02_2d_shape_nodes%3ANil-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p><strong>2D Shape Nodes</strong>: DebugLine2D, DebugArrow2D, DebugRect2D, DebugCircle2D.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+
 
   
 

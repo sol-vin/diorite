@@ -250,7 +250,7 @@ p, li {
 
 .types-list li.open > ul {
   height: auto;
-  max-height: 3000em;
+  max-height: none;
 }
 
 .main-content {

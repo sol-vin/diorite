@@ -2,9 +2,7 @@ require "lapis"
 require "./diorite/diorite"
 require "./demo/**"
 
-{% if read_file?("src/docs/general/overview.cr") %}
-require "./docs/**"
-{% end %}
+require "./docs"
 
 
 

@@ -364,22 +364,81 @@
     <use href="#octicon-link"/>
   </svg>
 </a>Diorite Overview &amp; Getting Started</h1>
-<h3><a id="executive-summary-key-topics" class="anchor" href="#executive-summary-key-topics">
+<p>Diorite is a high-performance 2D and 3D debug drawing plugin and frame DSL for Godot Engine 4.8+ powered by the Lapis Crystal toolchain.</p>
+<h2><a id="overview" class="anchor" href="#overview">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
   </svg>
-</a>Executive Summary &amp; Key Topics</h3>
+</a>Overview</h2>
+<p>Diorite provides two primary workflows for debug drawing in Godot:</p>
+<ol>
+<li><strong>Node-based System</strong>: Scene tree nodes (<code>DebugBox3D</code>, <code>DebugSphere3D</code>, <code>DebugShape2D</code>, etc.) designed for in-editor placement, gizmo manipulation, and persistent hierarchy visualization.</li>
+<li><strong>Immediate-Mode Frame DSL</strong>: A procedural API (<code>DebugDraw.*</code>) that can be invoked anywhere in game logic (<code>_process</code>, <code>_physics_process</code>, collision signals, or AI behaviors) with single-frame or timed duration.</li>
+</ol>
+<h3><a id="key-topics" class="anchor" href="#key-topics">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Key Topics</h3>
 <table>
   <thead>
     <tr>
       <th>Topic</th>
-      <th>Method / Anchor</th>
       <th>Description</th>
     </tr>
   </thead>
   <tbody>
+    <tr>
+      <td><a href="#topic_01_visual_priority%3ANil-class-method"><strong>Visual Priority</strong></a></td>
+      <td>All debug items render on top of other game effects (3D render priority 127 with depth test disabled; 2D canvas layer 128 at z-index 4096).</td>
+    </tr>
+    <tr>
+      <td><a href="#topic_02_dual_workflow%3ANil-class-method"><strong>Dual Workflow</strong></a></td>
+      <td>Choose between scene tree nodes or immediate-mode procedural calls in _process or physics steps.</td>
+    </tr>
   </tbody>
 </table>
+<h2><a id="code-examples" class="anchor" href="#code-examples">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Code Examples</h2>
+<h3><a id="basic-3-d-line-and-sphere" class="anchor" href="#basic-3-d-line-and-sphere">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Basic 3D Line and Sphere</h3>
+<pre><code class="language-crystal"><span class="t">DebugDraw</span>.line_3d(<span class="t">Godot</span><span class="t">::</span><span class="t">Vector3</span>.new(<span class="n">0</span>, <span class="n">0</span>, <span class="n">0</span>), <span class="t">Godot</span><span class="t">::</span><span class="t">Vector3</span>.new(<span class="n">0</span>, <span class="n">5</span>, <span class="n">0</span>), <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">0</span>, <span class="n">1</span>, <span class="n">0</span>))
+<span class="t">DebugDraw</span>.sphere_3d(center: player.position, radius: <span class="n">1.5_f32</span>, color: <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">1</span>, <span class="n">0</span>, <span class="n">0</span>), duration: <span class="n">2.5_f32</span>)</code></pre>
+<h3><a id="block-frame-dsl" class="anchor" href="#block-frame-dsl">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Block Frame DSL</h3>
+<pre><code class="language-crystal"><span class="t">DebugDraw</span>.frame <span class="k">do</span> <span class="o">|</span>d<span class="o">|</span>
+  d.line_3d(actor.position, actor.position <span class="o">+</span> actor.velocity)
+  d.circle_2d(<span class="t">Godot</span><span class="t">::</span><span class="t">Vector2</span>.new(<span class="n">100</span>, <span class="n">100</span>), <span class="n">30.0_f32</span>)
+<span class="k">end</span></code></pre>
+<h2><a id="pitfalls-best-practices" class="anchor" href="#pitfalls-best-practices">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Pitfalls &amp; Best Practices</h2>
+<ul>
+<li>Do not use raw <code>.new</code> on native Godot engine objects without pointers; use <code>Godot.create(T)</code> or Diorite helper nodes.</li>
+<li>For commands called frequently inside tight loops, prefer batched DSL paths (<code>line_path_3d</code>, <code>points_3d</code>) to minimize per-command dispatch overhead.</li>
+</ul>
+<h2><a id="frequently-asked-questions" class="anchor" href="#frequently-asked-questions">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Frequently Asked Questions</h2>
+<ul>
+<li><strong>Q: How do I make debug shapes persist for more than one frame?</strong><br/>
+<em>A:</em> Pass duration in seconds (e.g. <code>duration: 3.0</code>) to any <code><a href="../../../toplevel.html#DebugDraw">DebugDraw</a></code> method.</li>
+<li><strong>Q: Can I configure shapes in the Godot Inspector?</strong><br/>
+<em>A:</em> Yes, add any of the Diorite node types (e.g. <code>DebugBox3D</code>, <code>DebugShape2D</code>) to your scene tree.</li>
+</ul>
 
 
 
@@ -418,6 +477,46 @@
   
 
   
+  <h2>
+    <a id="class-method-summary" class="anchor" href="#class-method-summary">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Class Method Summary
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#example_01_basic_3d_line_and_sphere%3ANil-class-method" class="signature"><strong>.example_01_basic_3d_line_and_sphere</strong> : Nil</a>
+        
+          <div class="summary"><p><strong>Example: Basic 3D Line and Sphere</strong></p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#example_02_block_frame_dsl%3ANil-class-method" class="signature"><strong>.example_02_block_frame_dsl</strong> : Nil</a>
+        
+          <div class="summary"><p><strong>Example: Block Frame DSL</strong></p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#topic_01_visual_priority%3ANil-class-method" class="signature"><strong>.topic_01_visual_priority</strong> : Nil</a>
+        
+          <div class="summary"><p><strong>Visual Priority</strong>: All debug items render on top of other game effects (3D render priority 127 with depth test disabled; 2D canvas layer 128 at z-index 4096).</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#topic_02_dual_workflow%3ANil-class-method" class="signature"><strong>.topic_02_dual_workflow</strong> : Nil</a>
+        
+          <div class="summary"><p><strong>Dual Workflow</strong>: Choose between scene tree nodes or immediate-mode procedural calls in _process or physics steps.</p></div>
+        
+      </li>
+    
+  </ul>
+
 
   
 
@@ -431,6 +530,98 @@
   
 
   
+  <h2>
+    <a id="class-method-detail" class="anchor" href="#class-method-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Class Method Detail
+  </h2>
+  
+    <div class="entry-detail" id="example_01_basic_3d_line_and_sphere:Nil-class-method">
+      <div class="signature">
+        
+        def self.<strong>example_01_basic_3d_line_and_sphere</strong> : Nil
+
+        <a class="method-permalink" href="#example_01_basic_3d_line_and_sphere%3ANil-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p><strong>Example: Basic 3D Line and Sphere</strong></p>
+<pre><code class="language-crystal"><span class="t">DebugDraw</span>.line_3d(<span class="t">Godot</span><span class="t">::</span><span class="t">Vector3</span>.new(<span class="n">0</span>, <span class="n">0</span>, <span class="n">0</span>), <span class="t">Godot</span><span class="t">::</span><span class="t">Vector3</span>.new(<span class="n">0</span>, <span class="n">5</span>, <span class="n">0</span>), <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">0</span>, <span class="n">1</span>, <span class="n">0</span>))
+<span class="t">DebugDraw</span>.sphere_3d(center: player.position, radius: <span class="n">1.5_f32</span>, color: <span class="t">Godot</span><span class="t">::</span><span class="t">Color</span>.new(<span class="n">1</span>, <span class="n">0</span>, <span class="n">0</span>), duration: <span class="n">2.5_f32</span>)</code></pre>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="example_02_block_frame_dsl:Nil-class-method">
+      <div class="signature">
+        
+        def self.<strong>example_02_block_frame_dsl</strong> : Nil
+
+        <a class="method-permalink" href="#example_02_block_frame_dsl%3ANil-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p><strong>Example: Block Frame DSL</strong></p>
+<pre><code class="language-crystal"><span class="t">DebugDraw</span>.frame <span class="k">do</span> <span class="o">|</span>d<span class="o">|</span>
+  d.line_3d(actor.position, actor.position <span class="o">+</span> actor.velocity)
+  d.circle_2d(<span class="t">Godot</span><span class="t">::</span><span class="t">Vector2</span>.new(<span class="n">100</span>, <span class="n">100</span>), <span class="n">30.0_f32</span>)
+<span class="k">end</span></code></pre>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="topic_01_visual_priority:Nil-class-method">
+      <div class="signature">
+        
+        def self.<strong>topic_01_visual_priority</strong> : Nil
+
+        <a class="method-permalink" href="#topic_01_visual_priority%3ANil-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p><strong>Visual Priority</strong>: All debug items render on top of other game effects (3D render priority 127 with depth test disabled; 2D canvas layer 128 at z-index 4096).</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="topic_02_dual_workflow:Nil-class-method">
+      <div class="signature">
+        
+        def self.<strong>topic_02_dual_workflow</strong> : Nil
+
+        <a class="method-permalink" href="#topic_02_dual_workflow%3ANil-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p><strong>Dual Workflow</strong>: Choose between scene tree nodes or immediate-mode procedural calls in _process or physics steps.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+
 
   
 

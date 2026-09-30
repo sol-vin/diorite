@@ -103,6 +103,18 @@ module Lapis
     def self.reading_paths : Nil; topic_02_reading_paths; end
     # :nodoc:
     def self.table_of_contents : Nil; topic_03_table_of_contents; end
+
+    # The `GENERAL` documentation track contains all core guides, architectural references,
+    # and usage manuals for Diorite:
+    #
+    # - `OVERVIEW`: Getting started and fundamental dual workflow.
+    # - `PRIMITIVES`: Comprehensive reference of all 26 procedural 2D and 3D shapes.
+    # - `NODES`: Scene tree nodes for in-editor placement.
+    # - `CHARTING`: Algorithmic 2D/3D pie charts, bar charts, radial dials, and telemetry graphs.
+    # - `GAME_HELPERS`: Swept shape casts, splines, actor cards, channels, and freeze mode.
+    # - `PIPELINE`: Zero-allocation batch rendering architecture and render priorities.
+    module GENERAL
+    end
   end
 end
 
@@ -113,9 +125,4 @@ require "./docs/general/charting"
 require "./docs/general/game_helpers"
 require "./docs/general/pipeline"
 
-alias Docs = ::Lapis::Docs
-
-module Godot
-  alias Docs = ::Lapis::Docs
-end
 {% end %}

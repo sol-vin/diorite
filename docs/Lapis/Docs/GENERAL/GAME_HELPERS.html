@@ -364,22 +364,118 @@
     <use href="#octicon-link"/>
   </svg>
 </a>Game Spatial Helpers and UX Controls</h1>
-<h3><a id="executive-summary-key-topics" class="anchor" href="#executive-summary-key-topics">
+<p>Comprehensive guide to swept shape casts, splines, actor cards, channels, transform stacks, and freeze mode.</p>
+<h2><a id="overview" class="anchor" href="#overview">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
   </svg>
-</a>Executive Summary &amp; Key Topics</h3>
+</a>Overview</h2>
+<p>Diorite includes rich gameplay debugging utilities and developer UX features.
+Debug collision queries with swept shape casts, inspect pathfinding curves with cubic Bézier and Catmull-Rom splines,
+display overhead entity stat cards, isolate system debug output with channels, and freeze frame decay for freecam inspection.</p>
+<h3><a id="key-topics" class="anchor" href="#key-topics">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Key Topics</h3>
 <table>
   <thead>
     <tr>
       <th>Topic</th>
-      <th>Method / Anchor</th>
       <th>Description</th>
     </tr>
   </thead>
   <tbody>
+    <tr>
+      <td><a href="#topic_01_swept_shape_casts%3ANil-class-method"><strong>Swept Shape Casts</strong></a></td>
+      <td>Visualize continuous physics sweep queries showing start position, destination shape, edge connector rays, and impact indicators.</td>
+    </tr>
+    <tr>
+      <td><a href="#topic_02_splines%3ANil-class-method"><strong>Splines (Cubic Bézier &amp; Catmull-Rom)</strong></a></td>
+      <td>Render smooth 3D trajectories, patrol routes, and motion camera curves with optional control polygon hulls.</td>
+    </tr>
+    <tr>
+      <td><a href="#topic_03_actor_cards%3ANil-class-method"><strong>Actor Cards &amp; 3D Spatial Helpers</strong></a></td>
+      <td>Floating billboard cards with ground anchor poles displaying entity names and dynamic key-value stat blocks.</td>
+    </tr>
+    <tr>
+      <td><a href="#topic_04_channel_filtering%3ANil-class-method"><strong>Category / Channel Filtering</strong></a></td>
+      <td>Assign draw calls to channels (e.g. 'ai', 'combat', 'physics') and toggle them at runtime via script or hotkey.</td>
+    </tr>
+    <tr>
+      <td><a href="#topic_05_transform_stacks%3ANil-class-method"><strong>Local-Space Transform Stacks</strong></a></td>
+      <td>Render primitives relative to parent transforms with DebugDraw.with_transform(xform) do ... end.</td>
+    </tr>
+    <tr>
+      <td><a href="#topic_06_frame_freeze%3ANil-class-method"><strong>Frame Freeze Mode</strong></a></td>
+      <td>Pause lifetime decay with DebugDraw.freeze! to freely maneuver the scene camera around momentary collision or visual glitches.</td>
+    </tr>
   </tbody>
 </table>
+<h2><a id="code-examples" class="anchor" href="#code-examples">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Code Examples</h2>
+<h3><a id="swept-shape-casts" class="anchor" href="#swept-shape-casts">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Swept Shape Casts</h3>
+<pre><code class="language-crystal"><span class="c"># Visualize a sphere cast with hit notification</span>
+<span class="t">DebugDraw</span>.sphere_cast_3d(cast_start, cast_end, radius: <span class="n">0.5_f32</span>, hit: is_colliding)
+
+<span class="c"># Visualize player character capsule sweep</span>
+<span class="t">DebugDraw</span>.capsule_cast_3d(from_pos, to_pos, radius: <span class="n">0.4_f32</span>, height: <span class="n">1.8_f32</span>)
+
+<span class="c"># Visualize moving platform box sweep</span>
+<span class="t">DebugDraw</span>.box_cast_3d(box_start, box_end, size: <span class="t">Godot</span><span class="t">::</span><span class="t">Vector3</span>.new(<span class="n">2</span>, <span class="n">0.5</span>, <span class="n">2</span>))</code></pre>
+<h3><a id="spline-path-visualization" class="anchor" href="#spline-path-visualization">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Spline Path Visualization</h3>
+<pre><code class="language-crystal"><span class="c"># 3D Cubic Bézier with control hull</span>
+<span class="t">DebugDraw</span>.bezier_cubic_3d(p0, p1, p2, p3, segments: <span class="n">32</span>, show_hull: <span class="n">true</span>)
+
+<span class="c"># Multi-waypoint Catmull-Rom patrol curve</span>
+<span class="t">DebugDraw</span>.catmull_rom_3d(patrol_points, segments_per_curve: <span class="n">16</span>, loop: <span class="n">true</span>)</code></pre>
+<h3><a id="channels-and-transform-stacks" class="anchor" href="#channels-and-transform-stacks">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Channels and Transform Stacks</h3>
+<pre><code class="language-crystal"><span class="c"># Scoped drawing with local transform</span>
+<span class="t">DebugDraw</span>.with_transform(vehicle.global_transform) <span class="k">do</span>
+  <span class="t">DebugDraw</span>.box_3d(<span class="t">Godot</span><span class="t">::</span><span class="t">Vector3</span>.new(<span class="n">0</span>, <span class="n">0</span>, <span class="n">0</span>), <span class="t">Godot</span><span class="t">::</span><span class="t">Vector3</span>.new(<span class="n">2</span>, <span class="n">1</span>, <span class="n">4</span>))
+  <span class="t">DebugDraw</span>.arrow_3d(<span class="t">Godot</span><span class="t">::</span><span class="t">Vector3</span>.new(<span class="n">0</span>, <span class="n">1</span>, <span class="n">0</span>), <span class="t">Godot</span><span class="t">::</span><span class="t">Vector3</span>.new(<span class="n">0</span>, <span class="n">1</span>, <span class="n">3</span>))
+<span class="k">end</span>
+
+<span class="c"># Filtered channel drawing</span>
+<span class="t">DebugDraw</span>.channel(<span class="s">&quot;ai&quot;</span>) <span class="k">do</span> <span class="o">|</span>d<span class="o">|</span>
+  d.vision_cone_3d(enemy.position, enemy.forward, angle_deg: <span class="n">45.0_f32</span>, range: <span class="n">10.0_f32</span>)
+  d.actor_card_3d(enemy.position, <span class="s">&quot;Guard AI&quot;</span>, {<span class="s">&quot;State&quot;</span> <span class="o">=&gt;</span> <span class="s">&quot;Patrol&quot;</span>, <span class="s">&quot;HP&quot;</span> <span class="o">=&gt;</span> <span class="s">&quot;100%&quot;</span>})
+<span class="k">end</span></code></pre>
+<h2><a id="pitfalls-best-practices" class="anchor" href="#pitfalls-best-practices">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Pitfalls &amp; Best Practices</h2>
+<ul>
+<li>Transform stacks automatically pop when exiting <code>with_transform</code> blocks, ensuring consistent global coordinate states.</li>
+<li>When the queue is frozen via <code>freeze!</code>, commands persist without decaying their remaining duration.</li>
+</ul>
+<h2><a id="frequently-asked-questions" class="anchor" href="#frequently-asked-questions">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Frequently Asked Questions</h2>
+<ul>
+<li><strong>Q: How do I toggle channels during gameplay?</strong><br/>
+<em>A:</em> Call <code>DebugDraw.enable_channel(&quot;ai&quot;)</code> or <code>DebugDraw.disable_channel(&quot;ai&quot;)</code> from an input action or debug console command.</li>
+<li><strong>Q: How do I freeze debug draws with a hotkey?</strong><br/>
+<em>A:</em> Call <code>DebugDraw.toggle_freeze!</code> in your input event handler when the desired pause/inspect key is pressed.</li>
+</ul>
 
 
 
@@ -418,6 +514,81 @@
   
 
   
+  <h2>
+    <a id="class-method-summary" class="anchor" href="#class-method-summary">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Class Method Summary
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#example_01_swept_shape_casts%3ANil-class-method" class="signature"><strong>.example_01_swept_shape_casts</strong> : Nil</a>
+        
+          <div class="summary"><p><strong>Example: Swept Shape Casts</strong></p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#example_02_spline_paths%3ANil-class-method" class="signature"><strong>.example_02_spline_paths</strong> : Nil</a>
+        
+          <div class="summary"><p><strong>Example: Spline Path Visualization</strong></p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#example_03_channels_and_transforms%3ANil-class-method" class="signature"><strong>.example_03_channels_and_transforms</strong> : Nil</a>
+        
+          <div class="summary"><p><strong>Example: Channels and Transform Stacks</strong></p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#topic_01_swept_shape_casts%3ANil-class-method" class="signature"><strong>.topic_01_swept_shape_casts</strong> : Nil</a>
+        
+          <div class="summary"><p><strong>Swept Shape Casts</strong>: Visualize continuous physics sweep queries showing start position, destination shape, edge connector rays, and impact indicators.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#topic_02_splines%3ANil-class-method" class="signature"><strong>.topic_02_splines</strong> : Nil</a>
+        
+          <div class="summary"><p><strong>Splines (Cubic Bézier &amp; Catmull-Rom)</strong>: Render smooth 3D trajectories, patrol routes, and motion camera curves with optional control polygon hulls.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#topic_03_actor_cards%3ANil-class-method" class="signature"><strong>.topic_03_actor_cards</strong> : Nil</a>
+        
+          <div class="summary"><p><strong>Actor Cards &amp; 3D Spatial Helpers</strong>: Floating billboard cards with ground anchor poles displaying entity names and dynamic key-value stat blocks.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#topic_04_channel_filtering%3ANil-class-method" class="signature"><strong>.topic_04_channel_filtering</strong> : Nil</a>
+        
+          <div class="summary"><p><strong>Category / Channel Filtering</strong>: Assign draw calls to channels (e.g.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#topic_05_transform_stacks%3ANil-class-method" class="signature"><strong>.topic_05_transform_stacks</strong> : Nil</a>
+        
+          <div class="summary"><p><strong>Local-Space Transform Stacks</strong>: Render primitives relative to parent transforms with DebugDraw.with_transform(xform) do ...</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#topic_06_frame_freeze%3ANil-class-method" class="signature"><strong>.topic_06_frame_freeze</strong> : Nil</a>
+        
+          <div class="summary"><p><strong>Frame Freeze Mode</strong>: Pause lifetime decay with DebugDraw.freeze! to freely maneuver the scene camera around momentary collision or visual glitches.</p></div>
+        
+      </li>
+    
+  </ul>
+
 
   
 
@@ -431,6 +602,201 @@
   
 
   
+  <h2>
+    <a id="class-method-detail" class="anchor" href="#class-method-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Class Method Detail
+  </h2>
+  
+    <div class="entry-detail" id="example_01_swept_shape_casts:Nil-class-method">
+      <div class="signature">
+        
+        def self.<strong>example_01_swept_shape_casts</strong> : Nil
+
+        <a class="method-permalink" href="#example_01_swept_shape_casts%3ANil-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p><strong>Example: Swept Shape Casts</strong></p>
+<pre><code class="language-crystal"><span class="t">DebugDraw</span>.sphere_cast_3d(cast_start, cast_end, radius: <span class="n">0.5_f32</span>, hit: is_colliding)
+<span class="t">DebugDraw</span>.capsule_cast_3d(from_pos, to_pos, radius: <span class="n">0.4_f32</span>, height: <span class="n">1.8_f32</span>)
+<span class="t">DebugDraw</span>.box_cast_3d(box_start, box_end, size: <span class="t">Godot</span><span class="t">::</span><span class="t">Vector3</span>.new(<span class="n">2</span>, <span class="n">0.5</span>, <span class="n">2</span>))</code></pre>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="example_02_spline_paths:Nil-class-method">
+      <div class="signature">
+        
+        def self.<strong>example_02_spline_paths</strong> : Nil
+
+        <a class="method-permalink" href="#example_02_spline_paths%3ANil-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p><strong>Example: Spline Path Visualization</strong></p>
+<pre><code class="language-crystal"><span class="t">DebugDraw</span>.bezier_cubic_3d(p0, p1, p2, p3, segments: <span class="n">32</span>, show_hull: <span class="n">true</span>)
+<span class="t">DebugDraw</span>.catmull_rom_3d(patrol_points, segments_per_curve: <span class="n">16</span>, loop: <span class="n">true</span>)</code></pre>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="example_03_channels_and_transforms:Nil-class-method">
+      <div class="signature">
+        
+        def self.<strong>example_03_channels_and_transforms</strong> : Nil
+
+        <a class="method-permalink" href="#example_03_channels_and_transforms%3ANil-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p><strong>Example: Channels and Transform Stacks</strong></p>
+<pre><code class="language-crystal"><span class="t">DebugDraw</span>.with_transform(vehicle.global_transform) <span class="k">do</span>
+  <span class="t">DebugDraw</span>.box_3d(<span class="t">Godot</span><span class="t">::</span><span class="t">Vector3</span>.new(<span class="n">0</span>, <span class="n">0</span>, <span class="n">0</span>), <span class="t">Godot</span><span class="t">::</span><span class="t">Vector3</span>.new(<span class="n">2</span>, <span class="n">1</span>, <span class="n">4</span>))
+  <span class="t">DebugDraw</span>.arrow_3d(<span class="t">Godot</span><span class="t">::</span><span class="t">Vector3</span>.new(<span class="n">0</span>, <span class="n">1</span>, <span class="n">0</span>), <span class="t">Godot</span><span class="t">::</span><span class="t">Vector3</span>.new(<span class="n">0</span>, <span class="n">1</span>, <span class="n">3</span>))
+<span class="k">end</span>
+
+<span class="t">DebugDraw</span>.channel(<span class="s">&quot;ai&quot;</span>) <span class="k">do</span> <span class="o">|</span>d<span class="o">|</span>
+  d.vision_cone_3d(enemy.position, enemy.forward, angle_deg: <span class="n">45.0_f32</span>, range: <span class="n">10.0_f32</span>)
+  d.actor_card_3d(enemy.position, <span class="s">&quot;Guard AI&quot;</span>, {<span class="s">&quot;State&quot;</span> <span class="o">=&gt;</span> <span class="s">&quot;Patrol&quot;</span>, <span class="s">&quot;HP&quot;</span> <span class="o">=&gt;</span> <span class="s">&quot;100%&quot;</span>})
+<span class="k">end</span></code></pre>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="topic_01_swept_shape_casts:Nil-class-method">
+      <div class="signature">
+        
+        def self.<strong>topic_01_swept_shape_casts</strong> : Nil
+
+        <a class="method-permalink" href="#topic_01_swept_shape_casts%3ANil-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p><strong>Swept Shape Casts</strong>: Visualize continuous physics sweep queries showing start position, destination shape, edge connector rays, and impact indicators.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="topic_02_splines:Nil-class-method">
+      <div class="signature">
+        
+        def self.<strong>topic_02_splines</strong> : Nil
+
+        <a class="method-permalink" href="#topic_02_splines%3ANil-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p><strong>Splines (Cubic Bézier &amp; Catmull-Rom)</strong>: Render smooth 3D trajectories, patrol routes, and motion camera curves with optional control polygon hulls.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="topic_03_actor_cards:Nil-class-method">
+      <div class="signature">
+        
+        def self.<strong>topic_03_actor_cards</strong> : Nil
+
+        <a class="method-permalink" href="#topic_03_actor_cards%3ANil-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p><strong>Actor Cards &amp; 3D Spatial Helpers</strong>: Floating billboard cards with ground anchor poles displaying entity names and dynamic key-value stat blocks.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="topic_04_channel_filtering:Nil-class-method">
+      <div class="signature">
+        
+        def self.<strong>topic_04_channel_filtering</strong> : Nil
+
+        <a class="method-permalink" href="#topic_04_channel_filtering%3ANil-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p><strong>Category / Channel Filtering</strong>: Assign draw calls to channels (e.g. 'ai', 'combat', 'physics') and toggle them at runtime via script or hotkey.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="topic_05_transform_stacks:Nil-class-method">
+      <div class="signature">
+        
+        def self.<strong>topic_05_transform_stacks</strong> : Nil
+
+        <a class="method-permalink" href="#topic_05_transform_stacks%3ANil-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p><strong>Local-Space Transform Stacks</strong>: Render primitives relative to parent transforms with DebugDraw.with_transform(xform) do ... end.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="topic_06_frame_freeze:Nil-class-method">
+      <div class="signature">
+        
+        def self.<strong>topic_06_frame_freeze</strong> : Nil
+
+        <a class="method-permalink" href="#topic_06_frame_freeze%3ANil-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p><strong>Frame Freeze Mode</strong>: Pause lifetime decay with DebugDraw.freeze! to freely maneuver the scene camera around momentary collision or visual glitches.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+      </div>
+    </div>
+  
+
 
   
 
