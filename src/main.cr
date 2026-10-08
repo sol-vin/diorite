@@ -32,6 +32,6 @@ node MainNode < Node3D do
       Godot.print("[Diorite] Spawned DemoController showcase")
     end
 
-    emit_initialized
+    initialized.emit
   end
 end
