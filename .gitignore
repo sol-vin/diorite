@@ -28,3 +28,7 @@ addons/crystal_integration/bin/*
 !addons/crystal_integration/bin/.gitkeep
 addons/diorite/bin/*
 !addons/diorite/bin/.gitkeep
+!addons/diorite/bin/*.dll
+!addons/diorite/bin/*.so
+!addons/diorite/bin/*.dylib
+dist/
