@@ -101,7 +101,7 @@ jobs:
           # Build game library with --single-module (required for shared libraries on Linux ELF)
           crystal build src/main.cr -o bin/game.so --single-module --link-flags "-shared"
           cp bin/game.so addons/crystal_integration/bin/game.so
-          cp bin/game.so addons/diorite/bin/diorite.so
+          crystal build src/diorite/diorite.cr -o addons/diorite/bin/diorite.so --single-module --link-flags "-shared" -Dlibgodot_addon
 
       - name: Configure Godot & Build (Windows)
         if: runner.os == 'Windows'
@@ -152,10 +152,10 @@ jobs:
             Copy-Item $_.FullName addons/diorite/bin/ -Force
           }
 
-          # Build game library
-          crystal build src/main.cr -o bin/game.dll --link-flags "/DLL"
+          # Build game and addon libraries
+          crystal build src/main.cr -o bin/game.dll --link-flags "/DLL /ENTRY:_DllMainCRTStartup /EXPORT:crystal_godot_init"
           Copy-Item bin/game.dll addons/crystal_integration/bin/game.dll -Force
-          Copy-Item bin/game.dll addons/diorite/bin/diorite.dll -Force
+          crystal build src/diorite/diorite.cr -o addons/diorite/bin/diorite.dll --link-flags "/DLL /ENTRY:_DllMainCRTStartup /EXPORT:crystal_godot_init" -Dlibgodot_addon
 
       - name: Run Godot Headless Smoke Test (Linux)
         if: runner.os == 'Linux'
