@@ -4,7 +4,8 @@
 [![CI](https://github.com/sol-vin/diorite/actions/workflows/ci.yml/badge.svg)](https://github.com/sol-vin/diorite/actions/workflows/ci.yml)
 [![Docs](https://github.com/sol-vin/diorite/actions/workflows/docs.yml/badge.svg)](https://sol-vin.github.io/diorite/)
 [![Crystal](https://img.shields.io/badge/Crystal-1.21.0-blue.svg)](https://crystal-lang.org)
-[![Godot](https://img.shields.io/badge/Godot-4.8--dev6-478cbf.svg)](https://godotengine.org)
+[![Lapis](https://img.shields.io/badge/Lapis-0.0.289-blueviolet.svg?style=flat)](https://github.com/sol-vin/lapis/releases)
+[![Godot](https://img.shields.io/badge/Godot-4.8--dev7-blue.svg?logo=godotengine)](https://godotengine.org)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 **Diorite** is a debug drawing plugin and immediate-mode DSL for **Godot 4.8+** powered by the **Lapis** Crystal toolchain. Inspired by tools like Godot's DebugDraw3D and Raylib's immediate drawing functions, Diorite provides **both** a node-based scene workflow and a zero-allocation frame-based DSL for real-time visualization.
