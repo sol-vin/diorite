@@ -19,5 +19,5 @@ DebugDraw = Diorite::DebugDraw
 # rendering 2D and 3D debug visualizations with maximum visual priority.
 module Diorite
   # Current version of the Diorite debug library.
-  VERSION = "0.1.0"
+  VERSION = "0.1.1"
 end

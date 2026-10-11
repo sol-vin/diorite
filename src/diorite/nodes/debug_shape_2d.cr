@@ -3,7 +3,7 @@ require "../core/geometry_builder"
 require "../core/debug_material"
 
 module Diorite
-  # Supported 2D debug shape kinds for node-based rendering.
+  # Supported 2D debug shape kinds for categorization and reference.
   enum Shape2DType
     Line
     Arrow
@@ -11,35 +11,16 @@ module Diorite
     Circle
   end
 
-  # Inspector-configurable 2D debug shape node rendered on Godot's canvas.
+  # Base inspector-configurable 2D debug shape node rendered on Godot's canvas.
   #
   # Supports live-previewing in the Godot Editor (`@[Tool]` mode) and updates wireframe
   # geometry dynamically whenever properties are modified in the Inspector or script.
+  # Concrete subclasses (like `DebugRect2D` or `DebugCircle2D`) implement `build_shape`.
   @[Tool]
   node DebugShape2D < Node2D do
-    # Target 2D shape kind index (0=Line, 1=Arrow, 2=Rect, 3=Circle).
-    @[Export]
-    property shape_type : Int32 = 0
-
     # Line and outline color.
     @[Export]
     property color : Godot::Color = Godot::Color.new(0.2_f32, 1.0_f32, 0.4_f32, 1.0_f32)
-
-    # Relative target vector endpoint for Line and Arrow shapes.
-    @[Export]
-    property target : Godot::Vector2 = Godot::Vector2.new(100.0_f32, 100.0_f32)
-
-    # Dimensions for Rect shapes.
-    @[Export]
-    property rect_size : Godot::Vector2 = Godot::Vector2.new(80.0_f32, 50.0_f32)
-
-    # Radius for Circle shapes.
-    @[Export]
-    property radius : Float32 = 40.0_f32
-
-    # Perimeter segment resolution for Circle shapes.
-    @[Export]
-    property segments : Int32 = 24
 
     # When true, elevates z_index to 4096 so the shape renders on top of canvas elements.
     @[Export]
@@ -57,6 +38,10 @@ module Diorite
 
     def _process(delta : Float64) : Void
       rebuild_mesh
+    end
+
+    protected def build_shape(verts : Array(Godot::Vector2), cols : Array(Godot::Color)) : Void
+      # Implemented by shape-specific subclasses
     end
 
     private def setup_mesh : Void
@@ -84,18 +69,7 @@ module Diorite
       @verts.clear
       @cols.clear
 
-      origin = Godot::Vector2.new(0.0_f32, 0.0_f32)
-
-      case @shape_type
-      when 0 # Line
-        GeometryBuilder.build_line_2d(origin, @target, @color, @verts, @cols)
-      when 1 # Arrow
-        GeometryBuilder.build_arrow_2d(origin, @target, 12.0_f32, @color, @verts, @cols)
-      when 2 # Rect
-        GeometryBuilder.build_rect_2d(Godot::Rect2.new(origin.x, origin.y, @rect_size.x, @rect_size.y), @color, @verts, @cols)
-      when 3 # Circle
-        GeometryBuilder.build_circle_2d(origin, @radius, @segments, @color, @verts, @cols)
-      end
+      build_shape(@verts, @cols)
 
       m.clear_surfaces
       if @verts.size > 0
@@ -112,36 +86,60 @@ module Diorite
   # Node representing an inspector-configurable 2D debug line.
   @[Tool]
   node DebugLine2D < DebugShape2D do
-    def _ready : Void
-      self.shape_type = 0 # Line
-      super
+    # Relative target vector endpoint.
+    @[Export]
+    property target : Godot::Vector2 = Godot::Vector2.new(100.0_f32, 100.0_f32)
+
+    protected def build_shape(verts : Array(Godot::Vector2), cols : Array(Godot::Color)) : Void
+      origin = Godot::Vector2.new(0.0_f32, 0.0_f32)
+      GeometryBuilder.build_line_2d(origin, @target, @color, verts, cols)
     end
   end
 
   # Node representing an inspector-configurable 2D directional arrow.
   @[Tool]
   node DebugArrow2D < DebugShape2D do
-    def _ready : Void
-      self.shape_type = 1 # Arrow
-      super
+    # Relative target vector endpoint.
+    @[Export]
+    property target : Godot::Vector2 = Godot::Vector2.new(100.0_f32, 100.0_f32)
+
+    # Size of the arrow head lines.
+    @[Export]
+    property head_size : Float32 = 12.0_f32
+
+    protected def build_shape(verts : Array(Godot::Vector2), cols : Array(Godot::Color)) : Void
+      origin = Godot::Vector2.new(0.0_f32, 0.0_f32)
+      GeometryBuilder.build_arrow_2d(origin, @target, @head_size, @color, verts, cols)
     end
   end
 
   # Node representing an inspector-configurable 2D wireframe rectangle.
   @[Tool]
   node DebugRect2D < DebugShape2D do
-    def _ready : Void
-      self.shape_type = 2 # Rect
-      super
+    # Dimensions for Rect shapes.
+    @[Export]
+    property rect_size : Godot::Vector2 = Godot::Vector2.new(80.0_f32, 50.0_f32)
+
+    protected def build_shape(verts : Array(Godot::Vector2), cols : Array(Godot::Color)) : Void
+      origin = Godot::Vector2.new(0.0_f32, 0.0_f32)
+      GeometryBuilder.build_rect_2d(Godot::Rect2.new(origin.x, origin.y, @rect_size.x, @rect_size.y), @color, verts, cols)
     end
   end
 
   # Node representing an inspector-configurable 2D wireframe circle.
   @[Tool]
   node DebugCircle2D < DebugShape2D do
-    def _ready : Void
-      self.shape_type = 3 # Circle
-      super
+    # Radius for Circle shapes.
+    @[Export]
+    property radius : Float32 = 40.0_f32
+
+    # Perimeter segment resolution for Circle shapes.
+    @[Export]
+    property segments : Int32 = 24
+
+    protected def build_shape(verts : Array(Godot::Vector2), cols : Array(Godot::Color)) : Void
+      origin = Godot::Vector2.new(0.0_f32, 0.0_f32)
+      GeometryBuilder.build_circle_2d(origin, @radius, @segments, @color, verts, cols)
     end
   end
 end

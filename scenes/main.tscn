@@ -29,7 +29,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0.5, 4)
 target = Vector3(2, 0, 0)
 color = Color(1, 1, 0.2, 1)
 
-[node name="NodeBasedDebugShape2D" type="DebugShape2D" parent="."]
-shape_type = 3
+[node name="NodeBasedDebugShape2D" type="DebugCircle2D" parent="."]
 radius = 35.0
 color = Color(1, 0.4, 0.9, 1)
