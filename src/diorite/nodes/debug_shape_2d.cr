@@ -60,12 +60,15 @@ module Diorite
     end
 
     private def setup_mesh : Void
+      return if @mesh_instance
       if @draw_on_top
         set_z_index(4096_i64)
         set_z_as_relative(false)
       end
 
       mesh = Godot.create(Godot::ImmediateMesh)
+      mesh.init_ref if mesh.get_reference_count == 0
+      mesh.reference
       inst = Godot.create(Godot::MeshInstance2D)
       inst.set_mesh(mesh)
       add_child(inst)
@@ -75,7 +78,8 @@ module Diorite
 
     private def rebuild_mesh : Void
       m = @immediate_mesh
-      return unless m
+      inst = @mesh_instance
+      return unless m && inst && m.alive? && inst.alive?
 
       @verts.clear
       @cols.clear

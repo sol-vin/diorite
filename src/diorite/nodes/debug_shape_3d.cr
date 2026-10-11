@@ -85,7 +85,10 @@ module Diorite
     end
 
     private def setup_mesh : Void
+      return if @mesh_instance
       mesh = Godot.create(Godot::ImmediateMesh)
+      mesh.init_ref if mesh.get_reference_count == 0
+      mesh.reference
       inst = Godot.create(Godot::MeshInstance3D)
       inst.set_mesh(mesh)
       add_child(inst)
@@ -96,9 +99,10 @@ module Diorite
     private def rebuild_mesh : Void
       m = @immediate_mesh
       inst = @mesh_instance
-      return unless m && inst
+      return unless m && inst && m.alive? && inst.alive?
 
       mat = @draw_on_top ? DebugMaterialManager.material_on_top : DebugMaterialManager.material_depth_tested
+      return unless mat.alive?
       inst.set_material_override(mat)
 
       @verts.clear
