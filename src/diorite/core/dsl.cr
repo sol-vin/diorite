@@ -1,5 +1,6 @@
 require "./debug_command"
 require "./chart_builder"
+require "./frame_arena_batch"
 
 module Diorite
   # Context object passed into scoped frame drawing blocks (`DebugDraw.frame { |d| ... }`).
@@ -14,6 +15,29 @@ module Diorite
   # end
   # ```
   class FrameContext
+    # Returns the active `Lapis::Core::FrameArena` instance used for per-frame batch allocation.
+    def arena : Lapis::Core::FrameArena
+      Lapis::Core::FrameArena.current
+    end
+
+    # Executes a zero-allocation 3D vertex/line batch block backed by `Lapis::Core::FrameArena`.
+    def batch_3d(
+      arena : Lapis::Core::FrameArena = Lapis::Core::FrameArena.current,
+      max_vertices : Int32 = FrameDrawBuffers::DEFAULT_ON_TOP_3D_CAPACITY,
+      &block : FrameBatchBuilder3D ->
+    ) : FrameLineBatch3D
+      DebugDraw.batch_3d(arena, max_vertices, &block)
+    end
+
+    # Executes a zero-allocation 2D vertex/line batch block backed by `Lapis::Core::FrameArena`.
+    def batch_2d(
+      arena : Lapis::Core::FrameArena = Lapis::Core::FrameArena.current,
+      max_vertices : Int32 = FrameDrawBuffers::DEFAULT_2D_CAPACITY,
+      &block : FrameBatchBuilder2D ->
+    ) : FrameLineBatch2D
+      DebugDraw.batch_2d(arena, max_vertices, &block)
+    end
+
     # Executes a block with a local 3D transform applied to all nested 3D drawing calls.
     def with_transform(xform : Godot::Transform3D, &block) : Void
       DebugDraw.with_transform(xform, &block)
@@ -45,7 +69,7 @@ module Diorite
     end
 
     # Draws a continuous 3D polyline connecting an ordered list of points.
-    def line_path_3d(points : Array(Godot::Vector3), color : Godot::Color = Godot::Color.new(1.0_f32, 1.0_f32, 1.0_f32, 1.0_f32), duration : Float64 = 0.0, on_top : Bool = true, channel : String? = nil)
+    def line_path_3d(points, color : Godot::Color = Godot::Color.new(1.0_f32, 1.0_f32, 1.0_f32, 1.0_f32), duration : Float64 = 0.0, on_top : Bool = true, channel : String? = nil)
       DebugDraw.line_path_3d(points, color, duration, on_top, channel)
     end
 
@@ -474,16 +498,46 @@ module Diorite
       arrow_3d(from, to, color, head_size, duration, on_top, channel)
     end
 
+    # Allocates a `Slice(Godot::Vector3)` from `Lapis::Core::FrameArena.current` and writes
+    # the active transform stack positions into it with zero heap allocations.
+    @[ZeroAllocation]
+    def self.transform_points_to_arena(points) : Slice(Godot::Vector3)
+      n = points.size
+      return Slice(Godot::Vector3).empty if n == 0
+      dst = Lapis::Core::FrameArena.current.alloc_slice(Godot::Vector3, n)
+      return Slice(Godot::Vector3).empty if dst.size < n
+      dst_ptr = dst.to_unsafe
+      i = 0
+      while i < n
+        dst_ptr[i] = apply_pos(points[i])
+        i += 1
+      end
+      dst
+    end
+
     # Draws a continuous 3D polyline connecting an ordered list of *points*.
     def self.line_path_3d(
-      points : Array(Godot::Vector3),
+      points,
       color : Godot::Color = Godot::Color.new(1.0_f32, 1.0_f32, 1.0_f32, 1.0_f32),
       duration : Float64 = 0.0,
       on_top : Bool = true,
       channel : String? = nil
     ) : Void
       cmd = Command3D.new(ShapeKind3D::LinePath, color, duration, on_top)
-      cmd.path = points.map { |pt| apply_pos(pt) }
+      if duration <= 0.0
+        s = transform_points_to_arena(points)
+        if !s.empty?
+          cmd.path_slice = s
+        elsif points.is_a?(Array(Godot::Vector3))
+          cmd.path = @@transform_stack.empty? ? points : points.map { |pt| apply_pos(pt) }
+        end
+      elsif points.is_a?(Array(Godot::Vector3))
+        cmd.path = @@transform_stack.empty? ? points : points.map { |pt| apply_pos(pt) }
+      else
+        arr = Array(Godot::Vector3).new(points.size)
+        points.each { |pt| arr << apply_pos(pt) }
+        cmd.path = arr
+      end
       cmd.channel = channel || @@current_channel
       @@queue.push_3d(cmd)
     end
@@ -603,7 +657,7 @@ module Diorite
 
     # Draws small 3D crosshair markers for an array of world *points*.
     def self.points_3d(
-      points : Array(Godot::Vector3),
+      points,
       size : Float32 = 0.1_f32,
       color : Godot::Color = Godot::Color.new(1.0_f32, 1.0_f32, 1.0_f32, 1.0_f32),
       duration : Float64 = 0.0,
@@ -611,7 +665,20 @@ module Diorite
       channel : String? = nil
     ) : Void
       cmd = Command3D.new(ShapeKind3D::Points, color, duration, on_top)
-      cmd.path = points.map { |pt| apply_pos(pt) }
+      if duration <= 0.0
+        s = transform_points_to_arena(points)
+        if !s.empty?
+          cmd.path_slice = s
+        elsif points.is_a?(Array(Godot::Vector3))
+          cmd.path = @@transform_stack.empty? ? points : points.map { |pt| apply_pos(pt) }
+        end
+      elsif points.is_a?(Array(Godot::Vector3))
+        cmd.path = @@transform_stack.empty? ? points : points.map { |pt| apply_pos(pt) }
+      else
+        arr = Array(Godot::Vector3).new(points.size)
+        points.each { |pt| arr << apply_pos(pt) }
+        cmd.path = arr
+      end
       cmd.f0 = size
       cmd.channel = channel || @@current_channel
       @@queue.push_3d(cmd)
@@ -997,7 +1064,7 @@ module Diorite
 
     # Draws a 3D Catmull-Rom spline curve passing smoothly through *points*.
     def self.catmull_rom_3d(
-      points : Array(Godot::Vector3),
+      points,
       segments_per_curve : Int32 = 16,
       color : Godot::Color = Godot::Color.new(0.4_f32, 0.8_f32, 1.0_f32, 1.0_f32),
       loop : Bool = false,
@@ -1006,7 +1073,20 @@ module Diorite
       channel : String? = nil
     ) : Void
       cmd = Command3D.new(ShapeKind3D::CatmullRom, color, duration, on_top)
-      cmd.path = points.map { |pt| apply_pos(pt) }
+      if duration <= 0.0
+        s = transform_points_to_arena(points)
+        if !s.empty?
+          cmd.path_slice = s
+        elsif points.is_a?(Array(Godot::Vector3))
+          cmd.path = @@transform_stack.empty? ? points : points.map { |pt| apply_pos(pt) }
+        end
+      elsif points.is_a?(Array(Godot::Vector3))
+        cmd.path = @@transform_stack.empty? ? points : points.map { |pt| apply_pos(pt) }
+      else
+        arr = Array(Godot::Vector3).new(points.size)
+        points.each { |pt| arr << apply_pos(pt) }
+        cmd.path = arr
+      end
       cmd.i0 = segments_per_curve
       cmd.wireframe = loop
       cmd.channel = channel || @@current_channel
@@ -1221,15 +1301,46 @@ module Diorite
     end
 
     # Draws discrete 2D point markers on the canvas overlay.
+    # Allocates a `Slice(Godot::Vector2)` from `Lapis::Core::FrameArena.current` and copies
+    # 2D points into it with zero heap allocations.
+    @[ZeroAllocation]
+    def self.copy_points_2d_to_arena(points) : Slice(Godot::Vector2)
+      n = points.size
+      return Slice(Godot::Vector2).empty if n == 0
+      dst = Lapis::Core::FrameArena.current.alloc_slice(Godot::Vector2, n)
+      return Slice(Godot::Vector2).empty if dst.size < n
+      dst_ptr = dst.to_unsafe
+      i = 0
+      while i < n
+        dst_ptr[i] = points[i]
+        i += 1
+      end
+      dst
+    end
+
+    # Draws small 2D crosshair markers for an array of canvas *points*.
     def self.points_2d(
-      points : Array(Godot::Vector2),
+      points,
       size : Float32 = 4.0_f32,
       color : Godot::Color = Godot::Color.new(1.0_f32, 1.0_f32, 1.0_f32, 1.0_f32),
       duration : Float64 = 0.0,
       channel : String? = nil
     ) : Void
       cmd = Command2D.new(ShapeKind2D::Points, color, duration)
-      cmd.points = points
+      if duration <= 0.0
+        s = copy_points_2d_to_arena(points)
+        if !s.empty?
+          cmd.points_slice = s
+        elsif points.is_a?(Array(Godot::Vector2))
+          cmd.points = points
+        end
+      elsif points.is_a?(Array(Godot::Vector2))
+        cmd.points = points
+      else
+        arr = Array(Godot::Vector2).new(points.size)
+        points.each { |pt| arr << pt }
+        cmd.points = arr
+      end
       cmd.f0 = size
       cmd.channel = channel || @@current_channel
       @@queue.push_2d(cmd)
@@ -1237,20 +1348,33 @@ module Diorite
 
     # Draws a continuous 2D polyline connecting an ordered list of *points*.
     def self.path_2d(
-      points : Array(Godot::Vector2),
+      points,
       color : Godot::Color = Godot::Color.new(1.0_f32, 1.0_f32, 1.0_f32, 1.0_f32),
       duration : Float64 = 0.0,
       channel : String? = nil
     ) : Void
       cmd = Command2D.new(ShapeKind2D::Path, color, duration)
-      cmd.points = points
+      if duration <= 0.0
+        s = copy_points_2d_to_arena(points)
+        if !s.empty?
+          cmd.points_slice = s
+        elsif points.is_a?(Array(Godot::Vector2))
+          cmd.points = points
+        end
+      elsif points.is_a?(Array(Godot::Vector2))
+        cmd.points = points
+      else
+        arr = Array(Godot::Vector2).new(points.size)
+        points.each { |pt| arr << pt }
+        cmd.points = arr
+      end
       cmd.channel = channel || @@current_channel
       @@queue.push_2d(cmd)
     end
 
     # Alias for `path_2d`.
     def self.line_path_2d(
-      points : Array(Godot::Vector2),
+      points,
       color : Godot::Color = Godot::Color.new(1.0_f32, 1.0_f32, 1.0_f32, 1.0_f32),
       duration : Float64 = 0.0,
       channel : String? = nil
@@ -1497,6 +1621,58 @@ module Diorite
     # Yields a scoped `FrameContext` block for batching debug draws within a single frame.
     def self.frame(&block : FrameContext ->) : Void
       yield @@frame_context
+    end
+
+    # Returns the active `Lapis::Core::FrameArena` scratchpad allocator.
+    @[ZeroAllocation]
+    def self.arena : Lapis::Core::FrameArena
+      Lapis::Core::FrameArena.current
+    end
+
+    # Carves a zero-allocation `FrameLineBatch3D` from `arena` and yields a `FrameBatchBuilder3D`.
+    def self.batch_3d(
+      arena : Lapis::Core::FrameArena = Lapis::Core::FrameArena.current,
+      max_vertices : Int32 = FrameDrawBuffers::DEFAULT_ON_TOP_3D_CAPACITY,
+      &block : FrameBatchBuilder3D ->
+    ) : FrameLineBatch3D
+      batch = FrameLineBatch3D.from_arena(arena, max_vertices)
+      builder = FrameBatchBuilder3D.wrap(batch)
+      yield builder
+      batch
+    end
+
+    # Carves a zero-allocation `FrameLineBatch2D` from `arena` and yields a `FrameBatchBuilder2D`.
+    def self.batch_2d(
+      arena : Lapis::Core::FrameArena = Lapis::Core::FrameArena.current,
+      max_vertices : Int32 = FrameDrawBuffers::DEFAULT_2D_CAPACITY,
+      &block : FrameBatchBuilder2D ->
+    ) : FrameLineBatch2D
+      batch = FrameLineBatch2D.from_arena(arena, max_vertices)
+      builder = FrameBatchBuilder2D.wrap(batch)
+      yield builder
+      batch
+    end
+
+    # Compiles all active 3D commands, 2D commands, and telemetry graphs in the global
+    # queue into per-frame vertex and color buffers allocated from `Lapis::Core::FrameArena`.
+    def self.build_frame_batches(
+      arena : Lapis::Core::FrameArena = Lapis::Core::FrameArena.current,
+      cap_3d_on_top : Int32 = FrameDrawBuffers::DEFAULT_ON_TOP_3D_CAPACITY,
+      cap_3d_depth : Int32 = FrameDrawBuffers::DEFAULT_DEPTH_3D_CAPACITY,
+      cap_2d : Int32 = FrameDrawBuffers::DEFAULT_2D_CAPACITY
+    ) : FrameDrawBuffers
+      @@queue.build_frame_batches(arena, cap_3d_on_top, cap_3d_depth, cap_2d)
+    end
+
+    # Executes an arena-scoped immediate batch block (`Diorite.frame`), returning the `FrameDrawBuffers`.
+    def self.arena_frame(
+      arena : Lapis::Core::FrameArena = Lapis::Core::FrameArena.current,
+      cap_3d_on_top : Int32 = FrameDrawBuffers::DEFAULT_ON_TOP_3D_CAPACITY,
+      cap_3d_depth : Int32 = FrameDrawBuffers::DEFAULT_DEPTH_3D_CAPACITY,
+      cap_2d : Int32 = FrameDrawBuffers::DEFAULT_2D_CAPACITY,
+      &block : FrameBatchContext ->
+    ) : FrameDrawBuffers
+      Diorite.frame(arena, cap_3d_on_top, cap_3d_depth, cap_2d, &block)
     end
 
     # Clears all active 2D and 3D commands from the global queue immediately.

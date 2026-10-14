@@ -15,8 +15,8 @@ module Diorite
       from : Godot::Vector3,
       to : Godot::Vector3,
       color : Godot::Color,
-      verts : Array(Godot::Vector3),
-      cols : Array(Godot::Color)
+      verts,
+      cols
     ) : Void
       verts << from
       verts << to
@@ -30,8 +30,8 @@ module Diorite
       to : Godot::Vector3,
       color : Godot::Color,
       head_size : Float32,
-      verts : Array(Godot::Vector3),
-      cols : Array(Godot::Color)
+      verts,
+      cols
     ) : Void
       # Shaft
       build_line(from, to, color, verts, cols)
@@ -47,13 +47,13 @@ module Diorite
       actual_head = head_size.clamp(0.01_f32, len * 0.5_f32)
       base_pt = to - norm_dir * actual_head
 
-      # 4 arrowhead fin lines connecting back from tip to base
-      fins = [
+      # 4 arrowhead fin lines connecting back from tip to base (stack-allocated Tuple)
+      fins = {
         base_pt + u * (actual_head * 0.5_f32),
         base_pt - u * (actual_head * 0.5_f32),
         base_pt + v * (actual_head * 0.5_f32),
         base_pt - v * (actual_head * 0.5_f32),
-      ]
+      }
 
       fins.each do |f|
         build_line(to, f, color, verts, cols)
@@ -63,10 +63,10 @@ module Diorite
 
     # Generates a continuous 3D polyline connecting an ordered list of *points*.
     def self.build_line_path(
-      points : Array(Godot::Vector3),
+      points,
       color : Godot::Color,
-      verts : Array(Godot::Vector3),
-      cols : Array(Godot::Color)
+      verts,
+      cols
     ) : Void
       return if points.size < 2
       (0...points.size - 1).each do |i|
@@ -79,8 +79,8 @@ module Diorite
       center : Godot::Vector3,
       size : Godot::Vector3,
       color : Godot::Color,
-      verts : Array(Godot::Vector3),
-      cols : Array(Godot::Color)
+      verts,
+      cols
     ) : Void
       hx = size.x * 0.5_f32
       hy = size.y * 0.5_f32
@@ -120,8 +120,8 @@ module Diorite
       radius : Float32,
       rings : Int32,
       color : Godot::Color,
-      verts : Array(Godot::Vector3),
-      cols : Array(Godot::Color)
+      verts,
+      cols
     ) : Void
       segs = rings.clamp(8, 64)
       step = MathHelpers::TAU / segs.to_f32
@@ -152,8 +152,8 @@ module Diorite
       height : Float32,
       segments : Int32,
       color : Godot::Color,
-      verts : Array(Godot::Vector3),
-      cols : Array(Godot::Color)
+      verts,
+      cols
     ) : Void
       segs = segments.clamp(8, 48)
       step = MathHelpers::TAU / segs.to_f32
@@ -192,8 +192,8 @@ module Diorite
       height : Float32,
       segments : Int32,
       color : Godot::Color,
-      verts : Array(Godot::Vector3),
-      cols : Array(Godot::Color)
+      verts,
+      cols
     ) : Void
       segs = segments.clamp(8, 36)
       step = MathHelpers::TAU / segs.to_f32
@@ -216,9 +216,9 @@ module Diorite
         build_line(bot_center + Godot::Vector3.new(c0, 0, s0), bot_center + Godot::Vector3.new(c1, 0, s1), color, verts, cols)
       end
 
-      # Side vertical ribs
-      [Godot::Vector3.new(radius, 0, 0), Godot::Vector3.new(-radius, 0, 0),
-       Godot::Vector3.new(0, 0, radius), Godot::Vector3.new(0, 0, -radius)].each do |offset|
+      # Side vertical ribs (stack-allocated Tuple)
+      {Godot::Vector3.new(radius, 0, 0), Godot::Vector3.new(-radius, 0, 0),
+       Godot::Vector3.new(0, 0, radius), Godot::Vector3.new(0, 0, -radius)}.each do |offset|
         build_line(bot_center + offset, top_center + offset, color, verts, cols)
       end
 
@@ -249,8 +249,8 @@ module Diorite
       normal : Godot::Vector3,
       size : Godot::Vector2,
       color : Godot::Color,
-      verts : Array(Godot::Vector3),
-      cols : Array(Godot::Color)
+      verts,
+      cols
     ) : Void
       n = normal.normalized
       u, v = MathHelpers.orthonormal_plane(n)
@@ -279,11 +279,11 @@ module Diorite
 
     # Generates small 3D crosshair markers for an array of world *points*.
     def self.build_points(
-      points : Array(Godot::Vector3),
+      points,
       size : Float32,
       color : Godot::Color,
-      verts : Array(Godot::Vector3),
-      cols : Array(Godot::Color)
+      verts,
+      cols
     ) : Void
       hs = size * 0.5_f32
       points.each do |pt|
@@ -298,8 +298,8 @@ module Diorite
       origin : Godot::Vector3,
       size : Float32,
       color : Godot::Color,
-      verts : Array(Godot::Vector3),
-      cols : Array(Godot::Color)
+      verts,
+      cols
     ) : Void
       build_line(origin - Godot::Vector3.new(size, 0, 0), origin + Godot::Vector3.new(size, 0, 0), color, verts, cols)
       build_line(origin - Godot::Vector3.new(0, size, 0), origin + Godot::Vector3.new(0, size, 0), color, verts, cols)
@@ -311,8 +311,8 @@ module Diorite
       origin : Godot::Vector3,
       basis : Godot::Basis,
       size : Float32,
-      verts : Array(Godot::Vector3),
-      cols : Array(Godot::Color)
+      verts,
+      cols
     ) : Void
       red = Godot::Color.new(1.0_f32, 0.1_f32, 0.1_f32, 1.0_f32)
       green = Godot::Color.new(0.1_f32, 0.9_f32, 0.1_f32, 1.0_f32)
@@ -334,8 +334,8 @@ module Diorite
       size : Godot::Vector2,
       subdivisions : Int32,
       color : Godot::Color,
-      verts : Array(Godot::Vector3),
-      cols : Array(Godot::Color)
+      verts,
+      cols
     ) : Void
       subs = subdivisions.clamp(1, 100)
       hx = size.x * 0.5_f32
@@ -364,8 +364,8 @@ module Diorite
       far : Float32,
       aspect : Float32,
       color : Godot::Color,
-      verts : Array(Godot::Vector3),
-      cols : Array(Godot::Color)
+      verts,
+      cols
     ) : Void
       fwd = -basis.z.normalized
       up = basis.y.normalized
@@ -419,8 +419,8 @@ module Diorite
       size : Float32,
       camera_pos : Godot::Vector3,
       color : Godot::Color,
-      verts : Array(Godot::Vector3),
-      cols : Array(Godot::Color)
+      verts,
+      cols
     ) : Void
       dir_to_cam = (camera_pos - position)
       norm = dir_to_cam.length > 0.001_f32 ? dir_to_cam.normalized : Godot::Vector3.new(0, 0, 1)
@@ -445,8 +445,8 @@ module Diorite
       hit_point : Godot::Vector3,
       normal : Godot::Vector3,
       color : Godot::Color,
-      verts : Array(Godot::Vector3),
-      cols : Array(Godot::Color)
+      verts,
+      cols
     ) : Void
       # 1. Incoming ray line
       build_line(origin, hit_point, color, verts, cols)
@@ -474,8 +474,8 @@ module Diorite
       max_time : Float32,
       steps : Int32,
       color : Godot::Color,
-      verts : Array(Godot::Vector3),
-      cols : Array(Godot::Color)
+      verts,
+      cols
     ) : Void
       step_count = steps.clamp(4, 100)
       dt = max_time / step_count.to_f32
@@ -500,8 +500,8 @@ module Diorite
       range : Float32,
       segments : Int32,
       color : Godot::Color,
-      verts : Array(Godot::Vector3),
-      cols : Array(Godot::Color)
+      verts,
+      cols
     ) : Void
       dir = direction.normalized
       u, v = MathHelpers.orthonormal_plane(dir)
@@ -557,8 +557,8 @@ module Diorite
       size : Godot::Vector3,
       basis : Godot::Basis,
       color : Godot::Color,
-      verts : Array(Godot::Vector3),
-      cols : Array(Godot::Color)
+      verts,
+      cols
     ) : Void
       hx = size.x * 0.5_f32
       hy = size.y * 0.5_f32
@@ -606,8 +606,8 @@ module Diorite
       coils : Int32,
       segments : Int32,
       color : Godot::Color,
-      verts : Array(Godot::Vector3),
-      cols : Array(Godot::Color)
+      verts,
+      cols
     ) : Void
       axis = to - from
       len = axis.length
@@ -642,8 +642,8 @@ module Diorite
       radius : Float32,
       segments : Int32,
       color : Godot::Color,
-      verts : Array(Godot::Vector3),
-      cols : Array(Godot::Color)
+      verts,
+      cols
     ) : Void
       norm = normal.normalized
       u, v = MathHelpers.orthonormal_plane(norm)
@@ -671,8 +671,8 @@ module Diorite
       to : Godot::Vector3,
       tick_size : Float32,
       color : Godot::Color,
-      verts : Array(Godot::Vector3),
-      cols : Array(Godot::Color)
+      verts,
+      cols
     ) : Void
       # Main line
       build_line(from, to, color, verts, cols)
@@ -706,8 +706,8 @@ module Diorite
       normal : Godot::Vector3,
       size : Float32,
       color : Godot::Color,
-      verts : Array(Godot::Vector3),
-      cols : Array(Godot::Color)
+      verts,
+      cols
     ) : Void
       norm = normal.normalized
       u, v = MathHelpers.orthonormal_plane(norm)
@@ -740,8 +740,8 @@ module Diorite
       radius : Float32,
       hit : Bool,
       color : Godot::Color,
-      verts : Array(Godot::Vector3),
-      cols : Array(Godot::Color)
+      verts,
+      cols
     ) : Void
       build_sphere(from, radius, 12, color, verts, cols)
       build_sphere(to, radius, 12, color, verts, cols)
@@ -773,8 +773,8 @@ module Diorite
       height : Float32,
       hit : Bool,
       color : Godot::Color,
-      verts : Array(Godot::Vector3),
-      cols : Array(Godot::Color)
+      verts,
+      cols
     ) : Void
       build_capsule(from, radius, height, 12, color, verts, cols)
       build_capsule(to, radius, height, 12, color, verts, cols)
@@ -798,8 +798,8 @@ module Diorite
       size : Godot::Vector3,
       hit : Bool,
       color : Godot::Color,
-      verts : Array(Godot::Vector3),
-      cols : Array(Godot::Color)
+      verts,
+      cols
     ) : Void
       build_box(from, size, color, verts, cols)
       build_box(to, size, color, verts, cols)
@@ -808,9 +808,9 @@ module Diorite
       hy = size.y * 0.5_f32
       hz = size.z * 0.5_f32
 
-      [-1.0_f32, 1.0_f32].each do |sx|
-        [-1.0_f32, 1.0_f32].each do |sy|
-          [-1.0_f32, 1.0_f32].each do |sz|
+      {-1.0_f32, 1.0_f32}.each do |sx|
+        {-1.0_f32, 1.0_f32}.each do |sy|
+          {-1.0_f32, 1.0_f32}.each do |sz|
             offset = Godot::Vector3.new(hx * sx, hy * sy, hz * sz)
             build_line(from + offset, to + offset, color, verts, cols)
           end
@@ -826,8 +826,8 @@ module Diorite
       p3 : Godot::Vector3,
       segments : Int32,
       color : Godot::Color,
-      verts : Array(Godot::Vector3),
-      cols : Array(Godot::Color),
+      verts,
+      cols,
       show_hull : Bool = true
     ) : Void
       if show_hull
@@ -856,11 +856,11 @@ module Diorite
 
     # Generates a 3D Catmull-Rom spline through a sequence of waypoints.
     def self.build_catmull_rom(
-      points : Array(Godot::Vector3),
+      points,
       segments_per_curve : Int32,
       color : Godot::Color,
-      verts : Array(Godot::Vector3),
-      cols : Array(Godot::Color),
+      verts,
+      cols,
       loop : Bool = false
     ) : Void
       return if points.size < 2
@@ -918,8 +918,8 @@ module Diorite
       angle_rad : Float32,
       segments : Int32,
       color : Godot::Color,
-      verts : Array(Godot::Vector3),
-      cols : Array(Godot::Color)
+      verts,
+      cols
     ) : Void
       return if length <= 0.0_f32
 
@@ -954,8 +954,8 @@ module Diorite
       radius : Float32,
       segments : Int32,
       color : Godot::Color,
-      verts : Array(Godot::Vector3),
-      cols : Array(Godot::Color)
+      verts,
+      cols
     ) : Void
       return if radius <= 0.0_f32
 
@@ -977,8 +977,8 @@ module Diorite
       position : Godot::Vector3,
       size : Godot::Vector2,
       color : Godot::Color,
-      verts : Array(Godot::Vector3),
-      cols : Array(Godot::Color)
+      verts,
+      cols
     ) : Void
       card_h = size.y
       card_w = size.x
@@ -1008,8 +1008,8 @@ module Diorite
       from : Godot::Vector2,
       to : Godot::Vector2,
       color : Godot::Color,
-      verts : Array(Godot::Vector2),
-      cols : Array(Godot::Color)
+      verts,
+      cols
     ) : Void
       verts << from
       verts << to
@@ -1023,8 +1023,8 @@ module Diorite
       to : Godot::Vector2,
       head_size : Float32,
       color : Godot::Color,
-      verts : Array(Godot::Vector2),
-      cols : Array(Godot::Color)
+      verts,
+      cols
     ) : Void
       build_line_2d(from, to, color, verts, cols)
 
@@ -1049,8 +1049,8 @@ module Diorite
     def self.build_rect_2d(
       rect : Godot::Rect2,
       color : Godot::Color,
-      verts : Array(Godot::Vector2),
-      cols : Array(Godot::Color)
+      verts,
+      cols
     ) : Void
       x0 = rect.position.x
       y0 = rect.position.y
@@ -1074,8 +1074,8 @@ module Diorite
       radius : Float32,
       segments : Int32,
       color : Godot::Color,
-      verts : Array(Godot::Vector2),
-      cols : Array(Godot::Color)
+      verts,
+      cols
     ) : Void
       segs = segments.clamp(8, 64)
       step = MathHelpers::TAU / segs.to_f32
@@ -1091,11 +1091,11 @@ module Diorite
 
     # Generates crosshair markers for a collection of 2D points on the canvas.
     def self.build_points_2d(
-      points : Array(Godot::Vector2),
+      points,
       size : Float32,
       color : Godot::Color,
-      verts : Array(Godot::Vector2),
-      cols : Array(Godot::Color)
+      verts,
+      cols
     ) : Void
       hs = size * 0.5_f32
       points.each do |pt|
@@ -1106,10 +1106,10 @@ module Diorite
 
     # Generates a continuous 2D polyline connecting an ordered list of canvas points.
     def self.build_path_2d(
-      points : Array(Godot::Vector2),
+      points,
       color : Godot::Color,
-      verts : Array(Godot::Vector2),
-      cols : Array(Godot::Color)
+      verts,
+      cols
     ) : Void
       return if points.size < 2
       (0...points.size - 1).each do |i|
@@ -1123,8 +1123,8 @@ module Diorite
       p1 : Godot::Vector2,
       radius : Float32,
       color : Godot::Color,
-      verts : Array(Godot::Vector2),
-      cols : Array(Godot::Color),
+      verts,
+      cols,
       segments : Int32 = 12
     ) : Void
       dir = p1 - p0
@@ -1171,8 +1171,8 @@ module Diorite
       angle_rad : Float32,
       segments : Int32,
       color : Godot::Color,
-      verts : Array(Godot::Vector2),
-      cols : Array(Godot::Color)
+      verts,
+      cols
     ) : Void
       return if distance <= 0.0_f32
 
@@ -1192,15 +1192,15 @@ module Diorite
       end_angle : Float32,
       segments : Int32,
       color : Godot::Color,
-      verts : Array(Godot::Vector2),
-      cols : Array(Godot::Color)
+      verts,
+      cols
     ) : Void
       segs = segments.clamp(4, 64)
       step = (end_angle - start_angle) / segs.to_f32
 
       (0...segs).each do |i|
         a0 = start_angle + i.to_f32 * step
-        a1 = start_angle + (i + 1).to_f32 * step
+        a1 = start_angle + (i + 1) * step
         p0 = center + Godot::Vector2.new(Math.cos(a0).to_f32 * radius, Math.sin(a0).to_f32 * radius)
         p1 = center + Godot::Vector2.new(Math.cos(a1).to_f32 * radius, Math.sin(a1).to_f32 * radius)
         build_line_2d(p0, p1, color, verts, cols)
@@ -1215,8 +1215,8 @@ module Diorite
       end_angle : Float32,
       segments : Int32,
       color : Godot::Color,
-      verts : Array(Godot::Vector2),
-      cols : Array(Godot::Color)
+      verts,
+      cols
     ) : Void
       build_arc_2d(center, radius, start_angle, end_angle, segments, color, verts, cols)
 
@@ -1232,8 +1232,8 @@ module Diorite
       from : Godot::Vector2,
       to : Godot::Vector2,
       color : Godot::Color,
-      verts : Array(Godot::Vector2),
-      cols : Array(Godot::Color),
+      verts,
+      cols,
       tick_step : Float32 = 20.0_f32,
       tick_size : Float32 = 8.0_f32
     ) : Void

@@ -1,6 +1,7 @@
 require "lapis"
 require "../core/geometry_builder"
 require "../core/debug_material"
+require "../core/frame_arena_batch"
 
 module Diorite
   # Supported 2D debug shape kinds for categorization and reference.
@@ -14,8 +15,10 @@ module Diorite
   # Base inspector-configurable 2D debug shape node rendered on Godot's canvas.
   #
   # Supports live-previewing in the Godot Editor (`@[Tool]` mode) and updates wireframe
-  # geometry dynamically whenever properties are modified in the Inspector or script.
-  # Concrete subclasses (like `DebugRect2D` or `DebugCircle2D`) implement `build_shape`.
+  # geometry dynamically using `Lapis::Core::FrameArena` scratchpad buffers whenever
+  # properties are modified in the Inspector or script.
+  # Concrete subclasses (like `DebugRect2D` or `DebugCircle2D`) implement `build_shape`
+  # and `build_shape_arena`.
   @[Tool]
   node DebugShape2D < Node2D do
     # Line and outline color.
@@ -28,8 +31,6 @@ module Diorite
 
     @mesh_instance : Godot::MeshInstance2D? = nil
     @immediate_mesh : Godot::ImmediateMesh? = nil
-    @verts = Array(Godot::Vector2).new(256)
-    @cols = Array(Godot::Color).new(256)
 
     def _ready : Void
       setup_mesh
@@ -42,6 +43,10 @@ module Diorite
 
     protected def build_shape(verts : Array(Godot::Vector2), cols : Array(Godot::Color)) : Void
       # Implemented by shape-specific subclasses
+    end
+
+    protected def build_shape_arena(verts : ArenaVertexBuffer(Godot::Vector2), cols : ArenaVertexBuffer(Godot::Color)) : Void
+      # Implemented by shape-specific subclasses for zero-allocation FrameArena rendering
     end
 
     private def setup_mesh : Void
@@ -66,19 +71,25 @@ module Diorite
       inst = @mesh_instance
       return unless m && inst && m.alive? && inst.alive?
 
-      @verts.clear
-      @cols.clear
+      Lapis::Core::FrameArena.scope do |arena|
+        batch = FrameLineBatch2D.from_arena(arena, 256)
+        verts = batch.verts
+        cols = batch.cols
 
-      build_shape(@verts, @cols)
+        build_shape_arena(verts, cols)
 
-      m.clear_surfaces
-      if @verts.size > 0
-        m.surface_begin(Godot::Mesh::PrimitiveType::PrimitiveLines.to_i64, DebugMaterialManager.material_on_top)
-        (0...@verts.size).each do |i|
-          m.surface_set_color(@cols[i])
-          m.surface_add_vertex_2d(@verts[i])
+        m.clear_surfaces
+        n = verts.size
+        if n > 0
+          m.surface_begin(Godot::Mesh::PrimitiveType::PrimitiveLines.to_i64, DebugMaterialManager.material_on_top)
+          i = 0
+          while i < n
+            m.surface_set_color(cols.unsafe_fetch(i))
+            m.surface_add_vertex_2d(verts.unsafe_fetch(i))
+            i += 1
+          end
+          m.surface_end
         end
-        m.surface_end
       end
     end
   end
@@ -91,6 +102,11 @@ module Diorite
     property target : Godot::Vector2 = Godot::Vector2.new(100.0_f32, 100.0_f32)
 
     protected def build_shape(verts : Array(Godot::Vector2), cols : Array(Godot::Color)) : Void
+      origin = Godot::Vector2.new(0.0_f32, 0.0_f32)
+      GeometryBuilder.build_line_2d(origin, @target, @color, verts, cols)
+    end
+
+    protected def build_shape_arena(verts : ArenaVertexBuffer(Godot::Vector2), cols : ArenaVertexBuffer(Godot::Color)) : Void
       origin = Godot::Vector2.new(0.0_f32, 0.0_f32)
       GeometryBuilder.build_line_2d(origin, @target, @color, verts, cols)
     end
@@ -111,6 +127,11 @@ module Diorite
       origin = Godot::Vector2.new(0.0_f32, 0.0_f32)
       GeometryBuilder.build_arrow_2d(origin, @target, @head_size, @color, verts, cols)
     end
+
+    protected def build_shape_arena(verts : ArenaVertexBuffer(Godot::Vector2), cols : ArenaVertexBuffer(Godot::Color)) : Void
+      origin = Godot::Vector2.new(0.0_f32, 0.0_f32)
+      GeometryBuilder.build_arrow_2d(origin, @target, @head_size, @color, verts, cols)
+    end
   end
 
   # Node representing an inspector-configurable 2D wireframe rectangle.
@@ -121,6 +142,11 @@ module Diorite
     property rect_size : Godot::Vector2 = Godot::Vector2.new(80.0_f32, 50.0_f32)
 
     protected def build_shape(verts : Array(Godot::Vector2), cols : Array(Godot::Color)) : Void
+      origin = Godot::Vector2.new(0.0_f32, 0.0_f32)
+      GeometryBuilder.build_rect_2d(Godot::Rect2.new(origin.x, origin.y, @rect_size.x, @rect_size.y), @color, verts, cols)
+    end
+
+    protected def build_shape_arena(verts : ArenaVertexBuffer(Godot::Vector2), cols : ArenaVertexBuffer(Godot::Color)) : Void
       origin = Godot::Vector2.new(0.0_f32, 0.0_f32)
       GeometryBuilder.build_rect_2d(Godot::Rect2.new(origin.x, origin.y, @rect_size.x, @rect_size.y), @color, verts, cols)
     end
@@ -138,6 +164,11 @@ module Diorite
     property segments : Int32 = 24
 
     protected def build_shape(verts : Array(Godot::Vector2), cols : Array(Godot::Color)) : Void
+      origin = Godot::Vector2.new(0.0_f32, 0.0_f32)
+      GeometryBuilder.build_circle_2d(origin, @radius, @segments, @color, verts, cols)
+    end
+
+    protected def build_shape_arena(verts : ArenaVertexBuffer(Godot::Vector2), cols : ArenaVertexBuffer(Godot::Color)) : Void
       origin = Godot::Vector2.new(0.0_f32, 0.0_f32)
       GeometryBuilder.build_circle_2d(origin, @radius, @segments, @color, verts, cols)
     end
