@@ -1,170 +1,26 @@
-name: CI
+name: Addon CI
 
 on:
   push:
-    branches: [master, main]
+    branches: [main, master]
   pull_request:
-    branches: [master, main]
+    branches: [main, master]
   workflow_dispatch:
 
+concurrency:
+  group: diorite-ci-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  test:
-    name: Crystal Specs & Headless Verification
-    runs-on: ${{ matrix.os }}
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ubuntu-latest, windows-latest]
-
-    steps:
-      - name: Checkout Diorite Repository
-        uses: actions/checkout@v4
-
-      - name: Resolve Godot Version
-        id: godot-version
-        shell: bash
-        run: |
-          GODOT_VER=$(sed -n 's/.*version:[[:space:]]*["'"'"']\?\([^"'"'"']\+\)["'"'"']\?.*/\1/p' godot-version.yml | tr -d '\r\n[:space:]')
-          if [ -z "$GODOT_VER" ]; then GODOT_VER="4.8-dev7"; fi
-          echo "Resolved Godot Version: $GODOT_VER"
-          echo "version=$GODOT_VER" >> "$GITHUB_OUTPUT"
-          echo "GODOT_VERSION=$GODOT_VER" >> "$GITHUB_ENV"
-
-      - name: Update Apt Cache (Linux)
-        if: runner.os == 'Linux'
-        run: sudo apt-get update -y
-
-      - name: Install Crystal
-        uses: crystal-lang/install-crystal@v1
-        with:
-          crystal: 1.21.0
-
-      - name: Install Linux Build Dependencies
-        if: runner.os == 'Linux'
-        run: |
-          sudo apt-get install -y lld make gcc g++ xvfb
-
-      - name: Verify Toolchain
-        run: |
-          crystal -v
-          g++ --version
-
-      - name: Install Shards
-        run: |
-          shards install --ignore-crystal-version || true
-
-      - name: Run Unit Specs
-        run: |
-          crystal spec
-
-      - name: Run Benchmark Suite
-        run: |
-          crystal run bench/benchmark_suite.cr
-
-      - name: Setup Godot Engine
-        uses: appsinacup/action_setup_godot@main
-        with:
-          repo: godotengine/godot-builds
-          version: ${{ env.GODOT_VERSION }}
-          enable_cache: true
-
-      - name: Configure Godot & Build (Linux)
-        if: runner.os == 'Linux'
-        shell: bash
-        run: |
-          cand="$GODOT4"
-          if [ -z "$cand" ]; then cand="$GODOT4_BIN"; fi
-          if [ -n "$cand" ]; then
-            main_cand=$(echo "$cand" | sed -E 's/(_console|\.console)$//')
-            if [ -f "$main_cand" ]; then cand="$main_cand"; fi
-          fi
-          if [ -n "$cand" ] && [ -f "$cand" ]; then
-            cp "$cand" ./godot
-            chmod +x ./godot
-          else
-            echo "Downloading Godot ${GODOT_VERSION} linux.x86_64..."
-            wget -q "https://github.com/godotengine/godot-builds/releases/download/${GODOT_VERSION}/Godot_v${GODOT_VERSION}_linux.x86_64.zip" -O godot.zip
-            unzip -q godot.zip
-            found_bin=$(find . -maxdepth 2 -name "Godot_v*linux.x86_64" | head -n 1)
-            mv "$found_bin" ./godot
-            chmod +x ./godot
-            rm -f godot.zip
-          fi
-          ./godot --version
-
-          mkdir -p bin addons/crystal_integration/bin addons/diorite/bin
-          # Build C++ GDExtension bridge
-          g++ -shared -std=c++17 -O2 -fPIC -I lib/lapis/rsrc -I lib/lapis/src/bridge lib/lapis/src/bridge/crystal_bridge.cpp -o addons/crystal_integration/bin/crystal_bridge.so
-          cp addons/crystal_integration/bin/crystal_bridge.so bin/crystal_bridge.so
-          cp addons/crystal_integration/bin/crystal_bridge.so addons/diorite/bin/crystal_bridge.so
-
-          # Build game library with --single-module (required for shared libraries on Linux ELF)
-          crystal build src/main.cr -o bin/game.so --single-module --link-flags "-shared"
-          cp bin/game.so addons/crystal_integration/bin/game.so
-          crystal build src/diorite/diorite.cr -o addons/diorite/bin/diorite.so --single-module --link-flags "-shared" -Dlibgodot_addon
-
-      - name: Configure Godot & Build (Windows)
-        if: runner.os == 'Windows'
-        shell: pwsh
-        run: |
-          $candidate = $env:GODOT4
-          if ($candidate) {
-            $candidate = $candidate -replace '^/([a-zA-Z])/', '$1:/'
-            $mainCand = $candidate -replace '(_console|\.console)\.exe$', '.exe'
-            if (Test-Path $mainCand) {
-              $candidate = $mainCand
-            }
-          } elseif ($env:GODOT4_BIN) {
-            $cand2 = $env:GODOT4_BIN -replace '^/([a-zA-Z])/', '$1:/'
-            $mainCand2 = $cand2 -replace '(_console|\.console)\.exe$', '.exe'
-            if (Test-Path $mainCand2) {
-              $candidate = $mainCand2
-            } else {
-              $candidate = $cand2
-            }
-          }
-          if ($candidate -and (Test-Path $candidate)) {
-            Copy-Item $candidate ./godot.exe -Force
-          }
-          if (-not (Test-Path ./godot.exe)) {
-            Invoke-WebRequest -Uri "https://github.com/godotengine/godot-builds/releases/download/$($env:GODOT_VERSION)/Godot_v$($env:GODOT_VERSION)_win64.exe.zip" -OutFile "godot.zip"
-            Expand-Archive -Path "godot.zip" -DestinationPath "godot_temp" -Force
-            $foundExe = (Get-ChildItem -Path "godot_temp" -Filter "*.exe" -Recurse | Where-Object { $_.Name -notlike "*_console*" -and $_.Name -notlike "*.console*" } | Select-Object -First 1).FullName
-            Copy-Item $foundExe ./godot.exe -Force
-            Remove-Item "godot.zip", "godot_temp" -Recurse -Force
-          }
-          ./godot.exe --version
-
-          if (-not (Test-Path "bin")) { New-Item -ItemType Directory -Force -Path "bin" | Out-Null }
-          if (-not (Test-Path "addons/crystal_integration/bin")) { New-Item -ItemType Directory -Force -Path "addons/crystal_integration/bin" | Out-Null }
-          if (-not (Test-Path "addons/diorite/bin")) { New-Item -ItemType Directory -Force -Path "addons/diorite/bin" | Out-Null }
-
-          # Build C++ GDExtension bridge
-          g++ -shared -std=c++17 -O2 -I lib/lapis/rsrc -I lib/lapis/src/bridge lib/lapis/src/bridge/crystal_bridge.cpp -o addons/crystal_integration/bin/crystal_bridge.dll -static -static-libgcc -static-libstdc++
-          Copy-Item addons/crystal_integration/bin/crystal_bridge.dll bin/crystal_bridge.dll -Force
-          Copy-Item addons/crystal_integration/bin/crystal_bridge.dll addons/diorite/bin/crystal_bridge.dll -Force
-
-          # Copy runtime DLLs from Crystal installation
-          $crystalBin = Split-Path (Get-Command crystal).Source
-          Get-ChildItem -Path $crystalBin -Filter "*.dll" | ForEach-Object {
-            Copy-Item $_.FullName bin/ -Force
-            Copy-Item $_.FullName addons/crystal_integration/bin/ -Force
-            Copy-Item $_.FullName addons/diorite/bin/ -Force
-          }
-
-          # Build game and addon libraries
-          crystal build src/main.cr -o bin/game.dll --link-flags "/DLL /ENTRY:_DllMainCRTStartup /EXPORT:crystal_godot_init"
-          Copy-Item bin/game.dll addons/crystal_integration/bin/game.dll -Force
-          crystal build src/diorite/diorite.cr -o addons/diorite/bin/diorite.dll --link-flags "/DLL /ENTRY:_DllMainCRTStartup /EXPORT:crystal_godot_init" -Dlibgodot_addon
-
-      - name: Run Godot Headless Smoke Test (Linux)
-        if: runner.os == 'Linux'
-        shell: bash
-        run: |
-          xvfb-run --auto-servernum ./godot --headless --path . --quit
-
-      - name: Run Godot Headless Smoke Test (Windows)
-        if: runner.os == 'Windows'
-        shell: pwsh
-        run: |
-          ./godot.exe --headless --path . --quit
+  build-addon:
+    name: Diorite Addon CI
+    uses: sol-vin/lapis/.github/workflows/build-addon.yml@4.8-dev7
+    with:
+      addon-name: diorite
+      entry-point: src/main.cr
+      godot-version: 4.8-dev7
+      lapis-ref: 4.8-dev7
+      os-matrix: '["ubuntu-latest", "windows-latest"]'
+      run-specs: true
+      run-headless: true
+      run-benchmarks: true
