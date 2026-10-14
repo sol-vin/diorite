@@ -21,6 +21,11 @@ module Diorite
       center = Godot::Vector3.new(0.0_f32, 0.0_f32, 0.0_f32)
       GeometryBuilder.build_box(center, @size, @color, verts, cols)
     end
+
+    protected def build_shape_arena(verts : ArenaVertexBuffer(Godot::Vector3), cols : ArenaVertexBuffer(Godot::Color)) : Void
+      center = Godot::Vector3.new(0.0_f32, 0.0_f32, 0.0_f32)
+      GeometryBuilder.build_box(center, @size, @color, verts, cols)
+    end
   end
 
   # Node representing an inspector-configurable 3D wireframe sphere.
@@ -46,6 +51,11 @@ module Diorite
       center = Godot::Vector3.new(0.0_f32, 0.0_f32, 0.0_f32)
       GeometryBuilder.build_sphere(center, @radius, @rings, @color, verts, cols)
     end
+
+    protected def build_shape_arena(verts : ArenaVertexBuffer(Godot::Vector3), cols : ArenaVertexBuffer(Godot::Color)) : Void
+      center = Godot::Vector3.new(0.0_f32, 0.0_f32, 0.0_f32)
+      GeometryBuilder.build_sphere(center, @radius, @rings, @color, verts, cols)
+    end
   end
 
   # Node representing an inspector-configurable 3D wireframe cylinder.
@@ -64,6 +74,11 @@ module Diorite
     property segments : Int32 = 16
 
     protected def build_shape(verts : Array(Godot::Vector3), cols : Array(Godot::Color)) : Void
+      center = Godot::Vector3.new(0.0_f32, 0.0_f32, 0.0_f32)
+      GeometryBuilder.build_cylinder(center, @radius, @height, @segments, @color, verts, cols)
+    end
+
+    protected def build_shape_arena(verts : ArenaVertexBuffer(Godot::Vector3), cols : ArenaVertexBuffer(Godot::Color)) : Void
       center = Godot::Vector3.new(0.0_f32, 0.0_f32, 0.0_f32)
       GeometryBuilder.build_cylinder(center, @radius, @height, @segments, @color, verts, cols)
     end
@@ -88,6 +103,11 @@ module Diorite
       center = Godot::Vector3.new(0.0_f32, 0.0_f32, 0.0_f32)
       GeometryBuilder.build_capsule(center, @radius, @height, @segments, @color, verts, cols)
     end
+
+    protected def build_shape_arena(verts : ArenaVertexBuffer(Godot::Vector3), cols : ArenaVertexBuffer(Godot::Color)) : Void
+      center = Godot::Vector3.new(0.0_f32, 0.0_f32, 0.0_f32)
+      GeometryBuilder.build_capsule(center, @radius, @height, @segments, @color, verts, cols)
+    end
   end
 
   # Node representing an inspector-configurable 3D line vector.
@@ -98,6 +118,11 @@ module Diorite
     property target : Godot::Vector3 = Godot::Vector3.new(0.0_f32, 0.0_f32, 2.0_f32)
 
     protected def build_shape(verts : Array(Godot::Vector3), cols : Array(Godot::Color)) : Void
+      center = Godot::Vector3.new(0.0_f32, 0.0_f32, 0.0_f32)
+      GeometryBuilder.build_line(center, @target, @color, verts, cols)
+    end
+
+    protected def build_shape_arena(verts : ArenaVertexBuffer(Godot::Vector3), cols : ArenaVertexBuffer(Godot::Color)) : Void
       center = Godot::Vector3.new(0.0_f32, 0.0_f32, 0.0_f32)
       GeometryBuilder.build_line(center, @target, @color, verts, cols)
     end
@@ -115,6 +140,11 @@ module Diorite
     property head_size : Float32 = 0.3_f32
 
     protected def build_shape(verts : Array(Godot::Vector3), cols : Array(Godot::Color)) : Void
+      center = Godot::Vector3.new(0.0_f32, 0.0_f32, 0.0_f32)
+      GeometryBuilder.build_arrow(center, @target, @color, @head_size, verts, cols)
+    end
+
+    protected def build_shape_arena(verts : ArenaVertexBuffer(Godot::Vector3), cols : ArenaVertexBuffer(Godot::Color)) : Void
       center = Godot::Vector3.new(0.0_f32, 0.0_f32, 0.0_f32)
       GeometryBuilder.build_arrow(center, @target, @color, @head_size, verts, cols)
     end
@@ -139,6 +169,11 @@ module Diorite
       center = Godot::Vector3.new(0.0_f32, 0.0_f32, 0.0_f32)
       GeometryBuilder.build_gizmo(center, Godot::Basis.new, @size, verts, cols)
     end
+
+    protected def build_shape_arena(verts : ArenaVertexBuffer(Godot::Vector3), cols : ArenaVertexBuffer(Godot::Color)) : Void
+      center = Godot::Vector3.new(0.0_f32, 0.0_f32, 0.0_f32)
+      GeometryBuilder.build_gizmo(center, Godot::Basis.new, @size, verts, cols)
+    end
   end
 
   # Node representing an inspector-configurable 3D ground reference grid plane.
@@ -153,6 +188,11 @@ module Diorite
     property subdivisions : Int32 = 10
 
     protected def build_shape(verts : Array(Godot::Vector3), cols : Array(Godot::Color)) : Void
+      center = Godot::Vector3.new(0.0_f32, 0.0_f32, 0.0_f32)
+      GeometryBuilder.build_grid(center, @size, @subdivisions, @color, verts, cols)
+    end
+
+    protected def build_shape_arena(verts : ArenaVertexBuffer(Godot::Vector3), cols : ArenaVertexBuffer(Godot::Color)) : Void
       center = Godot::Vector3.new(0.0_f32, 0.0_f32, 0.0_f32)
       GeometryBuilder.build_grid(center, @size, @subdivisions, @color, verts, cols)
     end
@@ -198,6 +238,12 @@ module Diorite
       dir = @target.length_squared > 0.0001_f32 ? @target.normalized : Godot::Vector3.new(0.0_f32, 0.0_f32, 1.0_f32)
       GeometryBuilder.build_vision_cone(center, dir, @angle_deg, @range, @segments, @color, verts, cols)
     end
+
+    protected def build_shape_arena(verts : ArenaVertexBuffer(Godot::Vector3), cols : ArenaVertexBuffer(Godot::Color)) : Void
+      center = Godot::Vector3.new(0.0_f32, 0.0_f32, 0.0_f32)
+      dir = @target.length_squared > 0.0001_f32 ? @target.normalized : Godot::Vector3.new(0.0_f32, 0.0_f32, 1.0_f32)
+      GeometryBuilder.build_vision_cone(center, dir, @angle_deg, @range, @segments, @color, verts, cols)
+    end
   end
 
   # Node representing an inspector-configurable 3D helical physics spring.
@@ -223,6 +269,11 @@ module Diorite
       center = Godot::Vector3.new(0.0_f32, 0.0_f32, 0.0_f32)
       GeometryBuilder.build_spring(center, @target, @radius, @coils, @segments, @color, verts, cols)
     end
+
+    protected def build_shape_arena(verts : ArenaVertexBuffer(Godot::Vector3), cols : ArenaVertexBuffer(Godot::Color)) : Void
+      center = Godot::Vector3.new(0.0_f32, 0.0_f32, 0.0_f32)
+      GeometryBuilder.build_spring(center, @target, @radius, @coils, @segments, @color, verts, cols)
+    end
   end
 
   # Node representing an inspector-configurable calibrated distance measurement ruler.
@@ -237,6 +288,11 @@ module Diorite
     property tick_size : Float32 = 0.2_f32
 
     protected def build_shape(verts : Array(Godot::Vector3), cols : Array(Godot::Color)) : Void
+      center = Godot::Vector3.new(0.0_f32, 0.0_f32, 0.0_f32)
+      GeometryBuilder.build_ruler(center, @target, @tick_size, @color, verts, cols)
+    end
+
+    protected def build_shape_arena(verts : ArenaVertexBuffer(Godot::Vector3), cols : ArenaVertexBuffer(Godot::Color)) : Void
       center = Godot::Vector3.new(0.0_f32, 0.0_f32, 0.0_f32)
       GeometryBuilder.build_ruler(center, @target, @tick_size, @color, verts, cols)
     end

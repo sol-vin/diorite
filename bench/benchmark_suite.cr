@@ -311,8 +311,60 @@ Benchmark.ips do |x|
     end
   end
 end
+puts ""
+
+# -----------------------------------------------------------------------------
+# 10. Lapis::Core::FrameArena 2D/3D Immediate-Mode Vertex & Line Batch Benchmark
+# -----------------------------------------------------------------------------
+puts ">>> 10. LAPIS::CORE::FRAMEARENA 2D/3D VERTEX & LINE BATCH BENCHMARK"
+bench_arena = Lapis::Core::FrameArena.new(4 * 1024 * 1024)
+
+# Pre-populate a typical frame command queue for full-queue compilation benchmark
+Diorite::DebugDraw.clear
+Diorite::DebugDraw.line_3d(v_zero, v_target, c_red)
+Diorite::DebugDraw.box_3d(v_zero, v_size, c_green)
+Diorite::DebugDraw.sphere_3d(v_target, 2.0_f32, c_blue, 12, 0.0, true)
+Diorite::DebugDraw.cylinder_3d(v_zero, 1.0_f32, 3.0_f32, c_red, 12, 0.0, false)
+Diorite::DebugDraw.line_2d(v2_zero, v2_target, c_green)
+Diorite::DebugDraw.rect_2d(rect_demo, c_blue)
+Diorite::DebugDraw.circle_2d(v2_target, 40.0_f32, c_red, 16)
+
+Benchmark.ips do |x|
+  x.report("FrameArena 3D Batch (Box + Sphere + Arrow)") do
+    bench_arena.tick!
+    batch_3d = Diorite::FrameLineBatch3D.from_arena(bench_arena, 512)
+    Diorite::GeometryBuilder.build_box(v_zero, v_size, c_red, batch_3d.verts, batch_3d.cols)
+    Diorite::GeometryBuilder.build_sphere(v_target, 2.0_f32, 12, c_green, batch_3d.verts, batch_3d.cols)
+    Diorite::GeometryBuilder.build_arrow(v_zero, v_target, c_blue, 0.5_f32, batch_3d.verts, batch_3d.cols)
+  end
+
+  x.report("FrameArena 2D Batch (Rect + Circle + Arrow)") do
+    bench_arena.tick!
+    batch_2d = Diorite::FrameLineBatch2D.from_arena(bench_arena, 512)
+    Diorite::GeometryBuilder.build_rect_2d(rect_demo, c_red, batch_2d.verts, batch_2d.cols)
+    Diorite::GeometryBuilder.build_circle_2d(v2_target, 50.0_f32, 16, c_green, batch_2d.verts, batch_2d.cols)
+    Diorite::GeometryBuilder.build_arrow_2d(v2_zero, v2_target, 12.0_f32, c_blue, batch_2d.verts, batch_2d.cols)
+  end
+
+  x.report("Diorite.frame Declarative 2D/3D Batch") do
+    bench_arena.frame do |arena|
+      Diorite.frame(arena, cap_3d_on_top: 512, cap_3d_depth: 256, cap_2d: 512) do |ctx|
+        ctx.box(v_zero, v_size, c_red)
+        ctx.arrow(v_zero, v_target, c_green)
+        ctx.rect_2d(rect_demo, c_blue)
+        ctx.circle_2d(v2_target, 25.0_f32, c_red, 16)
+      end
+    end
+  end
+
+  x.report("FrameDrawBuffers#compile_queue (Full 2D/3D Frame)") do
+    bench_arena.tick!
+    Diorite::DebugDraw.build_frame_batches(bench_arena, cap_3d_on_top: 1024, cap_3d_depth: 512, cap_2d: 1024)
+  end
+end
 
 puts ""
 puts "========================================================================"
 puts "  ALL BENCHMARKS COMPLETED SUCCESSFULLY!                                "
 puts "========================================================================"
+

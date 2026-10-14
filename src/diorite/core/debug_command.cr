@@ -133,6 +133,9 @@ module Diorite
     # Continuous polyline or points collection.
     property path : Array(Godot::Vector3)? = nil
 
+    # Zero-allocation arena-backed polyline or points slice.
+    property path_slice : Slice(Godot::Vector3) = Slice(Godot::Vector3).empty
+
     # Whether the box or shape is rendered as a wireframe.
     property wireframe : Bool = true
 
@@ -229,6 +232,9 @@ module Diorite
 
     # Polyline vertex array.
     property points : Array(Godot::Vector2)? = nil
+
+    # Zero-allocation arena-backed 2D polyline or points slice.
+    property points_slice : Slice(Godot::Vector2) = Slice(Godot::Vector2).empty
 
     # Creates a new 2D command with default parameters.
     def initialize(
@@ -468,6 +474,19 @@ module Diorite
     # Alias for `clear_all`.
     def clear : Void
       clear_all
+    end
+
+    # Allocates per-frame 2D and 3D vertex/color batches from `Lapis::Core::FrameArena`
+    # and compiles all active commands and telemetry graphs into them.
+    def build_frame_batches(
+      arena : Lapis::Core::FrameArena = Lapis::Core::FrameArena.current,
+      cap_3d_on_top : Int32 = 8192,
+      cap_3d_depth : Int32 = 4096,
+      cap_2d : Int32 = 4096
+    ) : FrameDrawBuffers
+      buffers = FrameDrawBuffers.from_arena(arena, cap_3d_on_top, cap_3d_depth, cap_2d)
+      buffers.compile_queue(self)
+      buffers
     end
   end
 end

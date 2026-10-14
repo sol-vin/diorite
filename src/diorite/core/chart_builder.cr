@@ -14,8 +14,8 @@ module Diorite
       radius : Float32,
       inner_radius : Float32,
       slices : Array(PieSlice),
-      verts : Array(Godot::Vector2),
-      cols : Array(Godot::Color),
+      verts,
+      cols,
       segments_per_full_turn : Int32 = 64
     ) : Void
       total = slices.sum(&.value)
@@ -77,8 +77,8 @@ module Diorite
       radius : Float32,
       inner_radius : Float32,
       slices : Array(PieSlice),
-      verts : Array(Godot::Vector3),
-      cols : Array(Godot::Color),
+      verts,
+      cols,
       segments_per_full_turn : Int32 = 64
     ) : Void
       total = slices.sum(&.value)
@@ -137,8 +137,8 @@ module Diorite
       rect : Godot::Rect2,
       bars : Array(BarData),
       horizontal : Bool,
-      verts : Array(Godot::Vector2),
-      cols : Array(Godot::Color)
+      verts,
+      cols
     ) : Void
       return if bars.empty?
 
@@ -219,8 +219,8 @@ module Diorite
       min_val : Float32,
       max_val : Float32,
       color : Godot::Color,
-      verts : Array(Godot::Vector2),
-      cols : Array(Godot::Color),
+      verts,
+      cols,
       start_angle : Float32 = 2.3561945_f32,
       end_angle : Float32 = 7.0685834_f32,
       ticks : Int32 = 6
@@ -282,8 +282,8 @@ module Diorite
       min_val : Float32,
       max_val : Float32,
       color : Godot::Color,
-      verts : Array(Godot::Vector3),
-      cols : Array(Godot::Color),
+      verts,
+      cols,
       start_angle : Float32 = 2.3561945_f32,
       end_angle : Float32 = 7.0685834_f32,
       ticks : Int32 = 6

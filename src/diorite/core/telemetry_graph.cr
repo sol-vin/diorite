@@ -145,8 +145,8 @@ module Diorite
     #
     # Appends vertices directly to *lines_out* and corresponding vertex colors to *colors_out*.
     def build_geometry(
-      lines_out : Array(Godot::Vector2),
-      colors_out : Array(Godot::Color)
+      lines_out,
+      colors_out
     ) : Void
       # 1. Background boundary rectangle lines
       x0 = @rect.position.x
@@ -209,8 +209,8 @@ module Diorite
       w : Float32,
       h : Float32,
       range : Float32,
-      lines_out : Array(Godot::Vector2),
-      colors_out : Array(Godot::Color)
+      lines_out,
+      colors_out
     ) : Void
       n = curve_samples.size
       return if n < 2

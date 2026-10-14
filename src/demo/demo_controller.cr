@@ -4,6 +4,23 @@ require "../diorite/diorite"
 @[Tool]
 node DemoController < Node3D do
   @time : Float64 = 0.0
+  @pts : Array(Godot::Vector3) = [
+    Godot::Vector3.new(-5.0_f32, 1.0_f32, 4.0_f32),
+    Godot::Vector3.new(-4.5_f32, 1.2_f32, 4.0_f32),
+    Godot::Vector3.new(-4.0_f32, 0.9_f32, 4.0_f32),
+  ]
+  @path_nodes : Array(Godot::Vector3) = [
+    Godot::Vector3.new(2.0_f32, 0.2_f32, 3.0_f32),
+    Godot::Vector3.new(3.0_f32, 0.8_f32, 4.0_f32),
+    Godot::Vector3.new(4.0_f32, 0.4_f32, 3.5_f32),
+    Godot::Vector3.new(5.0_f32, 1.0_f32, 4.5_f32),
+  ]
+  @actor_stats : Hash(String, String) = {"HP" => "100%", "MP" => "80/100"}
+  @demo_slices : Array(Diorite::PieSlice) = [
+    Diorite::PieSlice.new("Physics", 45.0_f32, Godot::Color.new(1.0_f32, 0.3_f32, 0.3_f32, 1.0_f32)),
+    Diorite::PieSlice.new("Render", 35.0_f32, Godot::Color.new(0.3_f32, 0.9_f32, 0.3_f32, 1.0_f32)),
+    Diorite::PieSlice.new("Scripts", 20.0_f32, Godot::Color.new(0.3_f32, 0.6_f32, 1.0_f32, 1.0_f32)),
+  ]
 
   def _ready : Void
     Godot.print("[DemoController] Initialized. Demonstrating 26 Diorite Debug Draw items!")
@@ -37,17 +54,10 @@ node DemoController < Node3D do
 
     # Plane & Points
     DebugDraw.plane_3d(center: Godot::Vector3.new(-5, 0.1, 3), normal: Godot::Vector3.new(0, 1, 0), size: Godot::Vector2.new(2, 2), color: Godot::Color.new(0.8, 0.8, 0.2))
-    pts = [Godot::Vector3.new(-5, 1, 4), Godot::Vector3.new(-4.5, 1.2, 4), Godot::Vector3.new(-4, 0.9, 4)]
-    DebugDraw.points_3d(pts, size: 0.2_f32, color: Godot::Color.new(1.0, 1.0, 0.5))
+    DebugDraw.points_3d(@pts, size: 0.2_f32, color: Godot::Color.new(1.0, 1.0, 0.5))
 
     # Line Path
-    path_nodes = [
-      Godot::Vector3.new(2, 0.2, 3),
-      Godot::Vector3.new(3, 0.8, 4),
-      Godot::Vector3.new(4, 0.4, 3.5),
-      Godot::Vector3.new(5, 1.0, 4.5)
-    ]
-    DebugDraw.line_path_3d(path_nodes, color: Godot::Color.new(0.9, 0.5, 0.1))
+    DebugDraw.line_path_3d(@path_nodes, color: Godot::Color.new(0.9, 0.5, 0.1))
 
     # Camera Frustum & Billboard Square
     frustum_basis = Godot::Basis.new
@@ -144,7 +154,7 @@ node DemoController < Node3D do
     DebugDraw.actor_card_3d(
       Godot::Vector3.new(0.0_f32, 0.0_f32, 2.0_f32),
       "Player 1",
-      {"HP" => "100%", "MP" => "80/100"},
+      @actor_stats,
       size: Godot::Vector2.new(1.4_f32, 0.8_f32),
       color: Godot::Color.new(0.2_f32, 0.9_f32, 1.0_f32, 1.0_f32)
     )
@@ -157,12 +167,7 @@ node DemoController < Node3D do
     DebugDraw.text_2d(Godot::Vector2.new(20, 245), "Diorite 2D Overlay active", Godot::Color.new(1, 1, 1))
 
     # 2D Donut Chart
-    demo_slices = [
-      Diorite::PieSlice.new("Physics", 45.0_f32, Godot::Color.new(1.0_f32, 0.3_f32, 0.3_f32, 1.0_f32)),
-      Diorite::PieSlice.new("Render", 35.0_f32, Godot::Color.new(0.3_f32, 0.9_f32, 0.3_f32, 1.0_f32)),
-      Diorite::PieSlice.new("Scripts", 20.0_f32, Godot::Color.new(0.3_f32, 0.6_f32, 1.0_f32, 1.0_f32))
-    ]
-    DebugDraw.pie_chart_2d(Godot::Vector2.new(260.0_f32, 200.0_f32), radius: 35.0_f32, slices: demo_slices, inner_radius: 18.0_f32)
+    DebugDraw.pie_chart_2d(Godot::Vector2.new(260.0_f32, 200.0_f32), radius: 35.0_f32, slices: @demo_slices, inner_radius: 18.0_f32)
 
     # 2D Radial Gauge
     gauge_val = 50.0_f32 + Math.sin(t * 2.0).to_f32 * 40.0_f32

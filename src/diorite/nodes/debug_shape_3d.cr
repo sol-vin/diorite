@@ -1,6 +1,7 @@
 require "lapis"
 require "../core/geometry_builder"
 require "../core/debug_material"
+require "../core/frame_arena_batch"
 
 module Diorite
   # Supported 3D debug shape kinds for categorization and reference.
@@ -24,8 +25,9 @@ module Diorite
   # Base inspector-configurable 3D debug shape node for placement directly in Godot scenes.
   #
   # Manages the immediate mesh lifecycle, material override (depth-tested vs on-top),
-  # and process-loop updates. Concrete subclasses (like `DebugBox3D` or `DebugSphere3D`)
-  # implement `build_shape` to generate their specific wireframe geometry.
+  # and process-loop updates using `Lapis::Core::FrameArena` scratchpad buffers.
+  # Concrete subclasses (like `DebugBox3D` or `DebugSphere3D`) implement `build_shape`
+  # and `build_shape_arena` to generate their specific wireframe geometry.
   @[Tool]
   node DebugShape3D < Node3D do
     # Primary wireframe line color.
@@ -38,8 +40,6 @@ module Diorite
 
     @mesh_instance : Godot::MeshInstance3D? = nil
     @immediate_mesh : Godot::ImmediateMesh? = nil
-    @verts = Array(Godot::Vector3).new(512)
-    @cols = Array(Godot::Color).new(512)
 
     def _ready : Void
       setup_mesh
@@ -52,6 +52,10 @@ module Diorite
 
     protected def build_shape(verts : Array(Godot::Vector3), cols : Array(Godot::Color)) : Void
       # Implemented by shape-specific subclasses
+    end
+
+    protected def build_shape_arena(verts : ArenaVertexBuffer(Godot::Vector3), cols : ArenaVertexBuffer(Godot::Color)) : Void
+      # Implemented by shape-specific subclasses for zero-allocation FrameArena rendering
     end
 
     private def setup_mesh : Void
@@ -75,19 +79,25 @@ module Diorite
       return unless mat.alive?
       inst.set_material_override(mat)
 
-      @verts.clear
-      @cols.clear
+      Lapis::Core::FrameArena.scope do |arena|
+        batch = FrameLineBatch3D.from_arena(arena, 512)
+        verts = batch.verts
+        cols = batch.cols
 
-      build_shape(@verts, @cols)
+        build_shape_arena(verts, cols)
 
-      m.clear_surfaces
-      if @verts.size > 0
-        m.surface_begin(Godot::Mesh::PrimitiveType::PrimitiveLines.to_i64, mat)
-        (0...@verts.size).each do |i|
-          m.surface_set_color(@cols[i])
-          m.surface_add_vertex(@verts[i])
+        m.clear_surfaces
+        n = verts.size
+        if n > 0
+          m.surface_begin(Godot::Mesh::PrimitiveType::PrimitiveLines.to_i64, mat)
+          i = 0
+          while i < n
+            m.surface_set_color(cols.unsafe_fetch(i))
+            m.surface_add_vertex(verts.unsafe_fetch(i))
+            i += 1
+          end
+          m.surface_end
         end
-        m.surface_end
       end
     end
   end
