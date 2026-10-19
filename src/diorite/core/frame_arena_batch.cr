@@ -574,7 +574,7 @@ module Diorite
       if s_ptr.null?
         new(Slice(T).empty, Pointer(Int32).null)
       else
-        slice = arena.alloc_slice(T, capacity, alignment)
+        slice = arena.alloc_slice(T, capacity, alignment: alignment)
         new(slice, s_ptr)
       end
     end
