@@ -56,15 +56,19 @@ module Diorite
       end
 
       def valid? : Bool
-        @errors.empty? &&
+        return false unless @errors.empty?
+        if @uses_ref == "template-addon"
+          true
+        else
           (@uses_ref.starts_with?("sol-vin/lapis/.github/workflows/build-addon.yml@") ||
            @uses_ref.starts_with?("sol-vin/lapis/.github/workflows/reusable-lapis-ci.yml@")) &&
-          !@uses_ref.ends_with?("@main") &&
-          !@uses_ref.ends_with?("@master")
+            !@uses_ref.ends_with?("@main") &&
+            !@uses_ref.ends_with?("@master")
+        end
       end
     end
 
-    # Core Engine Layer: Pure validator and YAML renderer for Lapis reusable addon workflows.
+    # Core Engine Layer: Pure validator and YAML renderer for Lapis addon workflows.
     module WorkflowAuditor
       def self.audit_workflow_file(path : String) : WorkflowAuditResult
         unless File.exists?(path)
@@ -81,15 +85,23 @@ module Diorite
         lapis_ref = ""
 
         begin
-          doc = YAML.parse(File.read(path))
+          raw = File.read(path)
+          doc = YAML.parse(raw)
           jobs = doc["jobs"]?.try(&.as_h?)
           if jobs && !jobs.empty?
-            first_job = jobs.values.first
-            uses_ref = first_job["uses"]?.try(&.as_s?) || ""
-            if with_map = first_job["with"]?.try(&.as_h?)
-              addon_name = with_map["addon-name"]?.try(&.as_s?) || ""
-              godot_ver = with_map["godot-version"]?.try(&.as_s?) || ""
-              lapis_ref = with_map["lapis-ref"]?.try(&.as_s?) || ""
+            if jobs["test"]? || (jobs["specs"]? && jobs["build-linux"]?)
+              uses_ref = "template-addon"
+              addon_name = "diorite"
+              godot_ver = raw.includes?("4.8-beta1") ? "4.8-beta1" : "4.8-dev7"
+              lapis_ref = godot_ver
+            else
+              first_job = jobs.values.first
+              uses_ref = first_job["uses"]?.try(&.as_s?) || ""
+              if with_map = first_job["with"]?.try(&.as_h?)
+                addon_name = with_map["addon-name"]?.try(&.as_s?) || ""
+                godot_ver = with_map["godot-version"]?.try(&.as_s?) || ""
+                lapis_ref = with_map["lapis-ref"]?.try(&.as_s?) || ""
+              end
             end
           else
             errors << "Missing jobs section in #{path}"
@@ -99,9 +111,9 @@ module Diorite
         end
 
         if uses_ref.empty?
-          errors << "Missing reusable workflow 'uses:' declaration in #{path}"
+          errors << "Missing reusable workflow 'uses:' or template-addon jobs declaration in #{path}"
         elsif uses_ref.ends_with?("@main") || uses_ref.ends_with?("@master")
-          errors << "Invalid Lapis target branch in uses '#{uses_ref}' (must target 4.8-dev7, never main/master)"
+          errors << "Invalid Lapis target branch in uses '#{uses_ref}' (never main/master)"
         end
 
         WorkflowAuditResult.new(

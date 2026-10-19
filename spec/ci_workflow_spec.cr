@@ -29,15 +29,15 @@ describe Diorite::CI do
     bad_master.valid_lapis_ref?.should be_false
   end
 
-  it "verifies .github/workflows/ci.yml adopts sol-vin/lapis reusable addon build workflow on 4.8-dev7" do
+  it "verifies .github/workflows/ci.yml adopts template-addon multi-platform CI workflow on 4.8-beta1" do
     wf_path = File.expand_path("../.github/workflows/ci.yml", __DIR__)
     audit = Diorite::CI::WorkflowAuditor.audit_workflow_file(wf_path)
 
     audit.valid?.should be_true
-    audit.uses_ref.should eq("sol-vin/lapis/.github/workflows/build-addon.yml@4.8-dev7")
+    audit.uses_ref.should eq("template-addon")
     audit.addon_name.should eq("diorite")
-    audit.godot_version.should eq("4.8-dev7")
-    audit.lapis_ref.should eq("4.8-dev7")
+    audit.godot_version.should eq("4.8-beta1")
+    audit.lapis_ref.should eq("4.8-beta1")
     audit.errors.should be_empty
   end
 end
