@@ -543,6 +543,22 @@
   end
 {% end %}
 
+module Lapis
+  module Core
+    class FrameArena
+      @[ZeroAllocation]
+      def frame(&) : self
+        begin
+          yield self
+        ensure
+          tick!
+        end
+        self
+      end
+    end
+  end
+end
+
 module Diorite
   # ===========================================================================
   # TIER 1: CORE ENGINE LAYER — FrameArena-Backed Vertex & Line Batch Buffers

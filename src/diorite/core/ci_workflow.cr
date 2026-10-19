@@ -17,8 +17,8 @@ module Diorite
       def initialize(
         @addon_name : String = "diorite",
         @entry_point : String = "src/main.cr",
-        @godot_version : String = "4.8-dev7",
-        @lapis_ref : String = "4.8-dev7",
+        @godot_version : String = "4.8-beta1",
+        @lapis_ref : String = "4.8-beta1",
         @reusable_workflow : String = "sol-vin/lapis/.github/workflows/build-addon.yml",
         @os_matrix : Array(String) = ["ubuntu-latest", "windows-latest"],
         @run_specs : Bool = true,

@@ -17,7 +17,7 @@ config/icon="res://icon.svg"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/crystal_integration/plugin.cfg", "res://addons/diorite/plugin.cfg")
+enabled=PackedStringArray("res://addons/diorite/plugin.cfg")
 
 [rendering]
 

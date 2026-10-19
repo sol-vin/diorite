@@ -24,11 +24,9 @@ crash_dump/
 *.obj
 bin/*
 !bin/.gitkeep
-addons/crystal_integration/bin/*
-!addons/crystal_integration/bin/.gitkeep
+addons/crystal_integration/
 addons/diorite/bin/*
 !addons/diorite/bin/.gitkeep
-!addons/diorite/bin/*.dll
-!addons/diorite/bin/*.so
-!addons/diorite/bin/*.dylib
+!addons/diorite/bin/.gdignore
 dist/
+shard.override.yml

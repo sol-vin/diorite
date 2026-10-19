@@ -2,10 +2,10 @@
 ### High-Performance 2D & 3D Debug Drawing Plugin & Frame DSL for Godot Engine 4.8+
 
 [![CI](https://github.com/sol-vin/diorite/actions/workflows/ci.yml/badge.svg)](https://github.com/sol-vin/diorite/actions/workflows/ci.yml)
-[![Docs](https://github.com/sol-vin/diorite/actions/workflows/docs.yml/badge.svg)](https://sol-vin.github.io/diorite/)
+[![Release](https://github.com/sol-vin/diorite/actions/workflows/release.yml/badge.svg)](https://github.com/sol-vin/diorite/actions/workflows/release.yml)
 [![Crystal](https://img.shields.io/badge/Crystal-1.21.0-blue.svg)](https://crystal-lang.org)
-[![Lapis](https://img.shields.io/badge/Lapis-0.0.289-blueviolet.svg?style=flat)](https://github.com/sol-vin/lapis/releases)
-[![Godot](https://img.shields.io/badge/Godot-4.8--dev7-blue.svg?logo=godotengine)](https://godotengine.org)
+[![Lapis](https://img.shields.io/badge/Lapis-0.1.7-blueviolet.svg?style=flat)](https://github.com/sol-vin/lapis/releases)
+[![Godot](https://img.shields.io/badge/Godot-4.8--beta1-blue.svg?logo=godotengine)](https://godotengine.org)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 **Diorite** is a debug drawing plugin and immediate-mode DSL for **Godot 4.8+** powered by the **Lapis** Crystal toolchain. Inspired by tools like Godot's DebugDraw3D and Raylib's immediate drawing functions, Diorite provides **both** a node-based scene workflow and a zero-allocation frame-based DSL for real-time visualization.
@@ -185,7 +185,7 @@ end
 diorite/
 ├── .github/workflows/
 │   ├── ci.yml               # Multi-platform CI (Specs, Benchmarks, Godot Headless Smoke Test)
-│   └── docs.yml             # Automatic Lapis documentation generation & GitHub Pages deployment
+│   └── release.yml          # Multi-platform Release, Universal Packaging & GitHub Pages Docs
 ├── addons/
 │   ├── crystal_integration/ # Lapis Crystal GDExtension integration
 │   └── diorite/             # Diorite Godot addon manifest & plugin
@@ -218,7 +218,7 @@ diorite/
 │   └── main.cr              # Project root game entry point
 ├── project.godot            # Godot 4.8 engine project configuration
 ├── shard.yml                # Crystal dependency manifest
-└── godot-version.yml        # Target Godot version specification (4.8-dev6)
+└── godot-version.yml        # Target Godot version specification (4.8-beta1)
 ```
 
 ---
