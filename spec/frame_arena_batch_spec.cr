@@ -320,7 +320,9 @@ describe "Diorite Two-Tier Declarative FrameBatch DSL" do
       Diorite.frame(a, cap_3d_on_top: 1024, cap_3d_depth: 512, cap_2d: 1024) do |ctx|
         ctx.box(Godot::Vector3.new(0, 0, 0), Godot::Vector3.new(1, 1, 1), C_CYAN)
         ctx.sphere(Godot::Vector3.new(2, 2, 2), 1.0_f32, C_RED, 8)
+        ctx.arrow(Godot::Vector3.new(0, 0, 0), Godot::Vector3.new(0, 3, 0), C_YELLOW)
         ctx.rect_2d(rect, C_GREEN)
+        ctx.circle_2d(Godot::Vector2.new(50, 50), 20.0_f32, C_MAGENTA, 12)
       end
     end
 
