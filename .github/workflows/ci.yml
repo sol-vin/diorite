@@ -62,8 +62,8 @@ jobs:
           fi
           if [ "${{ runner.os }}" = "Linux" ]; then
             sudo apt-get update
-            PKGS="lld make g++ libgc-dev wget unzip curl"
-            [ "$NEEDS_VLC" = "true" ] && PKGS="$PKGS libvlc-dev vlc"
+            PKGS="make g++ libgc-dev wget unzip curl"
+            [ "$NEEDS_VLC" = "true" ] && PKGS="$PKGS libvlc-dev"
             sudo apt-get install -y $PKGS
           elif [ "${{ runner.os }}" = "macOS" ] && [ "$NEEDS_VLC" = "true" ]; then
             brew install --cask vlc || true
@@ -350,16 +350,16 @@ jobs:
         shell: bash
         run: |
           if [ -f "Makefile" ]; then
-            make all || true
+            make all RELEASE=1 || true
           fi
           ADDON_NAME=$(awk '/^name:/ {print $2}' shard.yml 2>/dev/null | tr -d ' "\r\n')
           if [ -z "$ADDON_NAME" ]; then ADDON_NAME="crystal_addon"; fi
           SO_EXT="${{ runner.os == 'macOS' && 'dylib' || 'so' }}"
-          LINK_FLAG="${{ runner.os == 'macOS' && '-dynamiclib' || '-shared' }}"
+          LINK_FLAG="${{ runner.os == 'macOS' && '-dynamiclib' || '-shared -fuse-ld=bfd' }}"
           mkdir -p "addons/${ADDON_NAME}/bin"
-          if [ ! -f "addons/${ADDON_NAME}/bin/game.${SO_EXT}" ]; then
+          if [ ! -f "addons/${ADDON_NAME}/bin/game.${SO_EXT}" ] && [ ! -f "bin/game.${SO_EXT}" ]; then
             echo "Fallback direct compilation..."
-            crystal build src/main.cr -o "addons/${ADDON_NAME}/bin/game.${SO_EXT}" --link-flags "${LINK_FLAG}" -Dlibgodot_addon
+            crystal build src/main.cr -o "addons/${ADDON_NAME}/bin/game.${SO_EXT}" --link-flags "${LINK_FLAG}" --release -Dlibgodot_addon
           fi
           if [ ! -f "addons/${ADDON_NAME}/bin/crystal_bridge.${SO_EXT}" ]; then
             if [ -f "bin/crystal_bridge.${SO_EXT}" ]; then

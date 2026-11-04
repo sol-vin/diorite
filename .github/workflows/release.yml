@@ -128,9 +128,9 @@ jobs:
         shell: bash
         run: |
           sudo apt-get update
-          PKGS="lld libgc-dev"
+          PKGS="libgc-dev"
           if [ -d "ext/libvlc" ] || grep -qiE "emerald|libvlc" shard.yml addons/*/*.gdextension 2>/dev/null; then
-            PKGS="$PKGS libvlc-dev vlc"
+            PKGS="$PKGS libvlc-dev"
           fi
           sudo apt-get install -y $PKGS
           GODOT_VER=$(sed -n 's/.*version:[[:space:]]*["'"'"']\?\([^"'"'"']\+\)["'"'"']\?.*/\1/p' godot-version.yml 2>/dev/null | tr -d '\r\n[:space:]')
@@ -333,9 +333,9 @@ jobs:
       - name: Install Build Dependencies
         run: |
           sudo apt-get update
-          PKGS="lld libgc-dev g++ wget unzip curl"
+          PKGS="libgc-dev g++ wget unzip curl"
           if [ -d "ext/libvlc" ] || grep -qiE "emerald|libvlc" shard.yml addons/*/*.gdextension 2>/dev/null; then
-            PKGS="$PKGS libvlc-dev vlc"
+            PKGS="$PKGS libvlc-dev"
           fi
           sudo apt-get install -y $PKGS
       - name: Setup Godot Engine
@@ -802,7 +802,7 @@ jobs:
         shell: bash
         run: |
           if [ -d "ext/libvlc" ] || grep -qiE "emerald|libvlc" shard.yml addons/*/*.gdextension 2>/dev/null; then
-            sudo apt-get update && sudo apt-get install -y lld libgc-dev libvlc-dev vlc
+            sudo apt-get update && sudo apt-get install -y libgc-dev libvlc-dev
           fi
           GODOT_VER=$(sed -n 's/.*version:[[:space:]]*["'"'"']\?\([^"'"'"']\+\)["'"'"']\?.*/\1/p' godot-version.yml 2>/dev/null | tr -d '\r\n[:space:]')
           if [ -z "$GODOT_VER" ]; then GODOT_VER="4.8-beta2"; fi
