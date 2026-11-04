@@ -1,5 +1,5 @@
 name: diorite
-version: 0.1.27
+version: 0.1.28
 authors:
   - Ian Rash <redcodefinal@gmail.com>
 license: MIT
@@ -7,7 +7,7 @@ license: MIT
 dependencies:
   lapis:
     github: sol-vin/lapis
-    branch: 4.8-beta1
+    branch: 4.8-beta2
 
 targets:
   game:
