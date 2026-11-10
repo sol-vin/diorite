@@ -4,7 +4,7 @@
 [![CI](https://github.com/sol-vin/diorite/actions/workflows/ci.yml/badge.svg)](https://github.com/sol-vin/diorite/actions/workflows/ci.yml)
 [![Release](https://github.com/sol-vin/diorite/actions/workflows/release.yml/badge.svg)](https://github.com/sol-vin/diorite/actions/workflows/release.yml)
 [![Crystal](https://img.shields.io/badge/Crystal-1.21.0-blue.svg)](https://crystal-lang.org)
-[![Lapis](https://img.shields.io/badge/Lapis-0.3.1-blueviolet.svg?style=flat)](https://github.com/sol-vin/lapis/releases)
+[![Lapis](https://img.shields.io/badge/Lapis-0.3.2-blueviolet.svg?style=flat)](https://github.com/sol-vin/lapis/releases)
 [![Godot](https://img.shields.io/badge/Godot-4.8--beta3-blue.svg?logo=godotengine)](https://godotengine.org)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
