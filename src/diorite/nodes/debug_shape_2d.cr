@@ -41,6 +41,14 @@ module Diorite
       rebuild_mesh
     end
 
+    def _exit_tree : Void
+      if m = @immediate_mesh
+        @immediate_mesh = nil
+        m.destroy rescue nil
+      end
+      @mesh_instance = nil
+    end
+
     protected def build_shape(verts : Array(Godot::Vector2), cols : Array(Godot::Color)) : Void
       # Implemented by shape-specific subclasses
     end
@@ -57,8 +65,6 @@ module Diorite
       end
 
       mesh = Godot.create(Godot::ImmediateMesh)
-      mesh.init_ref if mesh.get_reference_count == 0
-      mesh.reference
       inst = Godot.create(Godot::MeshInstance2D)
       inst.set_mesh(mesh)
       add_child(inst)

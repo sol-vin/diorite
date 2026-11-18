@@ -6,6 +6,26 @@ module Diorite
   class DebugMaterialManager
     @@material_on_top : Godot::StandardMaterial3D? = nil
     @@material_depth_tested : Godot::StandardMaterial3D? = nil
+    @@shutdown_hooked : Bool = false
+
+    private def self.ensure_shutdown_hook! : Void
+      return if @@shutdown_hooked
+      @@shutdown_hooked = true
+      Godot::Bridge.register_shutdown_callback do
+        clear_cache!
+      end
+    end
+
+    def self.clear_cache! : Void
+      if m1 = @@material_on_top
+        @@material_on_top = nil
+        m1.destroy rescue nil
+      end
+      if m2 = @@material_depth_tested
+        @@material_depth_tested = nil
+        m2.destroy rescue nil
+      end
+    end
 
     # Returns the shared unshaded 3D material with depth-test disabled and render priority 127.
     def self.material_on_top : Godot::StandardMaterial3D
@@ -13,9 +33,8 @@ module Diorite
         return mat if mat.alive?
       end
 
+      ensure_shutdown_hook!
       mat = Godot.create(Godot::StandardMaterial3D)
-      mat.init_ref if mat.get_reference_count == 0
-      mat.reference
       mat.set_shading_mode(Godot::BaseMaterial3D::ShadingMode::ShadingModeUnshaded.to_i64)
       mat.set_flag(Godot::StandardMaterial3D::Flags::FlagAlbedoFromVertexColor.to_i64, true)
       mat.set_flag(Godot::StandardMaterial3D::Flags::FlagDisableDepthTest.to_i64, true)
@@ -33,9 +52,8 @@ module Diorite
         return mat if mat.alive?
       end
 
+      ensure_shutdown_hook!
       mat = Godot.create(Godot::StandardMaterial3D)
-      mat.init_ref if mat.get_reference_count == 0
-      mat.reference
       mat.set_shading_mode(Godot::BaseMaterial3D::ShadingMode::ShadingModeUnshaded.to_i64)
       mat.set_flag(Godot::StandardMaterial3D::Flags::FlagAlbedoFromVertexColor.to_i64, true)
       mat.set_flag(Godot::StandardMaterial3D::Flags::FlagDisableDepthTest.to_i64, false)
