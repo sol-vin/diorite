@@ -218,7 +218,7 @@ diorite/
 │   └── main.cr              # Project root game entry point
 ├── project.godot            # Godot 4.8 engine project configuration
 ├── shard.yml                # Crystal dependency manifest
-└── godot-version.yml        # Target Godot version specification (4.8-beta3)
+└── godot-version.yml        # Target Godot version specification (4.8-beta4)
 ```
 
 ---
