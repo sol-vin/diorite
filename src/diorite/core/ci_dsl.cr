@@ -6,8 +6,8 @@ module Diorite
     class WorkflowBuilder
       @addon_name : String = "diorite"
       @entry_point : String = "src/main.cr"
-      @godot_version : String = "4.8-beta4"
-      @lapis_ref : String = "4.8-beta4"
+      @godot_version : String = "4.8-beta5"
+      @lapis_ref : String = "4.8-beta5"
       @reusable_workflow : String = "sol-vin/lapis/.github/workflows/build-addon.yml"
       @os_matrix : Array(String) = ["ubuntu-latest", "windows-latest"]
       @run_specs : Bool = true
