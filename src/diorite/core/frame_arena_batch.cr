@@ -462,21 +462,16 @@
         @[ZeroAllocation]
         def scope(&) : self
           m = @offset
-          begin
-            yield self
-          ensure
-            @offset = m
-          end
+          yield self
+          @offset = m
           self
         end
 
         @[ZeroAllocation]
+        @[AlwaysInline]
         def frame(&) : self
-          begin
-            yield self
-          ensure
-            tick!
-          end
+          yield self
+          tick!
           self
         end
 
@@ -547,12 +542,10 @@ module Lapis
   module Core
     class FrameArena
       @[ZeroAllocation]
+      @[AlwaysInline]
       def frame(&) : self
-        begin
-          yield self
-        ensure
-          tick!
-        end
+        yield self
+        tick!
         self
       end
     end
@@ -2057,6 +2050,8 @@ module Diorite
   #   batch.box(aabb, color)
   # end
   # ```
+  @[ZeroAllocation]
+  @[AlwaysInline]
   def self.frame(
     arena : Lapis::Core::FrameArena = Lapis::Core::FrameArena.current,
     cap_3d_on_top : Int32 = FrameDrawBuffers::DEFAULT_ON_TOP_3D_CAPACITY,
@@ -2072,6 +2067,8 @@ module Diorite
 
   # Executes a scoped `Diorite.frame` batch inside `arena.scope`, automatically
   # rewinding the `FrameArena` bump pointer when the block completes.
+  @[ZeroAllocation]
+  @[AlwaysInline]
   def self.scoped_frame(
     arena : Lapis::Core::FrameArena = Lapis::Core::FrameArena.current,
     cap_3d_on_top : Int32 = FrameDrawBuffers::DEFAULT_ON_TOP_3D_CAPACITY,

@@ -17,8 +17,8 @@ module Diorite
       def initialize(
         @addon_name : String = "diorite",
         @entry_point : String = "src/main.cr",
-        @godot_version : String = "4.8-beta5",
-        @lapis_ref : String = "4.8-beta5",
+        @godot_version : String = "4.8-rc1",
+        @lapis_ref : String = "4.8-rc1",
         @reusable_workflow : String = "sol-vin/lapis/.github/workflows/build-addon.yml",
         @os_matrix : Array(String) = ["ubuntu-latest", "windows-latest"],
         @run_specs : Bool = true,
@@ -92,7 +92,7 @@ module Diorite
             if jobs["test"]? || (jobs["specs"]? && jobs["build-linux"]?)
               uses_ref = "template-addon"
               addon_name = "diorite"
-              godot_ver = raw.includes?("4.8-beta5") ? "4.8-beta5" : (raw.includes?("4.8-beta4") ? "4.8-beta4" : (raw.includes?("4.8-beta2") ? "4.8-beta2" : "4.8-dev7"))
+              godot_ver = raw.includes?("4.8-rc1") ? "4.8-rc1" : (raw.includes?("4.8-beta5") ? "4.8-beta5" : (raw.includes?("4.8-beta4") ? "4.8-beta4" : (raw.includes?("4.8-beta2") ? "4.8-beta2" : "4.8-dev7")))
               lapis_ref = godot_ver
             else
               first_job = jobs.values.first

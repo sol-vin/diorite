@@ -261,6 +261,52 @@ describe Diorite::FrameDrawBuffers do
   end
 end
 
+private def measure_1000_frame_batches(arena : Lapis::Core::FrameArena, rect : Godot::Rect2) : UInt64
+  10.times do
+    arena.frame do |a|
+      Diorite.frame(a, cap_3d_on_top: 1024, cap_3d_depth: 512, cap_2d: 1024) do |ctx|
+        ctx.box(Godot::Vector3.new(0, 0, 0), Godot::Vector3.new(1, 1, 1), C_CYAN)
+        ctx.sphere(Godot::Vector3.new(2, 2, 2), 1.0_f32, C_RED, 8)
+        ctx.arrow(Godot::Vector3.new(0, 0, 0), Godot::Vector3.new(0, 3, 0), C_YELLOW)
+        ctx.rect_2d(rect, C_GREEN)
+        ctx.circle_2d(Godot::Vector2.new(50, 50), 20.0_f32, C_MAGENTA, 12)
+      end
+    end
+  end
+
+  GC.collect
+  Crystal::System::Thread.sleep(5.milliseconds)
+  GC.disable
+  # Prime post-GC thread-local state once before sampling
+  arena.frame do |a|
+    Diorite.frame(a, cap_3d_on_top: 1024, cap_3d_depth: 512, cap_2d: 1024) do |ctx|
+      ctx.box(Godot::Vector3.new(0, 0, 0), Godot::Vector3.new(1, 1, 1), C_CYAN)
+      ctx.sphere(Godot::Vector3.new(2, 2, 2), 1.0_f32, C_RED, 8)
+      ctx.arrow(Godot::Vector3.new(0, 0, 0), Godot::Vector3.new(0, 3, 0), C_YELLOW)
+      ctx.rect_2d(rect, C_GREEN)
+      ctx.circle_2d(Godot::Vector2.new(50, 50), 20.0_f32, C_MAGENTA, 12)
+    end
+  end
+
+  LibGC.get_heap_usage_safe(out _, out _, out _, out _, out raw_before)
+  i = 0
+  while i < 1000
+    arena.frame do |a|
+      Diorite.frame(a, cap_3d_on_top: 1024, cap_3d_depth: 512, cap_2d: 1024) do |ctx|
+        ctx.box(Godot::Vector3.new(0, 0, 0), Godot::Vector3.new(1, 1, 1), C_CYAN)
+        ctx.sphere(Godot::Vector3.new(2, 2, 2), 1.0_f32, C_RED, 8)
+        ctx.arrow(Godot::Vector3.new(0, 0, 0), Godot::Vector3.new(0, 3, 0), C_YELLOW)
+        ctx.rect_2d(rect, C_GREEN)
+        ctx.circle_2d(Godot::Vector2.new(50, 50), 20.0_f32, C_MAGENTA, 12)
+      end
+    end
+    i += 1
+  end
+  LibGC.get_heap_usage_safe(out _, out _, out _, out _, out raw_after)
+  GC.enable
+  raw_after.to_u64! - raw_before.to_u64!
+end
+
 describe "Diorite Two-Tier Declarative FrameBatch DSL" do
   before_each do
     Lapis::Core::FrameArena.current.tick!
@@ -315,34 +361,8 @@ describe "Diorite Two-Tier Declarative FrameBatch DSL" do
     arena = Lapis::Core::FrameArena.new(4 * 1024 * 1024)
     rect = Godot::Rect2.new(10.0_f32, 10.0_f32, 50.0_f32, 50.0_f32)
 
-    # Warm-up pass
-    arena.frame do |a|
-      Diorite.frame(a, cap_3d_on_top: 1024, cap_3d_depth: 512, cap_2d: 1024) do |ctx|
-        ctx.box(Godot::Vector3.new(0, 0, 0), Godot::Vector3.new(1, 1, 1), C_CYAN)
-        ctx.sphere(Godot::Vector3.new(2, 2, 2), 1.0_f32, C_RED, 8)
-        ctx.arrow(Godot::Vector3.new(0, 0, 0), Godot::Vector3.new(0, 3, 0), C_YELLOW)
-        ctx.rect_2d(rect, C_GREEN)
-        ctx.circle_2d(Godot::Vector2.new(50, 50), 20.0_f32, C_MAGENTA, 12)
-      end
-    end
-
-    GC.collect
-    bytes_before = GC.stats.total_bytes
-
-    1000.times do
-      arena.frame do |a|
-        Diorite.frame(a, cap_3d_on_top: 1024, cap_3d_depth: 512, cap_2d: 1024) do |ctx|
-          ctx.box(Godot::Vector3.new(0, 0, 0), Godot::Vector3.new(1, 1, 1), C_CYAN)
-          ctx.sphere(Godot::Vector3.new(2, 2, 2), 1.0_f32, C_RED, 8)
-          ctx.arrow(Godot::Vector3.new(0, 0, 0), Godot::Vector3.new(0, 3, 0), C_YELLOW)
-          ctx.rect_2d(rect, C_GREEN)
-          ctx.circle_2d(Godot::Vector2.new(50, 50), 20.0_f32, C_MAGENTA, 12)
-        end
-      end
-    end
-
-    bytes_after = GC.stats.total_bytes
-    (bytes_after - bytes_before).should eq(0)
+    allocated = measure_1000_frame_batches(arena, rect)
+    allocated.should eq(0_u64)
     arena.stats.frame_count.should be >= 1000
     arena.bytes_used.should eq(0)
   end
